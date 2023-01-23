@@ -4,6 +4,8 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Login from "../src/containers/Login/index";
+import Register from "./containers/Login/Register";
+import ForGetPwd from "./containers/Login/ForgetPwd/index"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -11,6 +13,8 @@ root.render(
     <HashRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forget" element={<ForGetPwd />} />
       </Routes>
     </HashRouter>
   </React.StrictMode>
