@@ -1,13 +1,13 @@
-import React from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import reportWebVitals from "./reportWebVitals";
-import Login from "../src/containers/Login/index";
-import Register from "./containers/Login/Register";
-import ForGetPwd from "./containers/Login/ForgetPwd/index"
+import React from 'react';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
+import Login from './containers/Login/index';
+import Register from './containers/Login/Register';
+import ForGetPwd from './containers/Login/ForgetPwd/index';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <HashRouter>
@@ -17,7 +17,7 @@ root.render(
         <Route path="/forget" element={<ForGetPwd />} />
       </Routes>
     </HashRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
