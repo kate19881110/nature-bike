@@ -1,18 +1,20 @@
-import { Form, Input, Button, Row, Col, message, Checkbox } from "antd";
+import {
+  Form, Input, Button, Row, Col, message, Checkbox,
+} from 'antd';
 
-const Login = () => {
+function Login() {
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish = (values) => {
     messageApi.open({
-      type: "success",
-      content: "登入成功" + values,
+      type: 'success',
+      content: `登入成功${values}`,
     });
   };
 
   const onFinishFailed = (errorInfo) => {
     messageApi.open({
-      type: "error",
-      content: "登入失敗" + errorInfo,
+      type: 'error',
+      content: `登入失敗${errorInfo}`,
     });
   };
   return (
@@ -39,14 +41,14 @@ const Login = () => {
           <Form.Item
             label="帳號"
             name="username"
-            rules={[{ required: true, message: "請輸入帳號!" }]}
+            rules={[{ required: true, message: '請輸入帳號!' }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             label="密碼"
             name="userPassword"
-            rules={[{ required: true, message: "請輸入密碼!" }]}
+            rules={[{ required: true, message: '請輸入密碼!' }]}
           >
             <Input.Password />
           </Form.Item>
@@ -74,6 +76,6 @@ const Login = () => {
       </Row>
     </>
   );
-};
+}
 
 export default Login;

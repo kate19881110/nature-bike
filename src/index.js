@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import Login from './containers/Login/index';
 import Register from './containers/Login/Register';
 import ForGetPwd from './containers/Login/ForgetPwd/index';
+import Menu from './components/Menu';
+import Header from './components/Header';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,6 +17,8 @@ root.render(
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forget" element={<ForGetPwd />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/header" element={<Header />} />
       </Routes>
     </HashRouter>
   </React.StrictMode>,
