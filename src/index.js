@@ -8,6 +8,8 @@ import Register from './containers/Login/Register';
 import ForGetPwd from './containers/Login/ForgetPwd/index';
 import Menu from './components/Menu';
 import Header from './components/Header';
+import Account from './containers/Account/Customer';
+import LineBarChart from './containers/Account/Dashboard/LineBarChart';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +21,8 @@ root.render(
         <Route path="/forget" element={<ForGetPwd />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/header" element={<Header />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/line" element={<LineBarChart />} />
       </Routes>
     </HashRouter>
   </React.StrictMode>,
