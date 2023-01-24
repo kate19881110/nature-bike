@@ -10,6 +10,7 @@
 5. 測試框架
 
 # 目錄架構
+```
 .
 ├── .browserslistrc
 ├── .editorconfig
@@ -37,6 +38,6 @@
 │   └── utils
 └── webpack.config.js
 
-
+```
 # E-Charts
 
