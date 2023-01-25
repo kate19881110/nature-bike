@@ -8,6 +8,7 @@ import Register from './containers/Login/Register';
 import ForGetPwd from './containers/Login/ForgetPwd/index';
 import Menu from './components/Menu';
 import Header from './components/Header';
+import Map from './containers/Bike/views/Map';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,9 +17,10 @@ root.render(
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/forget" element={<ForGetPwd />} />
+        <Route path="/forgetPwd" element={<ForGetPwd />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/header" element={<Header />} />
+        <Route path="/map" element={<Map />} />
       </Routes>
     </HashRouter>
   </React.StrictMode>,

@@ -9,7 +9,7 @@ import {
   GlobalOutlined,
   InboxOutlined,
   SkinOutlined,
-  StarOutlined
+  StarOutlined,
 } from '@ant-design/icons';
 
 function getItem(label, key, icon, children, type) {
@@ -32,7 +32,7 @@ const menus = [
     getItem('Map', 'map', <EnvironmentOutlined />),
     getItem('Site', 'site', <HeartOutlined />),
   ]),
-  getItem('Goods', 'goods',<InboxOutlined />, [
+  getItem('Goods', 'goods', <InboxOutlined />, [
     getItem('Clothing', 'clothing', <SkinOutlined />),
     getItem('Shoes', 'shoes', <StarOutlined />),
     getItem('Hat', 'hat', <HeartOutlined />),
@@ -45,6 +45,6 @@ const menus = [
     getItem('Revenue', 'revenue', <HeartOutlined />),
     getItem('Cost', 'cost', <HeartOutlined />),
   ]),
-]
+];
 
 export default menus;

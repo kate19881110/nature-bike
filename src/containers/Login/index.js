@@ -1,6 +1,7 @@
 import {
   Form, Input, Button, Row, Col, message, Checkbox,
 } from 'antd';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [messageApi, contextHolder] = message.useMessage();
@@ -71,6 +72,10 @@ function Login() {
             <Button type="primary" block>
               登入
             </Button>
+          </Form.Item>
+          <Form.Item>
+            <Link to="/register"><h5>註冊</h5></Link>
+            <Link to="/forgetPwd"><h5>忘記密碼</h5></Link>
           </Form.Item>
         </Form>
       </Row>
