@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Login from './containers/Login/index';
-import Register from './containers/Login/Register';
-import ForGetPwd from './containers/Login/ForgetPwd/index';
+// import Register from './containers/Login/Register';
+// import ForGetPwd from './containers/Login/ForgetPwd/index';
 import Menu from './components/Menu';
 import Header from './components/Header';
 import Account from './containers/Account/Customer';
@@ -16,12 +16,12 @@ root.render(
   <React.StrictMode>
     <HashRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forget" element={<ForGetPwd />} />
-        <Route path="/menu" element={<Menu />} />
+        <Route path="/" element={<Login />} exact />
+        {/* <Route path="/register" element={<Register />} />
+        <Route path="/forget" element={<ForGetPwd />} /> */}
+        <Route path="/menu" element={<Menu />} exact />
         <Route path="/header" element={<Header />} />
-        <Route path="/account" element={<Account />} />
+        <Route path="/account" element={<Account />} exact />
         <Route path="/line" element={<LineBarChart />} />
       </Routes>
     </HashRouter>

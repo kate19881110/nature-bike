@@ -4,11 +4,12 @@ import {
 } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import AddTodoForm from './AddTodoForm/AddTodoForm';
-import TodoList from './TodoList/TodoList';
+// import TodoList from './TodoList/TodoList';
 import EditModal from './EditModal/EditModal';
-import mockData from './TodoList/mock.json';
+// import mockData from './TodoList/mock.json';
+import mockData from './TodoList/mock';
 
-function Index() {
+function Customer() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -61,13 +62,13 @@ function Index() {
             )}
             bordered={false}
           >
-            <TodoList listData={data} loadMoreData={moreDataFn} />
+            {/* <TodoList listData={data || []} loadMoreData={moreDataFn} /> */}
           </Card>
         </Col>
       </Row>
-      <EditModal openModal={isModalOpen} closeModal={setIsModalOpen} add={setData} />
+      <EditModal openModal={isModalOpen} add={setData} />
     </>
   );
 }
 
-export default Index;
+export default Customer;

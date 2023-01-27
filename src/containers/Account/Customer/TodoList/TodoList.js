@@ -15,10 +15,10 @@ function TodoList(listData, loadMoreData) {
     >
       <InfiniteScroll
         // eslint-disable-next-line react/destructuring-assignment
-        dataLength={listData.length}
-        next={loadMoreData}
+        dataLength={listData.length || []}
+        next={loadMoreData || []}
         // eslint-disable-next-line react/destructuring-assignment
-        hasMore={listData.length < 50}
+        hasMore={listData.length || [] < 50}
         loader={(
           <Skeleton
             avatar
@@ -32,7 +32,7 @@ function TodoList(listData, loadMoreData) {
         scrollableTarget="scrollableDiv" // 指定滾動的父容器
       >
         <List
-          dataSource={listData}
+          dataSource={listData || []}
           renderItem={(item) => <ToolItem listData={item} />}
         />
       </InfiniteScroll>

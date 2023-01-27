@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { v4 } from 'uuid';
 // import mockData from '../TodoList/mock.json';
 
-function EditModal(openModal, closeModal, add) {
+function EditModal(openModal, add) {
+  const [isModalOpen, setIsModalOpen] = useState(openModal);
   // const [fileList, setFileList] = useState([]);
   // const handleChange = ({ fileList: newFileList }) => {
   //   setFileList(newFileList);
@@ -26,7 +27,7 @@ function EditModal(openModal, closeModal, add) {
     setEmail(e.target.value);
   };
   const handleOk = () => {
-    closeModal(false);
+    setIsModalOpen(false);
     add((prevData) => [
       {
         id: v4(),
@@ -38,12 +39,12 @@ function EditModal(openModal, closeModal, add) {
     ]);
   };
   const handleCancel = () => {
-    closeModal(false);
+    setIsModalOpen(false);
   };
   return (
     <Modal
       title="會員資訊"
-      open={openModal}
+      open={isModalOpen}
       onOk={handleOk}
       onCancel={handleCancel}
     >

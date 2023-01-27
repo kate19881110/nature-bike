@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
   Form, Input, Button, Row, Col, message, Checkbox,
 } from 'antd';
@@ -71,6 +72,10 @@ function Login() {
             <Button type="primary" block>
               登入
             </Button>
+          </Form.Item>
+          <Form.Item>
+            <Link to="/register"><p>註冊</p></Link>
+            <Link to="/forgetFwd"><h5>忘記密碼</h5></Link>
           </Form.Item>
         </Form>
       </Row>
