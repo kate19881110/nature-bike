@@ -1,42 +1,54 @@
+import React, { useState } from 'react';
 import {
-  Form, Input, Button, Row, Col, message, Checkbox,
+  Form, Input, Button, Row, Col, Checkbox,
 } from 'antd';
 import { Link } from 'react-router-dom';
+import { login } from '../../api/apiUtil';
+import * as Style from './style';
+import Register from './Register';
 
 function Login() {
-  const [messageApi, contextHolder] = message.useMessage();
-  const onFinish = (values) => {
-    messageApi.open({
-      type: 'success',
-      content: `登入成功${values}`,
-    });
+  const [loading, setLoading] = useState(false);
+  const [account, setAccount] = useState('');
+  const [password, setPassword] = useState('');
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleUserAccount = (e) => {
+    setAccount(e.target.value);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    messageApi.open({
-      type: 'error',
-      content: `登入失敗${errorInfo}`,
-    });
+  const handleUserPwd = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    login(account, password);
+  };
+
+  const handleRegister = () => {
+    setOpenModal(true);
   };
   return (
     <>
       <Row justify="center" align="center">
         <Col>
-          <h1>山海戀租車後台系統</h1>
+          <h1>Ubike租車後台系統</h1>
         </Col>
       </Row>
-      <Row justify="center">
-        {contextHolder}
+      <Row justify="center" align="center">
         <Form
           name="LoginPage"
           labelCol={{
-            span: 4,
+            span: 6,
           }}
           wrapperCol={{
-            span: 16,
+            span: 18,
           }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item
@@ -44,41 +56,45 @@ function Login() {
             name="username"
             rules={[{ required: true, message: '請輸入帳號!' }]}
           >
-            <Input />
+            <Input value={account} onChange={handleUserAccount} />
           </Form.Item>
           <Form.Item
             label="密碼"
             name="userPassword"
             rules={[{ required: true, message: '請輸入密碼!' }]}
           >
-            <Input.Password />
+            <Input.Password value={password} onChange={handleUserPwd} />
           </Form.Item>
           <Form.Item
             name="remember"
             valuePropName="checked"
             wrapperCol={{
-              offset: 4,
-              span: 16,
+              offset: 6,
+              span: 18,
             }}
           >
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
           <Form.Item
             wrapperCol={{
-              offset: 4,
-              span: 16,
+              span: 24,
             }}
           >
-            <Button type="primary" block>
-              登入
-            </Button>
+            <Link to="/forgetPwd">
+              <Button type="primary" onClick={handleLogin} block>
+                登入
+              </Button>
+            </Link>
           </Form.Item>
-          <Form.Item>
-            <Link to="/register"><h5>註冊</h5></Link>
-            <Link to="/forgetPwd"><h5>忘記密碼</h5></Link>
-          </Form.Item>
+          <Style.Between>
+            <Button onClick={handleRegister}>註冊</Button>
+            <Link to="/forgetPwd">
+              <h5>忘記密碼</h5>
+            </Link>
+          </Style.Between>
         </Form>
       </Row>
+      <Register isModalOpen={openModal} />
     </>
   );
 }

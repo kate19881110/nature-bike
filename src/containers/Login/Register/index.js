@@ -1,9 +1,17 @@
+import React, { useState } from 'react';
 import {
   Modal, Form, message, Input, Select,
 } from 'antd';
 
-function Register() {
+function Register(isModalOpen) {
   const [messageApi, contextHolder] = message.useMessage();
+  const [isOpenModal, setIsOpenModal] = useState(isModalOpen);
+  const handleOk = () => {
+    setIsOpenModal(false);
+  };
+  const handleCancel = () => {
+    setIsOpenModal(false);
+  };
   const onFinish = (values) => {
     messageApi.open({
       type: 'success',
@@ -18,7 +26,7 @@ function Register() {
     });
   };
   return (
-    <Modal title="新戶註冊" open>
+    <Modal title="新戶註冊" open={isOpenModal} onOk={handleOk} onCancel={handleCancel}>
       {contextHolder}
       <Form
         name="RegisterPage"
