@@ -4,7 +4,6 @@ import L from 'leaflet';
 
 function Map() {
   const getMap = () => {
-    console.log('1111');
     const mymap = L.map('map').setView([51.505, -0.09], 13);
     L.tileLayer(
       'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',

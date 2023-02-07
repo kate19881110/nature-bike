@@ -9,6 +9,7 @@ import ForGetPwd from './containers/Login/ForgetPwd/index';
 import Menu from './components/Menu';
 import Header from './components/Header';
 import Map from './containers/Bike/views/Map';
+import Dashboard from './containers/Dashboard';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,6 +22,7 @@ root.render(
         <Route path="/menu" element={<Menu />} />
         <Route path="/header" element={<Header />} />
         <Route path="/map" element={<Map />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </HashRouter>
   </React.StrictMode>,
