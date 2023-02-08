@@ -1,3 +1,4 @@
+import React from 'react';
 import { Menu } from 'antd';
 import menus from '../../api/mock/menus';
 

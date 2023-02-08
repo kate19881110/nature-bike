@@ -1,8 +1,10 @@
+import React from 'react';
+// import { withRouter } from 'react-router-dom';
 import {
   Form, Input, Button, Row, Col, message,
 } from 'antd';
 
-function Login() {
+function ForgetPwd() {
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish = (values) => {
     messageApi.open({
@@ -70,4 +72,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ForgetPwd;
