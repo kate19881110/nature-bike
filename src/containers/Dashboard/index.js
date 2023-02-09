@@ -13,6 +13,7 @@ import WomanIcon from '../../static/icons/woman.png';
 //   LABEL,
 //   YAXIS,
 // } from '../../utils/trendConst';
+import BarLine from './components/compos/BarLine';
 
 function Dashboard() {
   return (
@@ -44,6 +45,7 @@ function Dashboard() {
         </Col>
       </Row>
       <Row>
+        <BarLine />
         {/* <BarLineMixTrend
           title="性別比例"
           data={[]}
