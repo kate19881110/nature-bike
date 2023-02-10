@@ -26,9 +26,8 @@ const items = [
     key: '2',
   },
 ];
-function HeaderLogin() {
+function HeaderElement() {
   return (
-    <Layout>
       <Header
         style={{
           position: 'sticky',
@@ -63,8 +62,7 @@ function HeaderLogin() {
           </Col>
         </Row>
       </Header>
-    </Layout>
   );
 }
 
-export default HeaderLogin;
+export default HeaderElement;

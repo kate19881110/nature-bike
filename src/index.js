@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 // import reportWebVitals from './reportWebVitals';
@@ -7,22 +7,23 @@ import Login from './containers/Login/index';
 import Register from './containers/Login/Register';
 import ForGetPwd from './containers/Login/ForgetPwd/index';
 import Header from './Layout/Header';
-import Map from './containers/Bike/views/Map';
-import Dashboard from './containers/Dashboard';
+// import Map from './containers/Bike/views/Map';
+// import Dashboard from './containers/Dashboard';
+import BasicLayout from './Layout/BasicLayout.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <HashRouter>
+    <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<BasicLayout />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgetPwd" element={<ForGetPwd />} />
         <Route path="/header" element={<Header />} />
-        <Route path="/map" element={<Map />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/map" element={<Map />} />
+        <Route path="/dashboard" element={<Dashboard />} /> */}
       </Routes>
-    </HashRouter>
+    </Router>
   </React.StrictMode>,
 );
 
