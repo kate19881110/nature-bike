@@ -7,8 +7,8 @@ function Content() {
   return (
     <div>
       <Routes>
-        <Route exact path="/map" element={<Map />} />
-        <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="bike/map" element={<Map />} />
+        <Route exact path="crm/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
   );
