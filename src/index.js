@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ReactDOM from "react-dom/client";
-// import reportWebVitals from './reportWebVitals';
 import Login from "./containers/Login/index";
 import Register from "./containers/Login/Register";
 import ForGetPwd from "./containers/Login/ForgetPwd/index";
-import Header from "./Layout/Header";
+import { isLogined } from "./utils/auth";
 import BasicLayout from "./Layout/BasicLayout.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -13,10 +12,10 @@ root.render(
   <React.StrictMode>
     <Router>
       <Routes>
-        <Route path="*" element={<BasicLayout />} />
+        <Route path="*" element={isLogined ? <BasicLayout /> : <Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgetPwd" element={<ForGetPwd />} />
-        <Route path="/login" element={<Login />} /> 
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   </React.StrictMode>

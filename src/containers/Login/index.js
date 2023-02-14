@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
-import {
-  Form, Input, Button, Row, Col, Checkbox,
-} from 'antd';
-import { Link } from 'react-router-dom';
-import { login } from '../../api/apiUtil';
-import * as Style from './style';
-import Register from './Register';
+import React, { useState } from "react";
+import { Form, Input, Button, Row, Checkbox } from "antd";
+import { Link } from "react-router-dom";
+import { login } from "../../api/apiUtil";
+import * as Style from "./style";
+import Register from "./Register";
 
 function Login() {
   const [loading, setLoading] = useState(false);
-  const [account, setAccount] = useState('');
-  const [password, setPassword] = useState('');
+  const [account, setAccount] = useState("");
+  const [password, setPassword] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
   const handleUserAccount = (e) => {
@@ -33,14 +31,18 @@ function Login() {
   const handleRegister = () => {
     setOpenModal(true);
   };
+
+  const handleForgetPwd = () => {
+    window.location.href = "/forgetPwd"
+  };
   return (
     <>
-      <Row justify="center" align="center">
-        <Col>
-          <h1>Ubike租車後台系統</h1>
-        </Col>
-      </Row>
-      <Row justify="center" align="center">
+      <Row
+        type="flex"
+        justify="center"
+        align="middle"
+        style={{ minHeight: "100vh" }}
+      >
         <Form
           name="LoginPage"
           labelCol={{
@@ -51,17 +53,18 @@ function Login() {
           }}
           autoComplete="off"
         >
+          <h1>Ubike租車後台系統</h1>
           <Form.Item
             label="帳號"
             name="username"
-            rules={[{ required: true, message: '請輸入帳號!' }]}
+            rules={[{ required: true, message: "請輸入帳號!" }]}
           >
             <Input value={account} onChange={handleUserAccount} />
           </Form.Item>
           <Form.Item
             label="密碼"
             name="userPassword"
-            rules={[{ required: true, message: '請輸入密碼!' }]}
+            rules={[{ required: true, message: "請輸入密碼!" }]}
           >
             <Input.Password value={password} onChange={handleUserPwd} />
           </Form.Item>
@@ -88,9 +91,7 @@ function Login() {
           </Form.Item>
           <Style.Between>
             <Button onClick={handleRegister}>註冊</Button>
-            <Link to="/forgetPwd">
-              <h5>忘記密碼</h5>
-            </Link>
+            <Button onClick={handleForgetPwd}>忘記密碼</Button>
           </Style.Between>
         </Form>
       </Row>
