@@ -3,14 +3,18 @@ import { Form, Input, Button, Row, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import { login } from "../../api/apiUtil";
 import * as Style from "./style";
-import Register from "./Register";
+import useModal from "../../hook/useModal";
+import RegisterModal from "./RegisterModal";
+import ForgetPwdModal from "./ForgetPwdModal";
 
 function Login() {
   const [loading, setLoading] = useState(false);
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-  const [openModal, setOpenModal] = useState(false);
 
+  const registerDataModal = useModal({});
+  const forgetDataModal = useModal({});
+  const [form] = Form.useForm();
   const handleUserAccount = (e) => {
     setAccount(e.target.value);
   };
@@ -26,17 +30,20 @@ function Login() {
     }
     setLoading(true);
     login(account, password);
+    window.location.href = "/";
   };
 
   const handleRegister = () => {
-    setOpenModal(true);
+    registerDataModal.openModal();
   };
 
   const handleForgetPwd = () => {
-    window.location.href = "/forgetPwd"
+    forgetDataModal.openModal();
   };
   return (
     <>
+      <ForgetPwdModal {...forgetDataModal} onOk={() => form.submit()} />
+      <RegisterModal {...registerDataModal} onOk={() => form.submit()} />
       <Row
         type="flex"
         justify="center"
@@ -56,7 +63,7 @@ function Login() {
           <h1>Ubike租車後台系統</h1>
           <Form.Item
             label="帳號"
-            name="username"
+            name="account"
             rules={[{ required: true, message: "請輸入帳號!" }]}
           >
             <Input value={account} onChange={handleUserAccount} />
@@ -83,11 +90,9 @@ function Login() {
               span: 24,
             }}
           >
-            <Link to="/forgetPwd">
-              <Button type="primary" onClick={handleLogin} block>
-                登入
-              </Button>
-            </Link>
+            <Button type="primary" onClick={handleLogin} block>
+              登入
+            </Button>
           </Form.Item>
           <Style.Between>
             <Button onClick={handleRegister}>註冊</Button>
@@ -95,7 +100,6 @@ function Login() {
           </Style.Between>
         </Form>
       </Row>
-      <Register isModalOpen={openModal} />
     </>
   );
 }

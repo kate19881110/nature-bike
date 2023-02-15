@@ -27,6 +27,7 @@ export const login = (account, password) => {
       userPwd: password,
     })
     .then((res) => {
+      console.log("res", res);
       res.status = 200;
       const token = `${account}ABCD${password}`;
       setToken(token);
@@ -34,7 +35,7 @@ export const login = (account, password) => {
     })
     .catch((err) => {
       failPOP("登入");
-      err.toString();
+      console.log("login error", err.toString());
     });
 };
 
@@ -47,7 +48,13 @@ export const register = (name, dept, mail, password) => {
       userMail: mail,
       userPwd: password,
     }
-      .then((res) => res.data)
-      .catch((err) => err.toString())
+      .then((res) => {
+        res.status = 200;
+        successPOP("註冊");
+      })
+      .catch((err) => {
+        failPOP("註冊");
+        console.log("login error", err.toString());
+      })
   );
 };

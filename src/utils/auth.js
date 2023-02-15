@@ -5,6 +5,7 @@ export function getToken() {
 
 // 設置 token
 export function setToken(token) {
+    console.log("token", token);
   localStorage.setItem("token", token);
 }
 

@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Modal, Form, message, Input, Select,
 } from 'antd';
+import { register } from "../../api/apiUtil";
 
-function Register(isModalOpen) {
+function Register({ onOk, visible, closeModal }) {
+  const [loading, setLoading] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [] = useState("");
+  const [] = useState("");
+  const [] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
-  const [isOpenModal, setIsOpenModal] = useState(isModalOpen);
-  const handleOk = () => {
-    setIsOpenModal(false);
-  };
-  const handleCancel = () => {
-    setIsOpenModal(false);
-  };
+  const [form] = Form.useForm();
   const onFinish = (values) => {
     messageApi.open({
       type: 'success',
@@ -25,11 +25,32 @@ function Register(isModalOpen) {
       content: `註冊失敗${errorInfo}`,
     });
   };
+
+  const handleUserName = (e) => {
+    setUserName(e.target.value);
+  };
+
+  const confirmRequest = (e) => {
+    e.preventDefault();
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    register();
+    closeModal();
+    window.location.href = "/";
+  };
   return (
-    <Modal title="新戶註冊" open={isOpenModal} onOk={handleOk} onCancel={handleCancel}>
+    <Modal 
+      title="新戶註冊" 
+      open={visible}
+      onOk={confirmRequest}
+      onCancel={closeModal}
+    >
       {contextHolder}
       <Form
-        name="RegisterPage"
+        form={form}
+        name="RegisterModal"
         labelCol={{
           span: 4,
         }}
@@ -45,7 +66,7 @@ function Register(isModalOpen) {
           name="userName"
           rules={[{ required: true, message: '請輸入姓名!' }]}
         >
-          <Input />
+          <Input value={userName} onChange={handleUserName} />
         </Form.Item>
         <Form.Item
           label="部門"
