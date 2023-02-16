@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Row, Checkbox } from "antd";
 import { Link } from "react-router-dom";
-import { login } from "../../api/apiUtil";
+import { loginAPI } from "../../api/apiUtil";
 import * as Style from "./style";
 import useModal from "../../hook/useModal";
 import RegisterModal from "./RegisterModal";
@@ -29,7 +29,7 @@ function Login() {
       return;
     }
     setLoading(true);
-    login(account, password);
+    loginAPI(account, password);
     window.location.href = "/";
   };
 
@@ -74,16 +74,6 @@ function Login() {
             rules={[{ required: true, message: "請輸入密碼!" }]}
           >
             <Input.Password value={password} onChange={handleUserPwd} />
-          </Form.Item>
-          <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{
-              offset: 6,
-              span: 18,
-            }}
-          >
-            <Checkbox>Remember me</Checkbox>
           </Form.Item>
           <Form.Item
             wrapperCol={{

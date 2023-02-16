@@ -20,7 +20,7 @@ const failPOP = (content) => {
     content: `${content}失敗`,
   });
 };
-export const login = (account, password) => {
+export const loginAPI = (account, password) => {
   userRequest
     .post("/users", {
       userMail: account,
@@ -39,15 +39,15 @@ export const login = (account, password) => {
     });
 };
 
-export const register = (name, dept, mail, password) => {
+export const registerAPI = (userName, userDepartment, userMail, userPassword) => {
   userRequest.post(
     "/users",
     {
-      userName: name,
-      userDept: dept,
-      userMail: mail,
-      userPwd: password,
-    }
+      userName,
+      userDept: userDepartment,
+      userMail,
+      userPwd: userPassword,
+    })
       .then((res) => {
         res.status = 200;
         successPOP("註冊");
@@ -56,5 +56,4 @@ export const register = (name, dept, mail, password) => {
         failPOP("註冊");
         console.log("login error", err.toString());
       })
-  );
 };
