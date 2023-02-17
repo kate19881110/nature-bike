@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Row, Checkbox } from "antd";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { loginAPI } from "../../api/apiUtil";
 import * as Style from "./style";
 import useModal from "../../hook/useModal";
@@ -11,7 +11,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const registerDataModal = useModal({});
   const forgetDataModal = useModal({});
   const [form] = Form.useForm();
@@ -30,7 +30,8 @@ function Login() {
     }
     setLoading(true);
     loginAPI(account, password);
-    window.location.href = "/";
+    navigate('/')
+    window.location.reload();
   };
 
   const handleRegister = () => {

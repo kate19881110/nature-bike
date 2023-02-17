@@ -63,7 +63,6 @@ function Register({ onOk, visible, closeModal }) {
     setLoading(true);
     registerAPI(userName, userDepartment, userMail, userPassword);
     onOk();
-    window.location.href = "/";
   };
   return (
     <Modal
