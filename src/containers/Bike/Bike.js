@@ -1,6 +1,6 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import './bike.css'
+import './bike.css';
 
 function Bike() {
   return (

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Row, Checkbox } from "antd";
+import { Form, Input, Button, Row } from "antd";
 import { useNavigate } from "react-router-dom";
 import { loginAPI } from "../../api/apiUtil";
 import * as Style from "./style";
