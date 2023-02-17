@@ -4,7 +4,7 @@ import L from 'leaflet';
 
 function Map() {
   const getMap = () => {
-    const mymap = L.map('map').setView([51.505, -0.09], 13);
+    const myMap = L.map('map').setView([51.505, -0.09], 13);
     L.tileLayer(
       'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
       {
@@ -14,19 +14,21 @@ function Map() {
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
-        accessToken: '',
+        accessToken: 'pk.eyJ1IjoiamVzc2ljYWthdGUxMTEwIiwiYSI6ImNsZHZnZnB6ZzBmNW8zcHBjejg4c3VnbGsifQ.my0WIAiUL12bgW8_s0TXZQ',
       },
-    ).addTo(mymap);
+    ).addTo(myMap);
 
     // 標記 icon
     L.marker([51.5, -0.09])
-      .addTo(mymap)
+      .addTo(myMap)
       .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
       .openPopup();
   };
+
   useEffect(() => {
     getMap();
   }, []);
+  
   return <div id="map" style={{ height: '100vh', width: '100vw' }} />;
 }
 

@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import Login from "./containers/Login/index";
 import { isLogined } from "./utils/auth";
 import BasicLayout from "./Layout/BasicLayout.js";
+import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
