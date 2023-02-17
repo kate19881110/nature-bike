@@ -8,9 +8,9 @@ function Content() {
   return (
     <div>
       <Routes>
-        <Route exact path="bike/site" element={<NavBar />} />
+        <Route exact path="bike/Activity" element={<NavBar />} />
         <Route exact path="bike/map" element={<Bike />} />
-        <Route exact path="crm/dashboard" element={<Dashboard />} />
+        <Route exact path="society/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
   );

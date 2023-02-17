@@ -1,6 +1,6 @@
 import axios from "axios";
 import { message } from "antd";
-import { setToken } from "../utils/auth";
+import { setToken } from "../../utils/auth";
 
 const userRequest = axios.create({
   baseURL: "http://localhost:3000",
