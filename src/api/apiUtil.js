@@ -1,8 +1,8 @@
 import axios from "axios";
 import { message } from "antd";
-import { setToken } from "../../utils/auth";
+import { setToken } from "../utils/auth";
 
-const userRequest = axios.create({
+ const userRequest = axios.create({
   baseURL: "http://localhost:3000",
   headers: { "Content-Type": "application/json" },
 });
@@ -27,8 +27,6 @@ export const loginAPI = (account, password) => {
       userPwd: password,
     })
     .then((res) => {
-      console.log("res", res);
-      res.status = 200;
       const token = `${account}ABCD${password}`;
       setToken(token);
       successPOP("登入");
@@ -39,21 +37,35 @@ export const loginAPI = (account, password) => {
     });
 };
 
-export const registerAPI = (userName, userDepartment, userMail, userPassword) => {
-  userRequest.post(
-    "/users",
-    {
+export const registerAPI = (
+  userName,
+  userDepartment,
+  userMail,
+  userPassword
+) => {
+  userRequest
+    .post("/users", {
       userName,
       userDept: userDepartment,
       userMail,
       userPwd: userPassword,
     })
-      .then((res) => {
-        res.status = 200;
-        successPOP("註冊");
-      })
-      .catch((err) => {
-        failPOP("註冊");
-        console.log("login error", err.toString());
-      })
+    .then((res) => {
+      successPOP("註冊");
+    })
+    .catch((err) => {
+      failPOP("註冊");
+      console.log("register error", err.toString());
+    });
+};
+
+export const societyData = () => {
+  userRequest
+    .get("/witsGroup")
+    .then((res) => {
+       res.data;
+    })
+    .catch((err) => {
+      console.log("societyData error", err.toString());
+    });
 };

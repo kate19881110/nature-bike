@@ -1,6 +1,5 @@
 {
-  "users": [
-    {
+  "users": [{
       "id": 1,
       "userName": "Admin",
       "userDept": "marketing",
@@ -22,8 +21,7 @@
       "userPwd": 678456
     }
   ],
-  "customerList": [
-    {
+  "customerList": [{
       "gender": "female",
       "name": "Ceyhan",
       "email": "ceyhan.daglaroglu@example.com",
@@ -82,6 +80,147 @@
       "name": "Heidi",
       "email": "heidi.vasquez@example.com",
       "picture": "https://randomuser.me/api/portraits/women/74.jpg"
+    }
+  ],
+  "witsGroup": [{
+      "key":"1",
+      "category": "戶外運動",
+      "site": "新北",
+      "group": "WITS Fitness",
+      "hostName": "陳怡君",
+      "hostEn": "Anita",
+      "hostEmail": "AnitaChen@wistronits.com",
+      "groupInfo": "每周二晚、四晚上"
+    },
+    {
+      "key":"2",
+      "category": "娛樂",
+      "site": "新北",
+      "group": "WITS 桌遊社",
+      "hostName": "張仰浩",
+      "hostEn": "Ray",
+      "hostEmail": "",
+      "groupInfo": "網羅各類型桌遊，至少一季一次"
+    },
+    {
+      "key":"3",
+      "category": "球類運動",
+      "site": "新北",
+      "group": "WITS 羽球社",
+      "hostName": "沈俊強",
+      "hostEn": "John",
+      "hostEmail": "",
+      "groupInfo": "每周一　18:00~20:00"
+    },
+    {
+      "key":"4",
+      "category": "服務",
+      "site": "新北",
+      "group": "WITS 志工社",
+      "hostName": "趙緯祺",
+      "hostEn": "Vic",
+      "hostEmail": "",
+      "groupInfo": "預計每季一次活動"
+    },
+    {
+      "key":"5",
+      "category": "戶外運動",
+      "site": "新北",
+      "group": "WITS 登山社",
+      "hostName": "鄒修銘",
+      "hostEn": "BSP",
+      "hostEmail": "",
+      "groupInfo": "平均每月一次"
+    },
+    {
+      "key":"6",
+      "category": "戶外運動",
+      "site": "新北",
+      "group": "WITS 健行社",
+      "hostName": "蔡名訓",
+      "hostEn": "MingHsun",
+      "hostEmail": "",
+      "groupInfo": "鼓勵員工周末一同親山一季一次大活動"
+    },
+    {
+      "key":"7",
+      "category": "球類運動",
+      "site": "新竹",
+      "group": "新竹 羽球社",
+      "hostName": "林星源",
+      "hostEn": "Silence",
+      "hostEmail": "",
+      "groupInfo": ""
+    },
+    {
+      "key":"8",
+      "category": "球類運動",
+      "site": "新北",
+      "group": "WITS 壁球社",
+      "hostName": "秦榕嬪",
+      "hostEn": "Maple",
+      "hostEmail": "",
+      "groupInfo": ""
+    },
+    {
+      "key":"9",
+      "category": "戶外運動",
+      "site": "新北",
+      "group": "WITS 自行車社",
+      "hostName": "劉于甄",
+      "hostEn": "Kate",
+      "hostEmail": "KateLiu@wistronits.com",
+      "groupInfo": "不固定時間假日，由於是戶外活動，以晴天為主"
+    },
+    {
+      "key":"10",
+      "category": "娛樂",
+      "site": "新北",
+      "group": "WITS 卡拉OK社",
+      "hostName": "陳咨羽",
+      "hostEn": "Tiffany",
+      "hostEmail": "",
+      "groupInfo": ""
+    },
+    {
+      "key":"11",
+      "category": "娛樂",
+      "site": "台南",
+      "group": "台南桌遊社",
+      "hostName": "何家豪",
+      "hostEn": "Ryan",
+      "hostEmail": "",
+      "groupInfo": ""
+    },
+    {
+      "key":"12",
+      "category": "娛樂",
+      "site": "新北",
+      "group": "online Game社",
+      "hostName": "黃琦榕",
+      "hostEn": "Emma",
+      "hostEmail": "",
+      "groupInfo": ""
+    },
+    {
+      "key":"13",
+      "category": "娛樂",
+      "site": "台南",
+      "group": "台南卡啦OK社",
+      "hostName": "陳怡如",
+      "hostEn": "Tina",
+      "hostEmail": "",
+      "groupInfo": ""
+    },
+    {
+      "key":"14",
+      "category": "娛樂",
+      "site": "新竹",
+      "group": "新竹卡啦OK社",
+      "hostName": "張智棋",
+      "hostEn": "Ivan",
+      "hostEmail": "",
+      "groupInfo": ""
     }
   ]
 }

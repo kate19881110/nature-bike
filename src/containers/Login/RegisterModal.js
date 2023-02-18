@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Form, message, Input, Select } from "antd";
-import { registerAPI } from "../../api/Login/apiUtil";
+import { registerAPI } from "../../api/apiUtil";
 
 function Register({ onOk, visible, closeModal }) {
   const [loading, setLoading] = useState(false);
