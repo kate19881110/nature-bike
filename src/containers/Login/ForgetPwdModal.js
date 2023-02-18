@@ -1,33 +1,41 @@
+import React from 'react';
 import {
-  Form, Input, Button, Row, Col, message,
+  Modal, Form, Input, Button, Row, Col, message,
 } from 'antd';
 
-function Login() {
+function ForgetPwd({ onOk, visible, closeModal }) {
   const [messageApi, contextHolder] = message.useMessage();
+  const [form] = Form.useForm();
   const onFinish = (values) => {
     messageApi.open({
       type: 'success',
-      content: `登入成功${values}`,
+      content: `更改密碼成功${values}`,
     });
   };
 
   const onFinishFailed = (errorInfo) => {
     messageApi.open({
       type: 'error',
-      content: `登入失敗${errorInfo}`,
+      content: `更改密碼失敗${errorInfo}`,
     });
   };
+
+  const confirmLogin = () => {
+    closeModal();
+  };
+
+
   return (
-    <>
+    <Modal 
+      title="忘記密碼" 
+      open={visible}
+      onCancel={closeModal}
+      footer={null}
+  >
       {contextHolder}
-      <Row justify="center" align="center">
-        <Col>
-          <h1>忘記密碼</h1>
-        </Col>
-      </Row>
-      <Row justify="center">
         <Form
-          name="ForgetPage"
+          form={form}
+          name="ForgetModal"
           labelCol={{
             span: 4,
           }}
@@ -59,15 +67,16 @@ function Login() {
           >
             <Input.Password />
           </Form.Item>
-          <Form.Item>
-            <Button type="primary" block>
+          <Form.Item
+            wrapperCol={{ offset: 4, span: 16 }}
+          >
+            <Button type="primary" block onClick={confirmLogin}>
               登入
             </Button>
           </Form.Item>
         </Form>
-      </Row>
-    </>
+    </Modal>
   );
 }
 
-export default Login;
+export default ForgetPwd;

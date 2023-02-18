@@ -9,6 +9,15 @@
 4. json server
 5. 測試框架
 
+# 啟動專案
+port 3001
+npm start
+
+# 啟動 json server
+port 3000
+路徑: src\api\mock
+json-server --watch db.json
+
 # 目錄架構
 ```
 .
@@ -27,7 +36,7 @@
 │   ├── components // 全區共用元件放這
 │   ├── containers // 頁面放這邊
 │   ├── hooks // 客製化 hooks 
-│   ├── index.html
+│   ├── api // 取得 TDX 資料
 │   ├── index.js // 程式進入點
 │   ├── locales // 多國語言
 │   ├── static
@@ -40,4 +49,12 @@
 
 ```
 # E-Charts
+
+# 安裝套件
+1. jsSHA 
+   JS + TS 完整SHA系列加密算法的加密庫
+2. 地圖套件
+3. echarts
+4. react router
+5. Leaflet
 

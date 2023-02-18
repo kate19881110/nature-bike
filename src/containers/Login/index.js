@@ -1,82 +1,94 @@
-import { Link } from 'react-router-dom';
-import {
-  Form, Input, Button, Row, Col, message, Checkbox,
-} from 'antd';
+import React, { useState } from "react";
+import { Form, Input, Button, Row } from "antd";
+import { useNavigate } from "react-router-dom";
+import { loginAPI } from "../../api/Login/apiUtil";
+import * as Style from "./style";
+import useModal from "../../hook/useModal";
+import RegisterModal from "./RegisterModal";
+import ForgetPwdModal from "./ForgetPwdModal";
 
 function Login() {
-  const [messageApi, contextHolder] = message.useMessage();
-  const onFinish = (values) => {
-    messageApi.open({
-      type: 'success',
-      content: `登入成功${values}`,
-    });
+  const [loading, setLoading] = useState(false);
+  const [account, setAccount] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const registerDataModal = useModal({});
+  const forgetDataModal = useModal({});
+  const [form] = Form.useForm();
+  const handleUserAccount = (e) => {
+    setAccount(e.target.value);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    messageApi.open({
-      type: 'error',
-      content: `登入失敗${errorInfo}`,
-    });
+  const handleUserPwd = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    loginAPI(account, password);
+    navigate('/')
+    window.location.reload();
+  };
+
+  const handleRegister = () => {
+    registerDataModal.openModal();
+  };
+
+  const handleForgetPwd = () => {
+    forgetDataModal.openModal();
   };
   return (
     <>
-      <Row justify="center" align="center">
-        <Col>
-          <h1>山海戀租車後台系統</h1>
-        </Col>
-      </Row>
-      <Row justify="center">
-        {contextHolder}
+      <ForgetPwdModal {...forgetDataModal} onOk={() => form.submit()} />
+      <RegisterModal {...registerDataModal} onOk={() => form.submit()} />
+      <Row
+        type="flex"
+        justify="center"
+        align="middle"
+        style={{ minHeight: "100vh" }}
+      >
         <Form
           name="LoginPage"
           labelCol={{
-            span: 4,
+            span: 6,
           }}
           wrapperCol={{
-            span: 16,
+            span: 18,
           }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
+          <h1>Ubike租車後台系統</h1>
           <Form.Item
             label="帳號"
-            name="username"
-            rules={[{ required: true, message: '請輸入帳號!' }]}
+            name="account"
+            rules={[{ required: true, message: "請輸入帳號!" }]}
           >
-            <Input />
+            <Input value={account} onChange={handleUserAccount} />
           </Form.Item>
           <Form.Item
             label="密碼"
             name="userPassword"
-            rules={[{ required: true, message: '請輸入密碼!' }]}
+            rules={[{ required: true, message: "請輸入密碼!" }]}
           >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{
-              offset: 4,
-              span: 16,
-            }}
-          >
-            <Checkbox>Remember me</Checkbox>
+            <Input.Password value={password} onChange={handleUserPwd} />
           </Form.Item>
           <Form.Item
             wrapperCol={{
-              offset: 4,
-              span: 16,
+              span: 24,
             }}
           >
-            <Button type="primary" block>
+            <Button type="primary" onClick={handleLogin} block>
               登入
             </Button>
           </Form.Item>
-          <Form.Item>
-            <Link to="/register"><p>註冊</p></Link>
-            <Link to="/forgetFwd"><h5>忘記密碼</h5></Link>
-          </Form.Item>
+          <Style.Between>
+            <Button onClick={handleRegister}>註冊</Button>
+            <Button onClick={handleForgetPwd}>忘記密碼</Button>
+          </Style.Between>
         </Form>
       </Row>
     </>
