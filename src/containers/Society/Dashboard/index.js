@@ -3,9 +3,9 @@ import {
   Row, Col, Card, Image,
 } from 'antd';
 import * as Style from './style';
-import BikeIcon from '../../static/icons/bike.png';
-import ManIcon from '../../static/icons/man.png';
-import WomanIcon from '../../static/icons/woman.png';
+import BikeIcon from '../../../static/icons/bike.png';
+import ManIcon from '../../../static/icons/man.png';
+import WomanIcon from '../../../static/icons/woman.png';
 // import BarLineMixTrend from './components/compos/BarLineMixTrend';
 // import {
 //   XAXIS,
@@ -13,7 +13,7 @@ import WomanIcon from '../../static/icons/woman.png';
 //   LABEL,
 //   YAXIS,
 // } from '../../utils/trendConst';
-import BarLine from './components/compos/BarLine';
+import BarLine from './components/BarLine';
 
 function Dashboard() {
   return (
