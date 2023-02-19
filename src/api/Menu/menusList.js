@@ -8,6 +8,12 @@ import {
   EnvironmentOutlined,
   HeartOutlined,
   GlobalOutlined,
+  ContainerOutlined,
+  SoundOutlined,
+  ProfileOutlined,
+  DollarOutlined,
+  ScheduleOutlined,
+  SelectOutlined
 } from "@ant-design/icons";
 
 const menusList = [
@@ -42,16 +48,10 @@ const menusList = [
         icon: <PieChartOutlined />,
       },
       {
-        label: '歷史活動',
-        key: '/society/history',
-        name: 'History',
-        icon: <TeamOutlined />,
-      },
-      {
         label: '申請經費',
         key: '/society/charge',
         name: 'Charge',
-        icon: <TeamOutlined />,
+        icon: <SelectOutlined />,
       },
     ],
   },
@@ -71,7 +71,7 @@ const menusList = [
         label: '辦活動',
         key: '/bike/Activity',
         name: 'Activity',
-        icon: <HeartOutlined />,
+        icon: <ScheduleOutlined />,
       },
     ]
   },
@@ -82,26 +82,33 @@ const menusList = [
     icon: <HeartOutlined />,
     children: [
       {
-        label: '社團列表',
-        key: '/market/list',
-        name: 'List',
-        icon: <HeartOutlined />,
-      },
-      {
         label: '活動資訊',
         key: '/market/info',
         name: 'Info',
-        icon: <HeartOutlined />,
-      },
+        icon: <SoundOutlined />,
+      },   
       {
-        label: '經費核銷',
-        key: '/market/activity',
-        name: 'Activity',
-        icon: <HeartOutlined />,
+        label: '社團列表',
+        key: '/market/list',
+        name: 'List',
+        icon: <ProfileOutlined />,
       },
-    
     ]
   },
+  {
+    label: '會計部',
+    key: "/account",
+    name: "Account",
+    icon: <DollarOutlined />,
+    children: [
+      {
+        label: '經費核銷',
+        key: '/account/reimburse',
+        name: 'Activity',
+        icon: <ContainerOutlined />,
+      },
+    ]
+  }
 ];
 
 export default menusList;
