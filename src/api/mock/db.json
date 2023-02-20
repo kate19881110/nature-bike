@@ -1,10 +1,11 @@
 {
-  "users": [{
+  "users": [
+    {
       "id": 1,
       "userName": "Admin",
       "userDept": "marketing",
       "userMail": "admin@gmail.com",
-      "userPwd": 123456
+      "userPwd": "live123456"
     },
     {
       "id": 2,
@@ -21,7 +22,8 @@
       "userPwd": 678456
     }
   ],
-  "customerList": [{
+  "customerList": [
+    {
       "gender": "female",
       "name": "Ceyhan",
       "email": "ceyhan.daglaroglu@example.com",
@@ -82,8 +84,9 @@
       "picture": "https://randomuser.me/api/portraits/women/74.jpg"
     }
   ],
-  "witsGroup": [{
-      "key":"1",
+  "witsGroup": [
+    {
+      "key": "1",
       "category": "戶外運動",
       "site": "新北",
       "group": "WITS Fitness",
@@ -93,7 +96,7 @@
       "groupInfo": "每周二晚、四晚上"
     },
     {
-      "key":"2",
+      "key": "2",
       "category": "娛樂",
       "site": "新北",
       "group": "WITS 桌遊社",
@@ -103,7 +106,7 @@
       "groupInfo": "網羅各類型桌遊，至少一季一次"
     },
     {
-      "key":"3",
+      "key": "3",
       "category": "球類運動",
       "site": "新北",
       "group": "WITS 羽球社",
@@ -113,7 +116,7 @@
       "groupInfo": "每周一　18:00~20:00"
     },
     {
-      "key":"4",
+      "key": "4",
       "category": "服務",
       "site": "新北",
       "group": "WITS 志工社",
@@ -123,7 +126,7 @@
       "groupInfo": "預計每季一次活動"
     },
     {
-      "key":"5",
+      "key": "5",
       "category": "戶外運動",
       "site": "新北",
       "group": "WITS 登山社",
@@ -133,7 +136,7 @@
       "groupInfo": "平均每月一次"
     },
     {
-      "key":"6",
+      "key": "6",
       "category": "戶外運動",
       "site": "新北",
       "group": "WITS 健行社",
@@ -143,7 +146,7 @@
       "groupInfo": "鼓勵員工周末一同親山一季一次大活動"
     },
     {
-      "key":"7",
+      "key": "7",
       "category": "球類運動",
       "site": "新竹",
       "group": "新竹 羽球社",
@@ -153,7 +156,7 @@
       "groupInfo": ""
     },
     {
-      "key":"8",
+      "key": "8",
       "category": "球類運動",
       "site": "新北",
       "group": "WITS 壁球社",
@@ -163,7 +166,7 @@
       "groupInfo": ""
     },
     {
-      "key":"9",
+      "key": "9",
       "category": "戶外運動",
       "site": "新北",
       "group": "WITS 自行車社",
@@ -173,7 +176,7 @@
       "groupInfo": "不固定時間假日，由於是戶外活動，以晴天為主"
     },
     {
-      "key":"10",
+      "key": "10",
       "category": "娛樂",
       "site": "新北",
       "group": "WITS 卡拉OK社",
@@ -183,7 +186,7 @@
       "groupInfo": ""
     },
     {
-      "key":"11",
+      "key": "11",
       "category": "娛樂",
       "site": "台南",
       "group": "台南桌遊社",
@@ -193,7 +196,7 @@
       "groupInfo": ""
     },
     {
-      "key":"12",
+      "key": "12",
       "category": "娛樂",
       "site": "新北",
       "group": "online Game社",
@@ -203,7 +206,7 @@
       "groupInfo": ""
     },
     {
-      "key":"13",
+      "key": "13",
       "category": "娛樂",
       "site": "台南",
       "group": "台南卡啦OK社",
@@ -213,7 +216,7 @@
       "groupInfo": ""
     },
     {
-      "key":"14",
+      "key": "14",
       "category": "娛樂",
       "site": "新竹",
       "group": "新竹卡啦OK社",

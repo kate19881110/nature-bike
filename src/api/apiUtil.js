@@ -2,7 +2,7 @@ import axios from "axios";
 import { message } from "antd";
 import { setToken } from "../utils/auth";
 
- const userRequest = axios.create({
+export const userRequest = axios.create({
   baseURL: "http://localhost:3000",
   headers: { "Content-Type": "application/json" },
 });
@@ -63,9 +63,23 @@ export const societyData = () => {
   userRequest
     .get("/witsGroup")
     .then((res) => {
-       res.data;
+      res.data;
     })
     .catch((err) => {
       console.log("societyData error", err.toString());
+    });
+};
+
+export const forgetPwdAPI = (id, userPassword) => {
+  userRequest
+    .patch(`/users/${id}`, {
+      userPwd: userPassword,
+    })
+    .then((res) => {
+      successPOP("更改密碼");
+    })
+    .catch((err) => {
+      failPOP("更改密碼");
+      console.log("forgetPwd error", err.toString());
     });
 };
