@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Row } from "antd";
 import { useNavigate } from "react-router-dom";
 import { loginAPI } from "../../api/apiUtil";
@@ -6,6 +6,7 @@ import * as Style from "./style";
 import useModal from "../../hook/useModal";
 import RegisterModal from "./RegisterModal";
 import ForgetPwdModal from "./ForgetPwdModal";
+import useAxios from "../../hook/useAxios";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,7 @@ function Login() {
   const registerDataModal = useModal({});
   const forgetDataModal = useModal({});
   const [form] = Form.useForm();
+
   const handleUserAccount = (e) => {
     setAccount(e.target.value);
   };
@@ -23,6 +25,16 @@ function Login() {
     setPassword(e.target.value);
   };
 
+  const res = useAxios({
+    url: "/users",
+    method: "post",
+    body: {
+      userMail: account,
+      userPwd: password,
+    },
+    headers: { "Content-Type": "application/json" },
+  });
+
   const handleLogin = (e) => {
     e.preventDefault();
     if (loading) {
@@ -30,7 +42,7 @@ function Login() {
     }
     setLoading(true);
     loginAPI(account, password);
-    navigate('/')
+    navigate("/");
     window.location.reload();
   };
 
@@ -41,6 +53,10 @@ function Login() {
   const handleForgetPwd = () => {
     forgetDataModal.openModal();
   };
+
+  useEffect(() => {
+    console.log("res", res);
+  });
   return (
     <>
       <ForgetPwdModal {...forgetDataModal} onOk={() => form.submit()} />
