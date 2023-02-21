@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Form, message, Input, Select } from "antd";
+import societyName from "../../api/Society/societyName";
 import { registerAPI } from "../../api/apiUtil";
 
 function Register({ onOk, visible, closeModal }) {
@@ -8,8 +9,10 @@ function Register({ onOk, visible, closeModal }) {
   const [userDepartment, setUserDepartment] = useState("");
   const [userMail, setUserMail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [userSociety, setUserSociety] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
+
   const onFinish = (values) => {
     messageApi.open({
       type: "success",
@@ -28,8 +31,8 @@ function Register({ onOk, visible, closeModal }) {
     setUserName(e.target.value);
   };
 
-  const handleUserDepartment = (value) => {
-    setUserDepartment(value);
+  const handleUserSociety = (value) => {
+    setUserSociety(value);
   };
 
   const handleUserMail = (e) => {
@@ -40,21 +43,9 @@ function Register({ onOk, visible, closeModal }) {
     setUserPassword(e.target.value);
   };
 
-  const deptOptions = [
-    {
-      label: "業務",
-      value: "Sales",
-    },
-    {
-      label: "行銷",
-      value: "Marketing",
-    },
-    {
-      label: "會計",
-      value: "Account",
-    },
-  ];
-
+  const handleUserDepartment = (value) => {
+    setUserDepartment(value);
+  };
   const confirmRequest = (e) => {
     e.preventDefault();
     if (loading) {
@@ -93,18 +84,35 @@ function Register({ onOk, visible, closeModal }) {
           <Input value={userName} onChange={handleUserName} />
         </Form.Item>
         <Form.Item
-          label="部門"
+          label="職位"
           name="userDepartment"
-          rules={[{ required: true, message: "請選擇部門!" }]}
+          rules={[{ required: true, message: "請選擇職位!" }]}
         >
           <Select
             value={userDepartment}
             onChange={handleUserDepartment}
-            options={deptOptions}
+            options={societyName.deptOptions}
             allowClear
           >
           </Select>
         </Form.Item>
+        {userDepartment === "Host" ? (
+          <Form.Item
+            label="社團"
+            name="userSociety"
+            rules={[{ required: true, message: "請選擇社團!" }]}
+          >
+            <Select
+              value={userSociety}
+              onChange={handleUserSociety}
+              options={societyName.societyOptions}
+              allowClear
+            >
+            </Select>
+          </Form.Item>
+        ) : (
+          ""
+        )}
         <Form.Item
           label="信箱"
           name="userMail"

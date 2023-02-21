@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "antd";
-import societyTitle from "../../../api/Table/societyTitle";
+import tableTitle from "../../../api/Society/tableTitle";
 
 function SocietyList() {
   const [data, setData] = useState("");
@@ -32,7 +32,7 @@ function SocietyList() {
         rowSelection={{
           ...rowSelection,
         }}
-        columns={societyTitle}
+        columns={tableTitle}
         dataSource={data}
         pagination={{
           total: 20,

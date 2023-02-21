@@ -1,4 +1,4 @@
-const societyTitle = [
+const tableTitle = [
   {
     title: "分類",
     dataIndex: "category",
@@ -29,4 +29,4 @@ const societyTitle = [
   },
 ];
 
-export default societyTitle;
+export default tableTitle;

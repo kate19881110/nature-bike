@@ -7,14 +7,14 @@ export const userRequest = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-const successPOP = (content) => {
+export const successPOP = (content) => {
   message.open({
     type: "success",
     content: `${content}成功`,
   });
 };
 
-const failPOP = (content) => {
+export const failPOP = (content) => {
   message.open({
     type: "error",
     content: `${content}失敗`,

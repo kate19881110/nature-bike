@@ -3,7 +3,7 @@ import { Modal, Form, Input, Button, message } from "antd";
 import { forgetPwdAPI, userRequest } from "../../api/apiUtil";
 
 function ForgetPwd({ onOk, visible, closeModal }) {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [id, setId] = useState("");
@@ -33,14 +33,15 @@ function ForgetPwd({ onOk, visible, closeModal }) {
 
   const checkUserPassword = (e) => {};
 
-  const searchAccount = async (name) => {
-    await userRequest
+  const searchAccount = (name) => {
+    return userRequest
       .get("/users")
       .then((res) => {
         const userObject = res.data.filter((value) => {
           return name === value.userName;
         });
         setId(userObject[0].id);
+        return userObject[0].id
       })
       .catch((err) => {
         console.log("searchAccount error", err.toString());
@@ -49,17 +50,16 @@ function ForgetPwd({ onOk, visible, closeModal }) {
 
   const confirmLogin = async () => {
     await searchAccount(userName);
-    console.log("id", id);
     await forgetPwdAPI(id, userPassword);
     onOk();
   };
-  useEffect(() => {
-    if (loading) {
-      return;
-    }
-    setLoading(true);
-    confirmLogin();
-  }, []);
+  // useEffect(() => {
+  //   if (loading) {
+  //     return;
+  //   }
+  //   setLoading(true);
+  //   confirmLogin();
+  // }, []);
 
   return (
     <Modal title="忘記密碼" open={visible} onCancel={closeModal} footer={null}>

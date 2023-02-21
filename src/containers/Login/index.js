@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Row } from "antd";
 import { useNavigate } from "react-router-dom";
 import { loginAPI } from "../../api/apiUtil";
@@ -6,7 +6,6 @@ import * as Style from "./style";
 import useModal from "../../hook/useModal";
 import RegisterModal from "./RegisterModal";
 import ForgetPwdModal from "./ForgetPwdModal";
-import useAxios from "../../hook/useAxios";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -24,16 +23,6 @@ function Login() {
   const handleUserPwd = (e) => {
     setPassword(e.target.value);
   };
-
-  const res = useAxios({
-    url: "/users",
-    method: "post",
-    body: {
-      userMail: account,
-      userPwd: password,
-    },
-    headers: { "Content-Type": "application/json" },
-  });
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -54,9 +43,6 @@ function Login() {
     forgetDataModal.openModal();
   };
 
-  useEffect(() => {
-    console.log("res", res);
-  });
   return (
     <>
       <ForgetPwdModal {...forgetDataModal} onOk={() => form.submit()} />
@@ -77,7 +63,7 @@ function Login() {
           }}
           autoComplete="off"
         >
-          <h1>Ubike租車後台系統</h1>
+          <h1>WITS 社團後台系統</h1>
           <Form.Item
             label="帳號"
             name="account"
