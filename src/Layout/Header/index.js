@@ -1,67 +1,55 @@
-import React from 'react';
-import {
-  Layout,
-  Row,
-  Col,
-  Dropdown,
-  Avatar,
-  Badge,
-  Space,
-  Typography,
-} from 'antd';
-import { BellOutlined, DownOutlined, UserOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Layout, Row, Col, Dropdown, Avatar, Space } from "antd";
+import { BellOutlined, DownOutlined, UserOutlined } from "@ant-design/icons";
+import { deleteToken } from "../../api/axios/auth";
+import { successPOP } from "../../api/apiUtil";
 
 const { Header } = Layout;
-// const onClick = ({ key }) => {
-//   console.log(`Click on item ${key}`);
-// };
+const onClick = ({ key }) => {
+  if (key === "1") {
+    deleteToken();
+    successPOP("登出");
+    window.location.reload();
+  }
+};
 const items = [
   {
-    label: '登出',
-    key: '1',
+    label: "登出",
+    key: "1",
   },
   {
-    label: '個人訊息',
-    key: '2',
+    label: <a href="https://localhost:3000/profile">個人資訊</a>,
+    key: "2",
   },
 ];
 function HeaderElement() {
   return (
-      <Header
-        style={{
-          position: 'sticky',
-          with: '100%',
-          top: 0,
-          zIndex: 1,
-          background: 'dark',
-        }}
-      >
-        <Row type="flex" justify="end" align="middle">
-          <Col span={2}>
-            <Badge count={2}>
-              <Link to="/">
-                <BellOutlined style={{ fontSize: '20px', color: '#fff' }} />
-              </Link>
-            </Badge>
-          </Col>
-          <Col span={2}>
-            <Dropdown
-              menu={{
-                items,
-                selectable: true,
-              }}
-            >
-              <Typography.Link>
-                <Space>
-                  <Avatar size="large" icon={<UserOutlined />} />
-                  <DownOutlined />
-                </Space>
-              </Typography.Link>
-            </Dropdown>
-          </Col>
-        </Row>
-      </Header>
+    <Header
+      style={{
+        position: "sticky",
+        with: "100%",
+        top: 0,
+        zIndex: 1,
+        background: "dark",
+      }}
+    >
+      <Row type="flex" justify="end" align="middle">
+        <Col span={2}>
+          <Dropdown
+            menu={{
+              items,
+              onClick,
+              selectable: true,
+            }}
+          >
+            <Space>
+              <Avatar size="large" icon={<UserOutlined />} />
+              <DownOutlined style={{ color: "#fff" }} />
+            </Space>
+          </Dropdown>
+        </Col>
+      </Row>
+    </Header>
   );
 }
 

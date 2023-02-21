@@ -1,6 +1,6 @@
 import axios from "axios";
 import { message } from "antd";
-import { setToken } from "../utils/auth";
+import { setToken } from "./axios/auth";
 
 export const userRequest = axios.create({
   baseURL: "http://localhost:3000",
@@ -56,17 +56,6 @@ export const registerAPI = (
     .catch((err) => {
       failPOP("註冊");
       console.log("register error", err.toString());
-    });
-};
-
-export const societyData = () => {
-  userRequest
-    .get("/witsGroup")
-    .then((res) => {
-      res.data;
-    })
-    .catch((err) => {
-      console.log("societyData error", err.toString());
     });
 };
 

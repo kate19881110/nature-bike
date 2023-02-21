@@ -3,9 +3,9 @@ import { Modal, Form, Input, Button, message } from "antd";
 import { forgetPwdAPI, userRequest } from "../../api/apiUtil";
 
 function ForgetPwd({ onOk, visible, closeModal }) {
-  // const [loading, setLoading] = useState(false);
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [chkPassword, setChkPassword] = useState("");
   const [id, setId] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
@@ -31,7 +31,9 @@ function ForgetPwd({ onOk, visible, closeModal }) {
     setUserPassword(e.target.value);
   };
 
-  const checkUserPassword = (e) => {};
+  const handleChkPassword = (e) => {
+    setChkPassword(e.target.value);
+  };
 
   const searchAccount = (name) => {
     return userRequest
@@ -49,17 +51,14 @@ function ForgetPwd({ onOk, visible, closeModal }) {
   };
 
   const confirmLogin = async () => {
-    await searchAccount(userName);
-    await forgetPwdAPI(id, userPassword);
-    onOk();
+    if (userPassword !== chkPassword) {
+      alert("密碼不一致!");
+    } else {
+      await searchAccount(userName);
+      await forgetPwdAPI(id, userPassword);
+      onOk();
+    }
   };
-  // useEffect(() => {
-  //   if (loading) {
-  //     return;
-  //   }
-  //   setLoading(true);
-  //   confirmLogin();
-  // }, []);
 
   return (
     <Modal title="忘記密碼" open={visible} onCancel={closeModal} footer={null}>
@@ -93,14 +92,14 @@ function ForgetPwd({ onOk, visible, closeModal }) {
         </Form.Item>
         <Form.Item
           label="確認密碼"
-          name="userPassword"
+          name="chkPassword"
           rules={[{ required: true, message: "請輸入確認密碼!" }]}
         >
-          <Input.Password />
+          <Input.Password value={chkPassword} onChange={handleChkPassword} />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
           <Button type="primary" block onClick={confirmLogin}>
-            登入
+            確認
           </Button>
         </Form.Item>
       </Form>

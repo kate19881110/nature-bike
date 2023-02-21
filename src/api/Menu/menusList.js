@@ -1,7 +1,6 @@
 import React from "react";
 import {
   HomeOutlined,
-  UserOutlined,
   SmileOutlined,
   PieChartOutlined,
   TeamOutlined,
@@ -22,12 +21,6 @@ const menusList = [
     key: "/home",
     name: "Home",
     icon: <HomeOutlined />, 
-  },
-  {
-    label: '個人資訊',
-    key: "/profile",
-    name: "Profile",
-    icon: <UserOutlined />,
   },
   {
     label: '社團',

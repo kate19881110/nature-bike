@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "antd";
 import tableTitle from "../../../api/Society/tableTitle";
+import {userRequest} from "../../../api/apiUtil";
 
 function SocietyList() {
   const [data, setData] = useState("");
@@ -17,13 +18,20 @@ function SocietyList() {
     }),
   };
 
+  const societyData = () => {
+    return userRequest
+      .get("/witsGroup")
+      .then((res) => {
+        setData(res.data);
+        return res.data
+      })
+      .catch((err) => {
+        console.log("societyData error", err.toString());
+      });
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`http://localhost:3000/witsGroup`);
-      const newData = await response.json();
-      setData(newData);
-    };
-    fetchData();
+    societyData();
   }, []);
 
   return (

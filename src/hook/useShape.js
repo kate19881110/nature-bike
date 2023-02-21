@@ -1,0 +1,20 @@
+import { useState } from "react";
+import { cyclingRoute } from "../api/TDX/transport";
+import { failPOP } from "../api/apiUtil";
+
+const useShape = () => {
+  const [spots, setSpots] = useState([]);
+  const search = async ({ city }) => {
+    const tail = "%24top=30&%24format=JSON";
+    const finalUrl = `${city}?${tail}`;
+    try {
+      const { data } = await cyclingRoute.get(finalUrl);
+      setSpots(data);
+    } catch (error) {
+      failPOP("權限到期，請重新整理後再試一次");
+    }
+  };
+  return [spots, search];
+};
+
+export default useShape;
