@@ -52,8 +52,9 @@ function Register({ onOk, visible, closeModal }) {
       return;
     }
     setLoading(true);
-    registerAPI(userName, userDepartment, userMail, userPassword);
+    registerAPI(userName, userDepartment, userSociety, userMail, userPassword);
     onOk();
+    closeModal();
   };
   return (
     <Modal

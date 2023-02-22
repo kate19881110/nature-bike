@@ -40,6 +40,7 @@ export const loginAPI = (account, password) => {
 export const registerAPI = (
   userName,
   userDepartment,
+  userSociety,
   userMail,
   userPassword
 ) => {
@@ -47,6 +48,7 @@ export const registerAPI = (
     .post("/users", {
       userName,
       userDept: userDepartment,
+      userSociety,
       userMail,
       userPwd: userPassword,
     })

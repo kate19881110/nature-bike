@@ -10,7 +10,7 @@ function getAuthorizationHeader() {
   ShaObj.update(`x-date: ${GMTString}`);
   let HMAC = ShaObj.getHMAC("B64");
   let Authorization = `hmac username="${AppID}", algorithm="hmac-sha1", headers="x-date", signature="${HMAC}"`;
-  return { Authorization, "X-Date": GMTString };
+  return { Authorization, 'X-Date': GMTString }
 }
 
 export default getAuthorizationHeader;

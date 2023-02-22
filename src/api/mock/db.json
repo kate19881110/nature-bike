@@ -22,13 +22,29 @@
       "userPwd": 678456
     },
     {
+      "userMail": "Admin2",
+      "userPwd": "1234",
       "id": 4
     },
     {
+      "userMail": "33333",
+      "userPwd": "eeeee",
       "id": 5
     },
     {
+      "userName": "KateLiu",
+      "userDept": "Host",
+      "userMail": "kate@www.com",
+      "userPwd": "Kate951222",
       "id": 6
+    },
+    {
+      "userName": "KateLiu",
+      "userDept": "Host",
+      "userSociety": "Bike",
+      "userMail": "KateLiu@wistronits.com",
+      "userPwd": "Kate951222",
+      "id": 7
     }
   ],
   "customerList": [

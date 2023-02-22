@@ -18,7 +18,7 @@ const items = [
     key: "1",
   },
   {
-    label: <a href="https://localhost:3000/profile">個人資訊</a>,
+    label: <a href="/profile">個人資訊</a>,
     key: "2",
   },
 ];

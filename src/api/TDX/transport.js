@@ -3,9 +3,9 @@ import getAuthorizationHeader from './getAuthorizationHeader';
 
 export const rentBike = axios.create({
     headers: getAuthorizationHeader(),
-    baseURL: 'https://ptx.transportdata.tw/api/basic/v2/Bike/'
+    baseURL: 'https://tdx.transportdata.tw/api/basic/v2/Bike/'
   })
   export const cyclingRoute = axios.create({
     headers: getAuthorizationHeader(),
-    baseURL: 'https://ptx.transportdata.tw/api/basic/v2/Cycling/Shape/City'
+    baseURL: 'https://tdx.transportdata.tw/api/basic/v2/Cycling/Shape/City'
   })

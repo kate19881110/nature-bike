@@ -9,6 +9,7 @@ const useShape = () => {
     const finalUrl = `${city}?${tail}`;
     try {
       const { data } = await cyclingRoute.get(finalUrl);
+      console.log("useShape", data);
       setSpots(data);
     } catch (error) {
       failPOP("權限到期，請重新整理後再試一次");
