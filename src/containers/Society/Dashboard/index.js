@@ -1,19 +1,10 @@
-import React from 'react';
-import {
-  Row, Col, Card, Image,
-} from 'antd';
-import * as Style from './style';
-import BikeIcon from '../../../static/icons/bike.png';
-import ManIcon from '../../../static/icons/man.png';
-import WomanIcon from '../../../static/icons/woman.png';
-// import BarLineMixTrend from './components/compos/BarLineMixTrend';
-// import {
-//   XAXIS,
-//   ROTATE,
-//   LABEL,
-//   YAXIS,
-// } from '../../utils/trendConst';
-import BarLine from './components/BarLine';
+import React from "react";
+import { Row, Col, Card, Image } from "antd";
+import * as Style from "./style";
+import BikeIcon from "../../../static/icons/bike.png";
+import ManIcon from "../../../static/icons/man.png";
+import WomanIcon from "../../../static/icons/woman.png";
+import BarLineMixTrend from "./components/BarLineMixTrend/index";
 
 function Dashboard() {
   return (
@@ -45,39 +36,38 @@ function Dashboard() {
         </Col>
       </Row>
       <Row>
-        <BarLine />
-        {/* <BarLineMixTrend
-          title="性別比例"
-          data={[]}
-          dataZoomType={[]}
-          lineList={['Estimate', 'Montly']}
-          lineStyle={{ dashedList: ['Estimate'] }}
-          color={[
-            '#1570FF',
-            '#7BD45C',
-            '#F97600',
-            '#9DDEF4',
-            '#C2A5F9',
-            '#FECE00',
-            '#389810',
-          ]}
-          labelQuantifierType={LABEL.quantifierType.none}
-          xAxisData={[]}
-          xAxisStyle={{
-            grid: XAXIS.grid.default,
-            rotate: ROTATE.no,
-          }}
-          xAxisFormatType={XAXIS.formatType['YYYY/MM']}
-          yAxisType={YAXIS.type.singleAxis}
-          yAxisStyle={{
-            name: {
-              left: YAXIS.name.amountNtdMillion,
-            },
-            formatterType: {
-              left: YAXIS.formatterType.default,
-            },
-          }}
-        /> */}
+        <Col xs={24} md={24} lg={12}>
+          <Card bordered>
+            <BarLineMixTrend
+              title="年齡/性別比例"
+              color={["#1570FF", "#F5574E"]}
+              xAxisStyle={{
+                left: "3%",
+                right: "4%",
+                bottom: "3%",
+                containLabel: true,
+              }}
+              xAxisType="value"
+              xAxisData=""
+              yAxisType="category"
+              yAxisData={[
+                "22~25歲",
+                "25歲~30歲",
+                "31~35歲",
+                "36~40歲",
+                "41~45歲",
+                "46~50歲",
+                "51~55歲",
+              ]}
+              trendName={["男生", "女性"]}
+              seriesType="bar"
+              data={[
+                [20, 15, 5, 10, 3, 15, 20],
+                [10, 3, 25, 13, 8, 4, 13],
+              ]}
+            />
+          </Card>
+        </Col>
       </Row>
     </>
   );
