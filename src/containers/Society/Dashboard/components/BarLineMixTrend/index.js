@@ -112,6 +112,6 @@ function BarLineMixTrend({
     initChart();
   }, []);
 
-  return <div id="main" style={{ width: '100%', height: '100%' }} />;
+  return <div id="main" style={{ width: 600, height: 300 }} />;
 }
 export default BarLineMixTrend;

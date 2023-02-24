@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import menusList from "../api/Menu/menusList";
 import HeaderElement from "./Header";
-import Content from "./Content";
+import ContentList from "./Content";
 
-const { Sider } = Layout;
+const { Sider, Content } = Layout;
 
 function BasicLayout() {
+  const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -18,13 +20,16 @@ function BasicLayout() {
     const pathnames = pathname.split("/").filter((item) => item);
 
     return (
-      <Layout style={{ minHeight: "100vh", overflowX: "scroll" }}>
+      <Layout style={{ minHeight: "100vh", minWidth: "100vw"}}>
         <HeaderElement />
         <Layout>
           <Sider
             style={{
               background: colorBgContainer,
             }}
+            trigger={null}
+            collapsible
+            collapsed={collapsed}
           >
             <Menu
               onClick={({ key }) => {
@@ -50,19 +55,32 @@ function BasicLayout() {
                 margin: "16px 0",
               }}
             >
-              {pathnames.map((name, index) => {
-                const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
-                const isLast = index === pathnames.length - 1;
-                return isLast ? (
-                  <Breadcrumb.Item>{name}</Breadcrumb.Item>
-                ) : (
-                  <Breadcrumb.Item>
-                    <Link to={`${routeTo}`}>{name}</Link>
-                  </Breadcrumb.Item>
-                );
-              })}
+              <div style={{ margin: "0 16px 0 0" }}>
+                {React.createElement(
+                  collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+                  {
+                    className: "trigger",
+                    onClick: () => setCollapsed(!collapsed),
+                  }
+                )}
+              </div>
+              <div style={{ display: "flex", justifyContent: "left" }}>
+                {pathnames.map((name, index) => {
+                  const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
+                  const isLast = index === pathnames.length - 1;
+                  return isLast ? (
+                    <Breadcrumb.Item>{name}</Breadcrumb.Item>
+                  ) : (
+                    <Breadcrumb.Item>
+                      <Link to={`${routeTo}`}>{name}</Link>
+                    </Breadcrumb.Item>
+                  );
+                })}
+              </div>
             </Breadcrumb>
-            <Content />
+            <Content>
+              <ContentList />
+            </Content>
           </Layout>
         </Layout>
       </Layout>

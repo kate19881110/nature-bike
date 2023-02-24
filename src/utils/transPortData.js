@@ -1,4 +1,18 @@
-const cityList = {
+const transPortData = {
+  navLinkInfo: [
+    {
+      label: "單車租借",
+      value: "單車租借",
+    },
+    {
+      label: "單車路線",
+      value: "單車路線",
+    },
+    {
+      label: "單車景點",
+      value: "單車景點",
+    },
+  ],
   siteOptions: [
     { label: "基隆市", value: "Keelung" },
     { label: "臺北市", value: "Taipei" },
@@ -36,4 +50,4 @@ const cityList = {
   ],
 };
 
-export default cityList;
+export default transPortData;
