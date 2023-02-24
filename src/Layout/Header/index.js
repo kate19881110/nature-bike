@@ -29,7 +29,7 @@ function HeaderElement() {
         position: "sticky",
         with: "100%",
         top: 0,
-        zIndex: 1,
+        zIndex: 1000,
         background: "dark",
       }}
     >
