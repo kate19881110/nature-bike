@@ -30,6 +30,7 @@ export const loginAPI = (account, password) => {
       const token = `${account}ABCD${password}`;
       setToken(token);
       successPOP("登入");
+      window.location.reload();
     })
     .catch((err) => {
       failPOP("登入");

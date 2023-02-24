@@ -32,7 +32,6 @@ function Login() {
     setLoading(true);
     loginAPI(account, password);
     navigate("/");
-    window.location.reload();
   };
 
   const handleRegister = () => {
