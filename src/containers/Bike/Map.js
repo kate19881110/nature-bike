@@ -13,10 +13,11 @@ import "leaflet/dist/leaflet.css";
 import Nav from "./component/Nav";
 import useShape from "../../hook/useShape";
 import cityList from "../../utils/transPortData";
+import Icon from "../../static/icons/SelectMark.png";
 import "./Map.css";
 
 function Map() {
-  const resultRef = useRef(null);
+  const cardRef = useRef(1);
   let wicket = new Wkt.Wkt();
   const { Meta } = Card;
   const [cityName, setSearchCityName] = useState("");
@@ -36,55 +37,39 @@ function Map() {
   const GEOstyle = {
     color: "red",
   };
+
   const handleCity = (value) => {
     setSearchCityName(value);
     setOpenBoard(true);
   };
 
-  // const getOwnPosition = () => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition((position) => {
-  //       let { longitude } = position.coords; // 經度
-  //       let { latitude } = position.coords; // 緯度
-  //     });
-  //   }
-  // };
-
   const calculateKm = (routesLength) => {
     return `${(routesLength / 1000).toFixed(1)}KM`;
   };
 
-  const onRouteCardClick = (bike) => {
-    // console.log("bike.Geometry", bike.Geometry);
-    let geo = bike.Geometry;
-    console.log("geo", geo);
+  const onRouteCardClick = (item, index) => {
+    let geo = wicket.read(item.Geometry);
     setSelectedCard({
-      name: bike.RouteName,
-      authorityName: bike.AuthorityName,
-      city: bike.City,
-      cyclingLength: bike.CyclingLength,
-      geometry: geo,
-      start: bike.RoadSectionStart,
-      end: bike.RoadSectionEnd,
+      name: item.RouteName,
+      uid: `uid${index}`,
+      authorityName: item.AuthorityName,
+      city: item.City,
+      cyclingLength: item.CyclingLength,
+      geometry: geo.components,
+      start: item.RoadSectionStart,
+      end: item.RoadSectionEnd,
     });
   };
 
-  const routePolyLine = () => {
-    console.log("selectedCard", selectedCard);
-    let array = selectedCard.geometry[0].map((item) => {
-      return [item.y, item.x];
-    });
-    setSelectedRouterLine([array]);
-  };
-
-  let cardList = routes.map((item) => (
+  let cardList = routes.map((item, index) => (
     <Card
-      ref={resultRef}
+      ref={cardRef}
       hoverable
       style={{ width: 240, zIndex: 1000 }}
-      onClick={onRouteCardClick(item)}
+      id={`id${index}`}
+      key={item.uid}
+      // onClick={onRouteCardClick(item, index)}
     >
-      {/* <p>軌跡資料: {item.Geometry}</p> */}
       <Meta title={item.RouteName} description={item.Town} />
       <p>{calculateKm(item.CyclingLength)}</p>
     </Card>
@@ -99,10 +84,10 @@ function Map() {
   // 選擇card後，指定座標給map
   useEffect(() => {
     try {
+      const countRef = cardRef.current;
       let array = selectedCard.geometry[0].map((item) => {
         return [item.y, item.x];
       });
-
       setSelectedRouterLine([array]);
     } catch (error) {
       console.log("error");
@@ -142,11 +127,7 @@ function Map() {
           {cardList}
         </div>
       </Card>
-      <MapContainer
-        center={[25.03371, 121.564718]}
-        zoom={18}
-        scrollWheelZoom={false}
-      >
+      <MapContainer center={[25.03371, 121.564718]} zoom={18} scrollWheelZoom>
         <TileLayer
           attribution='Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
           url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
@@ -156,7 +137,11 @@ function Map() {
           zoomOffset={-1}
           accessToken="pk.eyJ1IjoiamVzc2ljYWthdGUxMTEwIiwiYSI6ImNsZHZnZnB6ZzBmNW8zcHBjejg4c3VnbGsifQ.my0WIAiUL12bgW8_s0TXZQ"
         />
-        <Polyline pathOptions={GEOstyle} positions={selectedRouterLine} />
+        <Polyline
+          pathOptions={GEOstyle}
+          positions={selectedRouterLine}
+          icon={Icon}
+        />
         <Marker position={[25.03371, 121.564718]}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
