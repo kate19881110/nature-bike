@@ -4,7 +4,7 @@ import * as Style from "./style";
 import BikeIcon from "../../../static/icons/bike.png";
 import ManIcon from "../../../static/icons/man.png";
 import WomanIcon from "../../../static/icons/woman.png";
-import BarLineMixTrend from "./components/BarLineMixTrend/index";
+import BarLineMixTrend from "../../../components/BarLineMixTrend/index";
 
 function Dashboard() {
   return (
@@ -36,11 +36,11 @@ function Dashboard() {
         </Col>
       </Row>
       <Row>
-        <Col xs={24} md={24} lg={12}>
+        <Col md={12} lg={12}>
           <Card bordered>
             <BarLineMixTrend
               title="年齡/性別比例"
-              color={["#1570FF", "#F5574E"]}
+              color={["#2A52BE", "#DE3163"]}
               xAxisStyle={{
                 left: "3%",
                 right: "4%",
@@ -59,11 +59,32 @@ function Dashboard() {
                 "46~50歲",
                 "51~55歲",
               ]}
+              yAxisUnit=""
               trendName={["男生", "女性"]}
               seriesType="bar"
               data={[
                 [20, 15, 5, 10, 3, 15, 20],
                 [10, 3, 25, 13, 8, 4, 13],
+              ]}
+            />
+          </Card>
+        </Col>
+        <Col md={12} lg={12}>
+          <Card bordered>
+            <BarLineMixTrend
+              title="參加活動總人數"
+              color={["#FFD700", "#006374"]}
+              xAxisStyle=""
+              xAxisType="category"
+              xAxisData={['2022/7', '2022/10', '2023/3', '2023/5', '2023/8', '2023/12']}
+              yAxisType="value"
+              yAxisData=""
+              yAxisUnit="{value} 人數"
+              trendName={["2022", "2023"]}
+              seriesType="line"
+              data={[
+                [7, 21, 0, 0, 0, 0, 0],
+                [0, 0, 15, 8, 12, 30, 18],
               ]}
             />
           </Card>
