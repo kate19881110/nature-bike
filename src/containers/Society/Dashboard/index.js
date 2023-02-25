@@ -9,37 +9,40 @@ import BarLineMixTrend from "../../../components/BarLineMixTrend/index";
 function Dashboard() {
   return (
     <>
+      <Style.MarginBottom>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} md={24} lg={8}>
+            <Card bordered={false}>
+              <Style.Center>
+                <Image width={100} src={BikeIcon} />
+                <p>總人數</p>
+              </Style.Center>
+            </Card>
+          </Col>
+          <Col xs={24} md={24} lg={8}>
+            <Card bordered={false}>
+              <Style.Center>
+                <Image width={100} src={ManIcon} />
+                <p>總人數</p>
+              </Style.Center>
+            </Card>
+          </Col>
+          <Col xs={24} md={24} lg={8}>
+            <Card bordered={false}>
+              <Style.Center>
+                <Image width={100} src={WomanIcon} />
+                <p>總人數</p>
+              </Style.Center>
+            </Card>
+          </Col>
+        </Row>
+      </Style.MarginBottom>
       <Row gutter={[16, 16]}>
-        <Col xs={24} md={24} lg={8}>
-          <Card bordered={false}>
-            <Style.Center>
-              <Image width={100} src={BikeIcon} />
-              <p>總人數</p>
-            </Style.Center>
-          </Card>
-        </Col>
-        <Col xs={24} md={24} lg={8}>
-          <Card bordered={false}>
-            <Style.Center>
-              <Image width={100} src={ManIcon} />
-              <p>總人數</p>
-            </Style.Center>
-          </Card>
-        </Col>
-        <Col xs={24} md={24} lg={8}>
-          <Card bordered={false}>
-            <Style.Center>
-              <Image width={100} src={WomanIcon} />
-              <p>總人數</p>
-            </Style.Center>
-          </Card>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={12} lg={12}>
+        <Col sm={24} md={12} lg={8}>
           <Card bordered>
             <BarLineMixTrend
               title="年齡/性別比例"
+              triggerType="axis"
               color={["#2A52BE", "#DE3163"]}
               xAxisStyle={{
                 left: "3%",
@@ -48,7 +51,6 @@ function Dashboard() {
                 containLabel: true,
               }}
               xAxisType="value"
-              xAxisData=""
               yAxisType="category"
               yAxisData={[
                 "22~25歲",
@@ -59,7 +61,6 @@ function Dashboard() {
                 "46~50歲",
                 "51~55歲",
               ]}
-              yAxisUnit=""
               trendName={["男生", "女性"]}
               seriesType="bar"
               data={[
@@ -69,16 +70,22 @@ function Dashboard() {
             />
           </Card>
         </Col>
-        <Col md={12} lg={12}>
+        <Col sm={24} md={12} lg={8}>
           <Card bordered>
             <BarLineMixTrend
               title="參加活動總人數"
+              triggerType="axis"
               color={["#FFD700", "#006374"]}
-              xAxisStyle=""
               xAxisType="category"
-              xAxisData={['2022/7', '2022/10', '2023/3', '2023/5', '2023/8', '2023/12']}
+              xAxisData={[
+                "2022/7",
+                "2022/10",
+                "2023/3",
+                "2023/5",
+                "2023/8",
+                "2023/12",
+              ]}
               yAxisType="value"
-              yAxisData=""
               yAxisUnit="{value} 人數"
               trendName={["2022", "2023"]}
               seriesType="line"
@@ -86,6 +93,18 @@ function Dashboard() {
                 [7, 21, 0, 0, 0, 0, 0],
                 [0, 0, 15, 8, 12, 30, 18],
               ]}
+            />
+          </Card>
+        </Col>
+        <Col sm={24} md={12} lg={8}>
+          <Card bordered>
+            <BarLineMixTrend
+              title="部門參與率"
+              triggerType="item"
+              color={["#5470c6", "#91cc75", "#fac858", "#ee6666", "#73c0de"]}
+              seriesType="pie"
+              nameList={["金融一課", "會計部", "工程師", "翻譯部", "人資部"]}
+              dataList={[8, 3, 20, 12, 5]}
             />
           </Card>
         </Col>

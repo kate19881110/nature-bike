@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Center = styled.div`
   display: flex;
@@ -7,6 +7,10 @@ export const Center = styled.div`
 `;
 
 export const Between = styled.div`
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const MarginBottom = styled.div`
+  margin-bottom: 16px;
 `;
