@@ -92,3 +92,16 @@ export const addAccount = (id, gender, name, email) => {
       console.log("addAccount error", err.toString());
     });
 };
+
+export const deleteAccount = (id) => {
+  console.log("id", id);
+  userRequest
+    .delete(`/AccountList/${id}`)
+    .then((res) => {
+      successPOP("刪除會員");
+    })
+    .catch((err) => {
+      failPOP("刪除會員");
+      console.log("deleteAccount error", err.toString());
+    });
+};

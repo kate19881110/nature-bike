@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { List, Skeleton, Divider } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
-import ToolItem from "../ToolItem/ToolItem";
+import ToolItem from "../ToolItem";
 import { userRequest } from "../../../../api/apiUtil";
 
 function TodoList() {
@@ -11,10 +11,10 @@ function TodoList() {
     return userRequest
       .get("/AccountList")
       .then((res) => {
-        setData([...data, ...res.data]);
+        setData([...res.data]);
       })
       .catch((err) => {
-        console.log("searchAccount error", err.toString());
+        console.log("getAccount error", err.toString());
       });
   };
 
@@ -32,10 +32,8 @@ function TodoList() {
       }}
     >
       <InfiniteScroll
-        // eslint-disable-next-line react/destructuring-assignment
         dataLength={data.length || []}
         next={moreDataFn || []}
-        // eslint-disable-next-line react/destructuring-assignment
         hasMore={data.length || [] < 50}
         loader={
           <Skeleton
@@ -51,7 +49,8 @@ function TodoList() {
       >
         <List
           dataSource={data || []}
-          renderItem={(item) => <ToolItem listData={item} />}
+          renderItem={(item) =>
+            <ToolItem listData={item} />}
         />
       </InfiniteScroll>
     </div>

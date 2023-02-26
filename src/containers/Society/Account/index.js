@@ -31,7 +31,7 @@ function Customer() {
           </Card>
         </Col>
       </Row>
-      <Row justify="center" align="middle">
+      <Row justify="center" align="middle" style={{margin: "16px 0"}}>
         <Col
           xs={{ span: 23 }}
           sm={{ span: 23 }}

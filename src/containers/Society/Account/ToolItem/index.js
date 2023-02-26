@@ -3,22 +3,25 @@ import {
   List, Switch, Popconfirm, Avatar, message,
 } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import {successPOP, failPOP, deleteAccount} from '../../../../api/apiUtil';
 import * as Style from './style';
 
-function ToolItem(listData) {
+function ToolItem({listData}) {
+  const { id, email, picture, name } = listData;
   const [disabled, setDisabled] = useState(false);
   const toggle = () => {
     setDisabled(!disabled);
   };
 
-  const confirm = (e) => {
-    message.success(`${e}刪除成功!`);
+  const confirm = () => {
+    deleteAccount(id);
+    window.location.reload();
   };
 
-  const cancel = (e) => {
-    message.error(e, '取消刪除!');
+  const cancel = () => {
+    console.log("取消刪除", id)
   };
-  const { email, picture, name } = listData;
+  
   return (
     <List.Item key={email}>
       <List.Item.Meta

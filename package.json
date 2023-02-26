@@ -10,7 +10,7 @@
     "antd": "^5.2.2",
     "axios": "^1.2.5",
     "echarts": "^5.4.1",
-    "json-server": "^0.17.1",
+    "json-server": "^0.17.2",
     "jssha": "^3.3.0",
     "leaflet": "^1.9.3",
     "lodash": "^4.17.21",
