@@ -17,12 +17,11 @@ import Icon from "../../static/icons/SelectMark.png";
 import "./Map.css";
 
 function Map() {
+  const { Meta } = Card;
   const cardRef = useRef(1);
   let wicket = new Wkt.Wkt();
-  const { Meta } = Card;
   const [cityName, setSearchCityName] = useState("");
   const [routes, searchRoutes] = useShape();
-  const [activeCard, setActiveCard] = useState(0);
   const [currentRoutes, setCurrentRoutes] = useState([]);
   const [openBoard, setOpenBoard] = useState(false);
   const [selectedRouterLine, setSelectedRouterLine] = useState([]);
@@ -40,15 +39,17 @@ function Map() {
     color: "red",
   };
 
+  const calculateKm = (routesLength) => {
+    return `${(routesLength / 1000).toFixed(1)}公里`;
+  };
   const handleCity = (value) => {
     console.log("handleCity", value);
     setSearchCityName(value);
     setOpenBoard(true);
   };
 
-  const calculateKm = (routesLength) => {
-    return `${(routesLength / 1000).toFixed(1)}KM`;
-  };
+
+
 
   // TODO
   const transferSpotData = () => {
@@ -57,7 +58,7 @@ function Map() {
       let geo = wicket.read(item.Geometry);
       return {
         name: item.RouteName,
-        // uid: `uid${index}`,
+        uid: `uid${index}`,
         authorityName: item.AuthorityName,
         city: item.City,
         cyclingLength: item.CyclingLength,
@@ -68,16 +69,13 @@ function Map() {
     });
     console.log("transferSpotData routeData", routeData);
     console.log("transferSpotData routes", routes);
-    searchRoutes(routeData);
+    setCurrentRoutes(routeData);
   };
 
   // TODO 讀不到 selectedResult.name
-  const onRouteCardClick = (number) => {
-    
-    setActiveCard(number);
-
-    const selectedResult = routes.find((item, index) => {
-      return index + 1 === activeCard;
+  const onResultCardClick = (e) => {
+    const selectedResult = currentRoutes.find((item) => {
+      return item.uid === e.target.id;
     });
     console.log("selectedResult ", selectedResult);
     setSelectedCard({
@@ -91,15 +89,15 @@ function Map() {
     });
   };
 
-  // TODO unique key
-  const cardListRender = () => {
-    return routes.map((item, index) => (
+  const renderCard = (spots) => {
+    return spots.map((item, index) => (
       <Card
         ref={cardRef}
+        key={item.RouteName}
+        id={`${item.RouteName}index`}
         hoverable
         style={{ width: 240, zIndex: 1000 }}
-        key={activeCard}
-        // onClick={onRouteCardClick(item)}
+        onClick={onResultCardClick}
       >
         <Meta title={item.RouteName} description={item.Town} />
         <p>{calculateKm(item.CyclingLength)}</p>
@@ -107,17 +105,21 @@ function Map() {
     ));
   };
 
-  useEffect(() => {
-    transferSpotData();
-  }, [routes]);
-
-  // 選擇縣市的下拉選單，出現 所選的車道card
-  useEffect(() => {
-    if (cityName !== "") {
-      setCurrentRoutes([]);
-      searchRoutes({ city: cityName });
-    }
-  }, [cityName]);
+    // 選擇縣市的下拉選單，出現 所選的車道card
+    useEffect(() => {
+      if (cityName !== "") {
+        setCurrentRoutes([]);
+        searchRoutes({ city: cityName });
+      }
+    }, [cityName]);
+  
+    useEffect(() => {
+      transferSpotData()
+    }, [routes]);
+  
+    useEffect(() => {
+      console.log(selectedRouterLine);
+    }, [selectedRouterLine]);
 
   // 選擇card後，指定座標給map
   useEffect(() => {
@@ -163,7 +165,7 @@ function Map() {
             justifyContent: "center",
           }}
         >
-          {cardListRender(currentRoutes)}
+          {renderCard(currentRoutes)}
         </div>
       </Card>
       <MapContainer center={[25.03371, 121.564718]} zoom={18} scrollWheelZoom>
