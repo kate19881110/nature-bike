@@ -1,64 +1,60 @@
-import {
-  Form, Radio, Input, Modal,
-} from 'antd';
-import { useState } from 'react';
-import { v4 } from 'uuid';
-// import mockData from '../TodoList/mock.json';
+import React, { useState } from "react";
+import { Form, Radio, Input, Modal } from "antd";
+import { v4 } from "uuid";
+import { addAccount } from "../../../../api/apiUtil";
 
-function EditModal(openModal, add) {
-  const [isModalOpen, setIsModalOpen] = useState(openModal);
+function EditModal({ onOk, visible, closeModal }) {
   // const [fileList, setFileList] = useState([]);
   // const handleChange = ({ fileList: newFileList }) => {
   //   setFileList(newFileList);
   // };
 
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
   const handleGender = (e) => {
     setGender(e.target.value);
   };
 
-  const [name, setName] = useState('');
   const handleName = (e) => {
     setName(e.target.value);
   };
 
-  const [email, setEmail] = useState('');
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
-  const handleOk = () => {
-    setIsModalOpen(false);
-    add((prevData) => [
-      {
-        id: v4(),
-        gender,
-        name,
-        email,
-      },
-      ...prevData,
-    ]);
+
+  const confirmRequest = (e) => {
+    e.preventDefault();
+    addAccount(
+      v4(),
+      gender,
+      name,
+      email,
+    );
+    onOk();
+    closeModal();
   };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+
   return (
     <Modal
-      title="會員資訊"
-      open={isModalOpen}
-      onOk={handleOk}
-      onCancel={handleCancel}
+      title="新增會員"
+      open={visible}
+      onOk={confirmRequest}
+      onCancel={closeModal}
     >
       <Form>
-        <Form.Item label="會員照片">
-          {/* <Upload
+        {/* <Form.Item label="會員照片">
+          <Upload
             action= {mockData.results}
             listType="picture-card"
             fileList={fileList} //上傳列表檔案
             onChange={handleChange}
           >
             Upload
-          </Upload> */}
-        </Form.Item>
+          </Upload>
+        </Form.Item> */}
         <Form.Item label="性別">
           <Radio.Group value={gender} onChange={handleGender}>
             <Radio value="male">Male</Radio>

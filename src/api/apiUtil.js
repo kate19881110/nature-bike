@@ -75,3 +75,20 @@ export const forgetPwdAPI = (id, userPassword) => {
       console.log("forgetPwd error", err.toString());
     });
 };
+
+export const addAccount = (id, gender, name, email) => {
+  userRequest
+    .post("/AccountList", {
+      id,
+      gender,
+      name,
+      email,
+    })
+    .then((res) => {
+      successPOP("新增會員");
+    })
+    .catch((err) => {
+      failPOP("新增會員");
+      console.log("addAccount error", err.toString());
+    });
+};

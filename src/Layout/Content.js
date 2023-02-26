@@ -6,6 +6,7 @@ import BikeRoute from "../containers/Bike/BikeRoute";
 import SocietyList from "../containers/Marketing/SocietyList";
 import ActivityInfo from "../containers/Marketing/ActivityInfo";
 import Charge from "../containers/Society/Charge";
+import Account from "../containers/Society/Account";
 import NotFound from "./NotFound";
 import Home from "../containers/Home";
 import Profile from "../containers/Profile";
@@ -17,6 +18,7 @@ function Content() {
         <Route exact path="home" element={<Home />} />
         <Route exact path="bike/Activity" element={<BikeRoute />} />
         <Route exact path="bike/map" element={<Bike />} />
+        <Route exact path="society/account" element={<Account />} />
         <Route exact path="society/dashboard" element={<Dashboard />} />
         <Route exact path="society/charge" element={<Charge />} />
         <Route exact path="market/list" element={<SocietyList />} />

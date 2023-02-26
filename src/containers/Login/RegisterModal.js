@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Modal, Form, message, Input, Select } from "antd";
+import { Modal, Form, Input, Select } from "antd";
 import societyName from "../../api/Society/societyName";
-import { registerAPI } from "../../api/apiUtil";
+import { registerAPI, successPOP, failPOP } from "../../api/apiUtil";
 
 function Register({ onOk, visible, closeModal }) {
   const [loading, setLoading] = useState(false);
@@ -10,21 +10,14 @@ function Register({ onOk, visible, closeModal }) {
   const [userMail, setUserMail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userSociety, setUserSociety] = useState("");
-  const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    messageApi.open({
-      type: "success",
-      content: `註冊成功${values}`,
-    });
+    successPOP("註冊");
   };
 
   const onFinishFailed = (errorInfo) => {
-    messageApi.open({
-      type: "error",
-      content: `註冊失敗${errorInfo}`,
-    });
+    failPOP("註冊");
   };
 
   const handleUserName = (e) => {
@@ -63,7 +56,6 @@ function Register({ onOk, visible, closeModal }) {
       onOk={confirmRequest}
       onCancel={closeModal}
     >
-      {contextHolder}
       <Form
         form={form}
         name="RegisterModal"

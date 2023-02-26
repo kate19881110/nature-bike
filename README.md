@@ -48,13 +48,13 @@ json-server --watch db.json
 └── webpack.config.js
 
 ```
-# E-Charts
+
 
 # 安裝套件
 1. jsSHA 
    JS + TS 完整SHA系列加密算法的加密庫
-2. 地圖套件
-3. echarts
+2. 地圖套件 Leaflet MapBox
+3. Echarts
 4. react router
-5. Leaflet
+5. react scroll
 
