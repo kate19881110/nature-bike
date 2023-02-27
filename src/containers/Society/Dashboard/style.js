@@ -6,11 +6,15 @@ export const Center = styled.div`
   align-items: center;
 `;
 
+export const MarginTop = styled.div`
+  margin: 40px 0;
+`;
+
 export const Between = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-export const MarginBottom = styled.div`
-  margin-bottom: 16px;
+export const Margin = styled.div`
+  margin: 16px 0;
 `;
