@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -13,18 +13,19 @@ import "leaflet/dist/leaflet.css";
 import Nav from "./component/Nav";
 import useShape from "../../hook/useShape";
 import cityList from "../../utils/transPortData";
-import Icon from "../../static/icons/SelectMark.png";
+import IconImg from "../../static/icons/SelectMark.png";
 import "./Map.css";
+import Context from "../../store";
 
 function Map() {
-  const { Meta } = Card;
-  const cardRef = useRef(1);
-  let wicket = new Wkt.Wkt();
+  const ctx = useContext(Context);
+  // console.log("共享數據", ctx);
   const [cityName, setSearchCityName] = useState("");
   const [routes, searchRoutes] = useShape();
   const [currentRoutes, setCurrentRoutes] = useState([]);
   const [openBoard, setOpenBoard] = useState(false);
   const [selectedRouterLine, setSelectedRouterLine] = useState([]);
+  const [uniqueId, setUniqueId] = useState("");
   const [selectedCard, setSelectedCard] = useState({
     name: "",
     authorityName: "",
@@ -35,30 +36,30 @@ function Map() {
     end: "",
   });
 
+  const { Meta } = Card;
+  const cardRef = useRef(1);
+  let wicket = new Wkt.Wkt();
+
   const GEOstyle = {
     color: "red",
   };
 
   const calculateKm = (routesLength) => {
-    return `${(routesLength / 1000).toFixed(1)}公里`;
+    return `${(routesLength / 1000).toFixed(2)}公里`;
   };
   const handleCity = (value) => {
-    console.log("handleCity", value);
     setSearchCityName(value);
     setOpenBoard(true);
   };
 
-
-
-
-  // TODO
   const transferSpotData = () => {
     let routeData;
-    routeData = routes.map((item, index) => {
+    routeData = routes.map((item) => {
       let geo = wicket.read(item.Geometry);
+      setUniqueId(item.RouteName);
       return {
         name: item.RouteName,
-        uid: `uid${index}`,
+        uid: item.RouteName,
         authorityName: item.AuthorityName,
         city: item.City,
         cyclingLength: item.CyclingLength,
@@ -67,17 +68,13 @@ function Map() {
         end: item.RoadSectionEnd,
       };
     });
-    console.log("transferSpotData routeData", routeData);
-    console.log("transferSpotData routes", routes);
     setCurrentRoutes(routeData);
   };
 
-  // TODO 讀不到 selectedResult.name
-  const onResultCardClick = (e) => {
+  const onResultCardClick = (id) => {
     const selectedResult = currentRoutes.find((item) => {
-      return item.uid === e.target.id;
+      return item.uid === id;
     });
-    console.log("selectedResult ", selectedResult);
     setSelectedCard({
       name: selectedResult.name,
       authorityName: selectedResult.authorityName,
@@ -90,45 +87,50 @@ function Map() {
   };
 
   const renderCard = (spots) => {
-    return spots.map((item, index) => (
-      <Card
-        ref={cardRef}
-        key={item.RouteName}
-        id={`${item.RouteName}index`}
-        hoverable
-        style={{ width: 240, zIndex: 1000 }}
-        onClick={onResultCardClick}
-      >
-        <Meta title={item.RouteName} description={item.Town} />
-        <p>{calculateKm(item.CyclingLength)}</p>
-      </Card>
-    ));
+    return spots.map(
+      (item) => (
+        (
+          <Card
+            ref={cardRef}
+            key={item.uid}
+            id={item.uid}
+            hoverable
+            style={{ width: 240, zIndex: 1000 }}
+            onClick={(e) => {
+              onResultCardClick(uniqueId);
+            }}
+          >
+                 {item.uid}
+            <Meta title={item.name} description={item.city} />
+            <p>{calculateKm(item.cyclingLength)}</p>
+          </Card>
+        )
+      )
+    );
   };
 
-    // 選擇縣市的下拉選單，出現 所選的車道card
-    useEffect(() => {
-      if (cityName !== "") {
-        setCurrentRoutes([]);
-        searchRoutes({ city: cityName });
-      }
-    }, [cityName]);
-  
-    useEffect(() => {
-      transferSpotData()
-    }, [routes]);
-  
-    useEffect(() => {
-      console.log(selectedRouterLine);
-    }, [selectedRouterLine]);
+  // 選擇縣市的下拉選單，出現 所選的車道card
+  useEffect(() => {
+    if (cityName !== "") {
+      setCurrentRoutes([]);
+      searchRoutes({ city: cityName });
+    }
+  }, [cityName]);
+
+  useEffect(() => {
+    transferSpotData();
+  }, [routes]);
+
+  useEffect(() => {
+    console.log(selectedRouterLine);
+  }, [selectedRouterLine]);
 
   // 選擇card後，指定座標給map
   useEffect(() => {
     try {
-      // const countRef = cardRef.current;
       let array = selectedCard.geometry[0].map((item) => {
         return [item.y, item.x];
       });
-      console.log("array", array);
       setSelectedRouterLine([array]);
     } catch (error) {
       console.log("error");
@@ -148,8 +150,7 @@ function Map() {
             onChange={handleCity}
             options={cityList.siteOptions}
             allowClear
-          >
-          </Select>
+          />
         </div>
       </div>
       <Card
@@ -181,7 +182,7 @@ function Map() {
         <Polyline
           pathOptions={GEOstyle}
           positions={selectedRouterLine}
-          icon={Icon}
+          icon={IconImg}
         />
         <Marker position={[25.03371, 121.564718]}>
           <Popup>
