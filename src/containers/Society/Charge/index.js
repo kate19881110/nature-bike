@@ -13,7 +13,15 @@ import dayjs from "dayjs";
 import * as Style from "./style";
 
 function Charge() {
-  const [value, setValue] = useState(1);
+  const [voucherNum, setVoucherNum] = useState("");
+  const [applyDate, setApplyDate] = useState("");
+  const [staffName, setStaffName] = useState("");
+  const [staffEditor, setStaffEditor] = useState("");
+  const [typeOptions, setTypeOptions] = useState(1);
+  const [fundSource, setFundSource] = useState(1);
+  const [paymentWay, setPaymentWay] = useState(1);
+  const [needDate, setNeedDate] = useState("");
+  const [sendAddress, setSendAddress] = useState(1);
   const dateFormat = "YYYY/MM/DD";
   const date = new Date();
   const makeZero = (number) => {
@@ -26,9 +34,40 @@ function Charge() {
     date.getMonth() + 1
   )}/${makeZero(date.getDate())}`;
 
-  const onChange = (e) => {
-    console.log("radio checked", e.target.value);
-    setValue(e.target.value);
+  const handleVoucherNum = (e) => {
+    setVoucherNum(e.target.value);
+  };
+
+  const handleDate = (e) => {
+    setApplyDate(e.target.value);
+  };
+
+  const handleStaffName = (e) => {
+    setStaffName(e.target.value);
+  };
+
+  const handleStaffEditor = (e) => {
+    setStaffEditor(e.target.value);
+  };
+
+  const handleTypeOptions = (e) => {
+    setTypeOptions(e.target.value);
+  };
+
+  const handleFundSource = (e) => {
+    setFundSource(e.target.value);
+  };
+
+  const handlePaymentWay = (e) => {
+    setPaymentWay(e.target.value);
+  };
+
+  const handleNeedDate = (e) => {
+    setNeedDate(e.target.value);
+  };
+
+  const handleSendAddress = (e) => {
+    setSendAddress(e.target.value);
   };
   return (
     <>
@@ -40,7 +79,7 @@ function Charge() {
           </Style.VerticalCenter>
         </Col>
         <Col>
-          <Input />
+          <Input value={voucherNum} onChange={handleVoucherNum} />
         </Col>
         <Col lg={{ span: 2, offset: 11 }}>
           <Style.VerticalCenter>
@@ -51,6 +90,8 @@ function Charge() {
           <DatePicker
             defaultValue={dayjs(toDate, dateFormat)}
             format={dateFormat}
+            value={applyDate}
+            onChange={handleDate}
           />
         </Col>
       </Row>
@@ -60,16 +101,16 @@ function Charge() {
         size="default"
       >
         <Descriptions.Item label="員工姓名">
-          <Input allowClear />
+          <Input value={staffName} onChange={handleStaffName} allowClear />
         </Descriptions.Item>
         <Descriptions.Item label="員工編號">
-          <Input allowClear />
+          <Input value={staffEditor} onChange={handleStaffEditor} allowClear />
         </Descriptions.Item>
         <Descriptions.Item label="申請部門" span={2}>
           福委會
         </Descriptions.Item>
         <Descriptions.Item label="性質" span={2}>
-          <Radio.Group onChange={onChange} value={value}>
+          <Radio.Group value={typeOptions} onChange={handleTypeOptions}>
             <Radio value={1}>客戶代購</Radio>
             <Radio value={2}>公司自購</Radio>
             <Radio value={3}>員工自購</Radio>
@@ -77,13 +118,13 @@ function Charge() {
           </Radio.Group>
         </Descriptions.Item>
         <Descriptions.Item label="經費來源" span={2}>
-          <Radio.Group onChange={onChange} value={value}>
+          <Radio.Group value={fundSource} onChange={handleFundSource}>
             <Radio value={1}>公司</Radio>
             <Radio value={2}>客戶</Radio>
           </Radio.Group>
         </Descriptions.Item>
         <Descriptions.Item label="報支方式" span={2}>
-          <Radio.Group onChange={onChange} value={value}>
+          <Radio.Group value={paymentWay} onChange={handlePaymentWay}>
             <Row>
               <Style.AlignCenter>
                 <Radio value={1}>檢具單據請款</Radio>
@@ -107,11 +148,13 @@ function Charge() {
           <DatePicker
             defaultValue={dayjs(toDate, dateFormat)}
             format={dateFormat}
+            value={needDate}
+            onChange={handleNeedDate}
           />
         </Descriptions.Item>
         <Descriptions.Item label="受款人/廠商">福委會</Descriptions.Item>
         <Descriptions.Item label="地址">
-          <Radio.Group onChange={onChange} value={value}>
+          <Radio.Group value={sendAddress} onChange={handleSendAddress}>
             <Radio value={1}>帳款逕寄發票地址</Radio>
             <Radio value={2}>其他</Radio>
           </Radio.Group>
