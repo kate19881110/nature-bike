@@ -93,8 +93,24 @@ export const addAccount = (id, gender, name, email) => {
     });
 };
 
+export const editAccount = (id, userGender, userName, userEmail) => {
+  userRequest
+    .put(`/AccountList/${id}`, {
+      id,
+      gender: userGender,
+      name: userName,
+      email: userEmail
+    })
+    .then((res) => {
+      successPOP("更新會員資料");
+    })
+    .catch((err) => {
+      failPOP("更新會員資料");
+      console.log("editAccount error", err.toString());
+    });
+};
+
 export const deleteAccount = (id) => {
-  console.log("id", id);
   userRequest
     .delete(`/AccountList/${id}`)
     .then((res) => {

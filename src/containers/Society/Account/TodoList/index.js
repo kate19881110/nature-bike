@@ -1,25 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { List, Skeleton, Divider } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ToolItem from "../ToolItem";
-import { userRequest } from "../../../../api/apiUtil";
 
-function TodoList() {
-  const [data, setData] = useState([]);
-  
-  const moreDataFn = () => {
-    return userRequest
-      .get("/AccountList")
-      .then((res) => {
-        setData([...res.data]);
-      })
-      .catch((err) => {
-        console.log("getAccount error", err.toString());
-      });
-  };
+function TodoList({ listDataInfo, dataFn }) {
 
   useEffect(() => {
-    moreDataFn();
+    dataFn();
   }, []);
 
   return (
@@ -32,9 +19,9 @@ function TodoList() {
       }}
     >
       <InfiniteScroll
-        dataLength={data.length || []}
-        next={moreDataFn || []}
-        hasMore={data.length || [] < 50}
+        dataLength={listDataInfo.length || []}
+        next={dataFn}
+        hasMore={listDataInfo.length < 10}
         loader={
           <Skeleton
             avatar
@@ -48,9 +35,8 @@ function TodoList() {
         scrollableTarget="scrollableDiv" // 指定滾動的父容器
       >
         <List
-          dataSource={data || []}
-          renderItem={(item) =>
-            <ToolItem listData={item} />}
+          dataSource={listDataInfo || []}
+          renderItem={(item) => <ToolItem listData={item} />}
         />
       </InfiniteScroll>
     </div>
