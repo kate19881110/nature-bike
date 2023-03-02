@@ -278,5 +278,31 @@
       "hostEmail": "",
       "groupInfo": ""
     }
+  ],
+  "chargeItemList":[
+    {
+      "key": 1,
+      "applyDate":"",
+      "staffName": "kate",
+      "staffEditor": "",
+      "typeOptions": "",
+      "fundSource": "",
+      "paymentWay": "",
+      "needDate": "",
+      "sendAddress": "",
+      "askPaymentDate": "",
+      "chargeList":[{
+        "projectNum":"",
+        "projectItem": "",
+        "untaxedMoney": "",
+        "businessTax": "",
+        "remark": ""
+      }],
+      "subtotal":"",
+      "sumtotal": "",
+      "society":"",
+      "terms":"社團費用",
+      "result": "未審核"
+    }
   ]
 }

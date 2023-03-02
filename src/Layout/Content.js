@@ -10,6 +10,7 @@ import Account from "../containers/Society/Account";
 import NotFound from "./NotFound";
 import Home from "../containers/Home";
 import Profile from "../containers/Profile";
+import Reimburse from "../containers/Reimburse";
 
 function Content() {
   return (
@@ -24,6 +25,7 @@ function Content() {
         <Route exact path="market/list" element={<SocietyList />} />
         <Route exact path="market/info" element={<ActivityInfo />} />
         <Route exact path="profile" element={<Profile />} />
+        <Route exact path="/account/reimburse" element={<Reimburse />} />
         <Route exact path="404" element={<NotFound />} />
       </Routes>
     </div>
