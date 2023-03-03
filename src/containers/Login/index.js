@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import { Form, Input, Button, Row } from "antd";
+import React, { useState, } from "react";
+import { Form, Input, Button, Row, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
-import { loginAPI } from "../../api/apiUtil";
+import { successPOP } from "../../api/apiUtil";
 import * as Style from "./style";
 import useModal from "../../hook/useModal";
 import RegisterModal from "./RegisterModal";
 import ForgetPwdModal from "./ForgetPwdModal";
+import useAxios from "../../hook/useAxios";
+import { setToken } from "../../api/axios/auth";
 
 function Login() {
+  const { sendRequest: createData } = useAxios();
   const [loading, setLoading] = useState(false);
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
@@ -24,15 +27,37 @@ function Login() {
     setPassword(e.target.value);
   };
 
+  const loginAPI = () => {
+    createData(
+      {
+        url: "/users",
+        method: "POST",
+        data: {
+          userMail: account,
+          userPwd: password,
+        }
+      },
+      (res) => {
+        const token = `${account}ABCD${password}`;
+        setToken(token);
+        successPOP("登入");
+        setLoading(false);
+        window.location.reload();
+      }
+    );
+  }
+
   const handleLogin = (e) => {
     e.preventDefault();
+    setLoading(true);
     if (loading) {
       return;
     }
-    setLoading(true);
-    loginAPI(account, password);
-    navigate("/");
+    loginAPI();
+    navigate("/home");
   };
+
+
 
   const handleRegister = () => {
     registerDataModal.openModal();
@@ -43,7 +68,7 @@ function Login() {
   };
 
   return (
-    <>
+    <Spin spinning={loading} tip="Loading">
       <ForgetPwdModal {...forgetDataModal} onOk={() => form.submit()} />
       <RegisterModal {...registerDataModal} onOk={() => form.submit()} />
       <Row
@@ -92,7 +117,7 @@ function Login() {
           </Style.Between>
         </Form>
       </Row>
-    </>
+    </Spin>
   );
 }
 
