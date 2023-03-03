@@ -45,6 +45,16 @@
       "userMail": "KateLiu@wistronits.com",
       "userPwd": "Kate951222",
       "id": 7
+    },
+    {
+      "userMail": "dd",
+      "userPwd": "sss",
+      "id": 8
+    },
+    {
+      "userMail": "2223",
+      "userPwd": "333",
+      "id": 9
     }
   ],
   "AccountList": [
@@ -279,29 +289,31 @@
       "groupInfo": ""
     }
   ],
-  "chargeItemList":[
+  "chargeItemList": [
     {
-      "key": 1,
-      "applyDate":"",
+      "id": 12,
+      "applyDate": "2023/03/03",
       "staffName": "kate",
-      "staffEditor": "",
-      "typeOptions": "",
-      "fundSource": "",
-      "paymentWay": "",
-      "needDate": "",
-      "sendAddress": "",
-      "askPaymentDate": "",
-      "chargeList":[{
-        "projectNum":"",
-        "projectItem": "",
-        "untaxedMoney": "",
-        "businessTax": "",
-        "remark": ""
-      }],
-      "subtotal":"",
+      "staffEditor": "TTP02054",
+      "typeOptions": 2,
+      "fundSource": 1,
+      "paymentWay": 2,
+      "needDate": "2023/03/15",
+      "sendAddress": 2,
+      "askPaymentDate": "2023/03/07",
+      "chargeList": 
+        {
+          "projectNum": 33222,
+          "projectItem": "AAAA",
+          "untaxedMoney": 223333,
+          "businessTax": 5,
+          "remark": "33322"
+        }
+      ,
+      "subtotal": 3333,
       "sumtotal": "",
-      "society":"",
-      "terms":"社團費用",
+      "society": "",
+      "terms": "社團費用",
       "result": "未審核"
     }
   ]

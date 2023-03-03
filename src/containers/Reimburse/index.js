@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Form, Button } from "antd";
 import {
   EditOutlined, DeleteOutlined
 } from "@ant-design/icons";
 import ChargeModal from "./ChargeModal";
 import useModal from "../../hook/useModal";
-
-
+import useAxios from "../../hook/useAxios";
 
 function Reimburse() {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const chargeDataModal = useModal({});
+  const [resData, setResData] = useState([]);
+  const { sendRequest: fetchData } = useAxios();
+
   const [form] = Form.useForm();
   const handleCharge = () => {
     chargeDataModal.openModal();
@@ -98,9 +100,15 @@ function Reimburse() {
   };
 
   const hasSelected = selectedRowKeys.length > 0;
+
+  useEffect(() => {
+    fetchData({ url: "/chargeItemList", method: "GET", }, (res) => {
+      setResData(res);
+    });
+  }, []);
   return (
     <>
-     <ChargeModal {...chargeDataModal} onOk={() => form.submit()} />
+     <ChargeModal {...chargeDataModal} resData={resData} onOk={() => form.submit()} />
     <div>
       <div>
         <Button>全部審核</Button>

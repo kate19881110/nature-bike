@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Form, Input, Button, message } from "antd";
-import { forgetPwdAPI, userRequest } from "../../api/apiUtil";
+import { Modal, Form, Input, Button } from "antd";
+import { successPOP, failPOP } from "../../api/apiUtil";
+import useAxios from "../../hook/useAxios";
 
 function ForgetPwd({ onOk, visible, closeModal }) {
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [chkPassword, setChkPassword] = useState("");
   const [id, setId] = useState("");
-  const [messageApi, contextHolder] = message.useMessage();
+  const [resData, setResData] = useState([]);
+  const { sendRequest: fetchData } = useAxios();
+  const { sendRequest: createData } = useAxios();
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    messageApi.open({
-      type: "success",
-      content: `更改密碼成功${values}`,
-    });
+  const onFinish = () => {
+    successPOP("更改密碼");
   };
 
-  const onFinishFailed = (errorInfo) => {
-    messageApi.open({
-      type: "error",
-      content: `更改密碼失敗${errorInfo}`,
-    });
+  const onFinishFailed = () => {
+    failPOP("更改密碼");
   };
 
   const handleUserName = (e) => {
@@ -35,20 +32,28 @@ function ForgetPwd({ onOk, visible, closeModal }) {
     setChkPassword(e.target.value);
   };
 
-  const searchAccount = (name) => {
-    return userRequest
-      .get("/users")
-      .then((res) => {
-        const userObject = res.data.filter((value) => {
-          return name === value.userName;
-        });
-        setId(userObject[0].id);
-        return userObject[0].id
-      })
-      .catch((err) => {
-        console.log("searchAccount error", err.toString());
-      });
+  const searchAccount = (name) => { 
+    const userObject = resData.filter((value) => {
+      return name === value.userName;
+    });
+    setId(userObject[0].id);
+    return userObject[0].id
   };
+
+  const forgetPwdAPI = (userId, userPwd) => {
+    createData(
+      {
+        url: `/users/${userId}`,
+        method: "PATCH",
+        data: {
+          userPwd,
+        }
+      },
+      (res) => {
+        successPOP("更改密碼");
+      },
+    );
+  }
 
   const confirmLogin = async () => {
     if (userPassword !== chkPassword) {
@@ -60,9 +65,14 @@ function ForgetPwd({ onOk, visible, closeModal }) {
     }
   };
 
+  useEffect(() => {
+    fetchData({ url: "/users" }, (res) => {
+      setResData(res);
+    });
+  }, []);
+
   return (
     <Modal title="忘記密碼" open={visible} onCancel={closeModal} footer={null}>
-      {contextHolder}
       <Form
         form={form}
         name="ForgetModal"
