@@ -191,7 +191,7 @@ function ChargeModal({ onOk, visible, closeModal, resData }) {
               </Descriptions>
               <div style={{ marginTop: "30px" }}>
                 <Button type="primary" block>
-                  核准
+                  複審
                 </Button>
               </div>
             </Modal>

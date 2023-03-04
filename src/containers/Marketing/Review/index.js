@@ -65,7 +65,7 @@ function Reimburse() {
       review: <EditOutlined onClick={handleCharge} />,
       action: (
         <>
-          <Button type="primary">核准</Button>
+          <Button type="primary">複審</Button>
           <Button type="primary" danger>
             退件
           </Button>
@@ -98,7 +98,7 @@ function Reimburse() {
         resData={resData}
         onOk={() => form.submit()}
       />
-      <div style={{display: "flex", justifyContent: "flex-start"}}>
+      <div>
         <div>
           <Button type="primary">全部審核</Button>
         </div>

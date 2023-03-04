@@ -129,7 +129,6 @@ function Charge() {
 
   return (
     <>
-   
       <Divider orientation="center">【費用申請暨報銷憑單】</Divider>
       <Row>
         <Col lg={{ span: 2 }}>
@@ -313,7 +312,7 @@ function Charge() {
       </Descriptions>
       <div style={{ marginTop: "30px" }}>
         <Button type="primary" block>
-          提交
+          送審
         </Button>
       </div>
     </>

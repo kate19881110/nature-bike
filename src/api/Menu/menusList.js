@@ -86,16 +86,22 @@ const menusList = [
         name: 'List',
         icon: <ProfileOutlined />,
       },
+      {
+        label: '經費審核',
+        key: '/market/review',
+        name: 'review',
+        icon: <DollarOutlined />,
+      },  
     ]
   },
   {
-    label: '會計部',
+    label: '財務部',
     key: "/account",
     name: "Account",
     icon: <DollarOutlined />,
     children: [
       {
-        label: '經費核銷',
+        label: '經費核准',
         key: '/account/reimburse',
         name: 'Activity',
         icon: <ContainerOutlined />,
