@@ -55,6 +55,11 @@
       "userMail": "2223",
       "userPwd": "333",
       "id": 9
+    },
+    {
+      "userMail": "KateLiu@wistronits.com",
+      "userPwd": "Kate951222",
+      "id": 10
     }
   ],
   "AccountList": [
@@ -301,15 +306,13 @@
       "needDate": "2023/03/15",
       "sendAddress": 2,
       "askPaymentDate": "2023/03/07",
-      "chargeList": 
-        {
-          "projectNum": 33222,
-          "projectItem": "AAAA",
-          "untaxedMoney": 223333,
-          "businessTax": 5,
-          "remark": "33322"
-        }
-      ,
+      "chargeList": {
+        "projectNum": 33222,
+        "projectItem": "AAAA",
+        "untaxedMoney": 223333,
+        "businessTax": 5,
+        "remark": "33322"
+      },
       "subtotal": 3333,
       "sumtotal": "",
       "society": "",

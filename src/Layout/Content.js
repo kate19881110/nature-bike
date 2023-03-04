@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Bike from "../containers/Bike/Bike";
+import Map from "../containers/Bike/Map";
 import Dashboard from "../containers/Society/Dashboard";
 import BikeRoute from "../containers/Bike/BikeRoute";
 import SocietyList from "../containers/Marketing/SocietyList";
@@ -18,7 +18,7 @@ function Content() {
       <Routes>
         <Route exact path="home" element={<Home />} />
         <Route exact path="bike/Activity" element={<BikeRoute />} />
-        <Route exact path="bike/map" element={<Bike />} />
+        <Route exact path="bike/map" element={<Map />} />
         <Route exact path="society/account" element={<Account />} />
         <Route exact path="society/dashboard" element={<Dashboard />} />
         <Route exact path="society/charge" element={<Charge />} />

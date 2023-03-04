@@ -1,30 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Radio, Select, Card } from "antd";
+import { Select, Card } from "antd";
+import Nav from "./component/Nav";
 import useShape from "../../hook/useShape";
-import cityList from "../../utils/Leaflet/cityList";
+import cityList from "../../utils/transPortData";
 
 function NavBar() {
-  const [bikeMenu, setBikeMenu] = useState("單車租借");
   const [cityName, setSearchCityName] = useState("");
   const [routes, searchRoutes] = useShape();
   const { Meta } = Card;
-  const navLinkInfo = [
-    {
-      label: "單車租借",
-      value: "單車租借",
-    },
-    {
-      label: "單車路線",
-      value: "單車路線",
-    },
-    {
-      label: "單車景點",
-      value: "單車景點",
-    },
-  ];
-  const bikeChange = ({ target: { value } }) => {
-    setBikeMenu(value);
-  };
 
   const handleCity = (value) => {
     console.log("value", value);
@@ -49,13 +32,7 @@ function NavBar() {
   }, [cityName]);
   return (
     <div>
-      <Radio.Group
-        options={navLinkInfo}
-        onChange={bikeChange}
-        value={bikeMenu}
-        optionType="button"
-        buttonStyle="solid"
-      />
+      <Nav />
       <div>
         <Select
           style={{
