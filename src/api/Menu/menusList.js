@@ -30,8 +30,8 @@ const menusList = [
     children: [
       {
         label: '社員名單',
-        key: '/society/account',
-        name: 'Account',
+        key: '/society/member',
+        name: 'Member',
         icon: <TeamOutlined />,
       },
       {
@@ -46,6 +46,12 @@ const menusList = [
         name: 'Charge',
         icon: <SelectOutlined />,
       },
+      {
+        label: '費用進度',
+        key: '/society/progress',
+        name: 'Progress',
+        icon: <DollarOutlined />,
+      },  
     ],
   },
   {
@@ -62,48 +68,42 @@ const menusList = [
       },
       {
         label: '辦活動',
-        key: '/bike/Activity',
+        key: '/bike/activity',
         name: 'Activity',
         icon: <ScheduleOutlined />,
       },
     ]
   },
   {
-    label: '市場部',
-    key: "/market",
+    label: '活動訊息',
+    key: "/info",
     name: "Market",
     icon: <HeartOutlined />,
     children: [
       {
-        label: '活動資訊',
-        key: '/market/info',
-        name: 'Info',
+        label: '最新消息',
+        key: '/info/news',
+        name: 'News',
         icon: <SoundOutlined />,
       },   
       {
         label: '社團列表',
-        key: '/market/list',
+        key: '/info/list',
         name: 'List',
         icon: <ProfileOutlined />,
       },
-      {
-        label: '經費審核',
-        key: '/market/review',
-        name: 'review',
-        icon: <DollarOutlined />,
-      },  
     ]
   },
   {
-    label: '財務部',
-    key: "/account",
-    name: "Account",
+    label: '費用清單',
+    key: "/charge",
+    name: "Charge",
     icon: <DollarOutlined />,
     children: [
       {
-        label: '經費核准',
-        key: '/account/reimburse',
-        name: 'Activity',
+        label: '經費審核',
+        key: '/charge/reimburse',
+        name: 'Reimburse',
         icon: <ContainerOutlined />,
       },
     ]
