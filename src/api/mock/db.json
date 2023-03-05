@@ -306,16 +306,18 @@
       "needDate": "2023/03/15",
       "sendAddress": 2,
       "askPaymentDate": "2023/03/07",
-      "chargeList": {
-        "projectNum": 33222,
-        "projectItem": "AAAA",
-        "untaxedMoney": 223333,
-        "businessTax": 5,
-        "remark": "33322"
-      },
-      "subtotal": 3333,
-      "sumtotal": "",
-      "society": "",
+      "chargeList": 
+        {
+          "projectNum": "",
+          "projectItem": "AAAA",
+          "untaxedMoney": 223333,
+          "businessTax": 5,
+          "remark": "33322"
+        }
+      ,
+      "subtotal": 333788,
+      "sumtotal": 3444,
+      "society": "羽球社",
       "terms": "社團費用",
       "result": "未審核"
     }

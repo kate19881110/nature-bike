@@ -9,9 +9,11 @@ import {
   Row,
   Col,
   Button,
+  Divider,
 } from "antd";
 import dayjs from "dayjs";
 import * as Style from "./style";
+import { getThousand, getPercent } from "../../utils/organizeNumbers";
 
 function ChargeModal({ onOk, visible, closeModal, resData }) {
   const { RangePicker } = DatePicker;
@@ -29,12 +31,12 @@ function ChargeModal({ onOk, visible, closeModal, resData }) {
         return (
           <div key={uniqueKey}>
             <Modal
-              title="費用申請暨報銷憑單"
               open={visible}
               onCancel={closeModal}
               footer={null}
               width={1000}
             >
+              <Divider orientation="center">【費用申請暨報銷憑單】</Divider>
               <Row>
                 <Col lg={{ span: 2 }}>
                   <Style.VerticalCenter>
@@ -143,26 +145,27 @@ function ChargeModal({ onOk, visible, closeModal, resData }) {
                   <p>{item.chargeList.projectItem}</p>
                 </Descriptions.Item>
                 <Descriptions.Item label="未稅金額">
-                  <p>{item.chargeList.untaxedMoney}</p>
+                  <p>{getThousand(item.chargeList.untaxedMoney)}</p>
                 </Descriptions.Item>
                 <Descriptions.Item label="營業稅/所得稅">
-                  <p>{item.chargeList.businessTax}</p>
+                  <p>{getPercent(item.chargeList.businessTax)}</p>
                 </Descriptions.Item>
                 <Descriptions.Item label="備注">
                   <p>{item.chargeList.remark}</p>
                 </Descriptions.Item>
               </Descriptions>
-              <Descriptions bordered labelStyle={{ textAlign: "right" }}>
-                <Descriptions.Item
-                  span={2}
-                  label={<div style={{ width: "500px" }}>小計金額(稅後)</div>}
-                >
-                  {`NT$${item.subtotal}`}
+              <Descriptions
+                bordered
+                labelStyle={{ textAlign: "right" }}
+                column={{
+                  lg: 2,
+                }}
+              >
+                <Descriptions.Item span={2} label={<div>小計金額(稅後)</div>}>
+                  {`${getThousand(item.subtotal)}`}
                 </Descriptions.Item>
-                <Descriptions.Item
-                  label={<div style={{ width: "500px" }}>合計金額(稅後)</div>}
-                >
-                  {`NT$${item.society}`}
+                <Descriptions.Item span={2} label={<div>合計金額(稅後)</div>}>
+                  {`${getThousand(item.sumtotal)}`}
                 </Descriptions.Item>
               </Descriptions>
               <Descriptions
@@ -174,7 +177,7 @@ function ChargeModal({ onOk, visible, closeModal, resData }) {
                 labelStyle={{ display: "flex", justifyContent: "center" }}
               >
                 <Descriptions.Item label="核准">
-                  <Input placeholder="請勿填寫" />
+                  <p></p>
                 </Descriptions.Item>
                 <Descriptions.Item label="審核">
                   <p>未審核</p>
@@ -186,6 +189,11 @@ function ChargeModal({ onOk, visible, closeModal, resData }) {
                   <p>{item.staffName}</p>
                 </Descriptions.Item>
               </Descriptions>
+              <div style={{ marginTop: "30px" }}>
+                <Button type="primary" block>
+                  核准
+                </Button>
+              </div>
             </Modal>
           </div>
         );
