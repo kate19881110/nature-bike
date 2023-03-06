@@ -101,6 +101,7 @@ function Reimburse() {
       <div style={{display: "flex", justifyContent: "flex-start"}}>
         <div>
           <Button type="primary">全部審核</Button>
+          <Button type="primary" danger>全部退件</Button>
         </div>
         <span>
           {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
