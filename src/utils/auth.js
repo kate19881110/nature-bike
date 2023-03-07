@@ -20,3 +20,12 @@ export function isLogined() {
   }
   return false;
 }
+
+export function setUserInfo() {
+  localStorage.setItem("userInfo", {
+    role: "", // 角色,
+    name: "",
+    chargeStatus: "", // 費用狀態
+    email: "", // 個人 mail
+  });
+}

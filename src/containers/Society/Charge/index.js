@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import {
   Descriptions,
   Divider,
@@ -11,7 +11,7 @@ import {
 } from "antd";
 import dayjs from "dayjs";
 import * as Style from "./style";
-
+import EnterCharge from "../../../components/EnterCharge";
 
 function Charge() {
   const [applyDate, setApplyDate] = useState("");
@@ -23,18 +23,6 @@ function Charge() {
   const [needDate, setNeedDate] = useState("");
   const [sendAddress, setSendAddress] = useState(1);
   const [askPaymentDate, setAskPaymentDate] = useState("");
-  const [chargeList, setChargeList] = useState({
-    projectNum: "",
-    projectItem: "",
-    untaxedMoney: "",
-    businessTax: "",
-    remark: "",
-  });
-  const [projectNum, setProjectNum] = useState("");
-  const [projectItem, setProjectItem] = useState("");
-  const [untaxedMoney, setUntaxedMoney] = useState("");
-  const [businessTax, setBusinessTax] = useState("");
-  const [remark, setRemark] = useState("");
   const [subtotal, setSubtotal] = useState("");
   const [sumtotal, setSumtotal] = useState("");
   const dateFormat = "YYYY/MM/DD";
@@ -87,43 +75,35 @@ function Charge() {
     setAskPaymentDate(e.target.value);
   };
 
-  const handleCreateCharge = (e) => {
-    setChargeList({
-      projectNum: "",
-      projectItem: "",
-      untaxedMoney: "",
-      businessTax: "",
-      remark: "",
-    });
-  };
+  const [newChargeList, setNewChargeList] = useState([
+    {
+      projectNum: 12333,
+      projectItem: "AAAA",
+      untaxedMoney: 223333,
+      businessTax: 5,
+      remark: "33322",
+    },
+    {
+      projectNum: 22,
+      projectItem: "333",
+      untaxedMoney: 223333,
+      businessTax: 5,
+      remark: "33322",
+    },
+  ]);
 
-  const handleProjectNum = (e) => {
-    setProjectNum(e.target.value);
-  };
-
-  const handleProjectItem = (e) => {
-    setProjectItem(e.target.value);
-  };
-
-  const handleUntaxedMoney = (e) => {
-    setUntaxedMoney(e.target.value);
-  };
-
-  const handleBusinessTax = (e) => {
-    setBusinessTax(e.target.value);
-  };
-
-  const handleRemark = (e) => {
-    setRemark(e.target.value);
+  const handleAddCharge = (e) => {
+    console.log("11111");
+    setNewChargeList([...newChargeList, {}]);
   };
 
   const handleSubtotal = (e) => {
     setSubtotal(e.target.value);
-  }
+  };
 
   const handleSumtotal = (e) => {
     setSumtotal(e.target.value);
-  }
+  };
 
   const handleSubmit = () => {};
 
@@ -228,47 +208,27 @@ function Charge() {
           />
         </Descriptions.Item>
       </Descriptions>
-      <Descriptions
-        layout="vertical"
-        bordered
-        column={{
-          lg: 7,
-        }}
-      >
-        <Descriptions.Item label="新增">
-          <Button type="primary" onClick={handleCreateCharge}>
+
+      {/* <Descriptions.Item label="新增">
+          <Button type="primary" onClick={handleAddCharge}>
             新增
           </Button>
-        </Descriptions.Item>
-        <Descriptions.Item label="歸屬部門">
-          <p>福委會</p>
-        </Descriptions.Item>
-        <Descriptions.Item label="專案代號">
-          <Input value={projectNum} onChange={handleProjectNum} allowClear />
-        </Descriptions.Item>
-        <Descriptions.Item label="項目">
-          <Input value={projectItem} onChange={handleProjectItem} allowClear />
-        </Descriptions.Item>
-        <Descriptions.Item label="未稅金額">
-          <Input
-            value={untaxedMoney}
-            onChange={handleUntaxedMoney}
-            allowClear
-          />
-        </Descriptions.Item>
-        <Descriptions.Item label="營業稅/所得稅">
-          <Input value={businessTax} onChange={handleBusinessTax} allowClear />
-        </Descriptions.Item>
-        <Descriptions.Item label="備注">
-          <Input value={remark} onChange={handleRemark} allowClear />
-        </Descriptions.Item>
-      </Descriptions>
+        </Descriptions.Item> */}
+      <EnterCharge />
+
       <Descriptions bordered column={3} labelStyle={{ textAlign: "right" }}>
         <Descriptions.Item
+          span={2}
           label={<div style={{ width: "760px" }}>小計金額(稅前)</div>}
           style={{ width: "250px" }}
         >
-          <Input prefix="NT$" value={subtotal} onChange={handleSubtotal} allowClear style={{ width: "230px" }} />
+          <Input
+            prefix="NT$"
+            value={subtotal}
+            onChange={handleSubtotal}
+            allowClear
+            style={{ width: "230px" }}
+          />
         </Descriptions.Item>
         <Descriptions.Item>
           <Input prefix="NT$" allowClear style={{ width: "230px" }} />
@@ -280,7 +240,13 @@ function Charge() {
           label={<div style={{ width: "760px" }}>合計金額(稅後)</div>}
           style={{ width: "250px" }}
         >
-          <Input prefix="NT$" value={sumtotal} onChange={handleSumtotal} allowClear style={{ width: "230px" }} />
+          <Input
+            prefix="NT$"
+            value={sumtotal}
+            onChange={handleSumtotal}
+            allowClear
+            style={{ width: "230px" }}
+          />
         </Descriptions.Item>
         <Descriptions.Item>
           <Input prefix="NT$" allowClear style={{ width: "230px" }} />

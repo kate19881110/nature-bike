@@ -10,6 +10,7 @@ import SocietyList from "../../containers/Info/SocietyList";
 import ActivityInfo from "../../containers/Info/ActivityInfo";
 import Member from "../../containers/Society/Member";
 import Charge from "../../containers/Society/Charge";
+import Progress from "../../containers/Society/Progress";
 import NotFound from "../NotFound";
 
 function Content() {
@@ -21,7 +22,7 @@ function Content() {
         <Route exact path="society/member" element={<Member />} />
         <Route exact path="society/dashboard" element={<Dashboard />} />
         <Route exact path="society/charge" element={<Charge />} />
-        <Route exact path="society/progress" element="" />
+        <Route exact path="society/progress" element={<Progress />} />
         <Route exact path="bike/map" element={<Bike />} />
         <Route exact path="bike/activity" element={<BikeRoute />} />
         <Route exact path="info/news" element={<ActivityInfo />} />
