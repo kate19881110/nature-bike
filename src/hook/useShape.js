@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { cyclingRoute } from "../api/TDX/transport";
-import { failPOP } from "../api/apiUtil";
+import { failPOP } from "../utils/message";
 
 const useShape = () => {
   const [spots, setSpots] = useState([]);

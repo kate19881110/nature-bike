@@ -1,13 +1,14 @@
 import React, { useState, } from "react";
 import { Form, Input, Button, Row, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
-import { successPOP } from "../../api/apiUtil";
 import * as Style from "./style";
 import useModal from "../../hook/useModal";
 import RegisterModal from "./RegisterModal";
 import ForgetPwdModal from "./ForgetPwdModal";
 import useAxios from "../../hook/useAxios";
-import { setToken } from "../../api/axios/auth";
+import { setToken } from "../../utils/auth";
+import { successPOP, failPOP } from "../../utils/message";
+import api from "../../api";
 
 function Login() {
   const { sendRequest: createData } = useAxios();
@@ -30,8 +31,8 @@ function Login() {
   const loginAPI = () => {
     createData(
       {
-        url: "/users",
-        method: "POST",
+        url: api.Login.User,
+        method: api.Method.Post,
         data: {
           userMail: account,
           userPwd: password,
@@ -43,8 +44,11 @@ function Login() {
         successPOP("登入");
         setLoading(false);
         window.location.reload();
-      }
-    );
+      },
+      (err) => {
+        failPOP("登入");
+        console.log("loginAPI error", err.toString());
+      })
   }
 
   const handleLogin = (e) => {
@@ -56,8 +60,6 @@ function Login() {
     loginAPI();
     navigate("/home");
   };
-
-
 
   const handleRegister = () => {
     registerDataModal.openModal();

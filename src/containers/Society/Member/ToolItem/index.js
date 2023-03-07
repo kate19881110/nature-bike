@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { List, Switch, Popconfirm, Avatar, Form } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { successPOP, userRequest, deleteAccount } from "../../../../api/apiUtil";
+import { successPOP, failPOP } from "../../../../utils/message";
+import useAxios from "../../../../hook/useAxios";
+import api from "../../../../api";
 import useModal from "../../../../hook/useModal";
 import EditModal from "../EditMoadl";
 import * as Style from "./style";
 
 function ToolItem({ listData }) {
+  const { sendRequest: createData } = useAxios();
   const { id, email, picture, name } = listData;
   const [disabled, setDisabled] = useState(false);
   const [editData, setEditData] = useState([]);
@@ -14,14 +17,34 @@ function ToolItem({ listData }) {
   const [form] = Form.useForm();
 
   const getData = () => {
-    return userRequest
-      .get(`/AccountList/${id}`)
-      .then((res) => {
-        setEditData(res.data);
-      })
-      .catch((err) => {
+    createData(
+      {
+        url: `${api.Society.MemberList}/${id}`,
+        method: api.Method.Get,
+      },
+      (res) => {
+        setEditData(res);
+      },
+      (err) => {
         console.log("getData error", err.toString());
-      });
+      }
+    );
+  };
+
+  const deleteAccount = () => {
+    createData(
+      {
+        url: `${api.Society.MemberList}/${id}`,
+        method: api.Method.Delete,
+      },
+      (res) => {
+        successPOP("刪除會員");
+      },
+      (err) => {
+        failPOP("刪除會員");
+        console.log("deleteAccount error", err.toString());
+      }
+    );
   };
 
   const toggle = () => {
@@ -32,7 +55,6 @@ function ToolItem({ listData }) {
 
   const confirm = () => {
     deleteAccount(id);
-    successPOP("刪除會員");
     window.location.reload();
   };
 

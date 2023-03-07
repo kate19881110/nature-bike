@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Card, Row, Col, Button, Form, Input } from "antd";
 import { PlusCircleFilled, SearchOutlined } from "@ant-design/icons";
-import { userRequest } from "../../../api/apiUtil";
+import { failPOP } from "../../../utils/message";
 import TodoList from "./TodoList";
 import useModal from "../../../hook/useModal";
 import AddModal from "./AddModal";
+import useAxios from "../../../hook/useAxios";
+import api from "../../../api";
 
 function Customer() {
+  const { sendRequest: createData } = useAxios();
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState("");
   const addDataModal = useModal({});
@@ -21,14 +24,20 @@ function Customer() {
   };
 
   const moreData = () => {
-    return userRequest
-      .get("/AccountList")
-      .then((res) => {
-        setData([...res.data]);
-      })
-      .catch((err) => {
-        console.log("getAccount error", err.toString());
-      });
+    createData(
+      {
+        url: api.Society.MemberList,
+        method: api.Method.Get,
+      },
+      (res) => {
+        setData([...res]);
+      },
+      (err) => {
+        failPOP("讀取會員資料");
+        console.log("register error", err.toString());
+      }
+    );
+
   };
 
   const handleList = () => {

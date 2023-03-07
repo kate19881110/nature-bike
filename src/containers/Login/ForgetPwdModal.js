@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Form, Input, Button } from "antd";
-import { successPOP, failPOP } from "../../api/apiUtil";
+import { successPOP, failPOP } from "../../utils/message";
 import useAxios from "../../hook/useAxios";
+import api from "../../api";
 
 function ForgetPwd({ onOk, visible, closeModal }) {
   const [userName, setUserName] = useState("");
@@ -43,15 +44,21 @@ function ForgetPwd({ onOk, visible, closeModal }) {
   const forgetPwdAPI = (userId, userPwd) => {
     createData(
       {
-        url: `/users/${userId}`,
-        method: "PATCH",
+        url: `${api.Login.User}/${userId}`,
+        method: api.Method.PATCH,
         data: {
           userPwd,
         }
       },
       (res) => {
         successPOP("更改密碼");
+        onOk();
+        closeModal();
       },
+      (err) => {
+        failPOP("更改密碼");
+        console.log("forgetFwd error", err.toString());
+      }
     );
   }
 

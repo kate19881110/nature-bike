@@ -1,16 +1,16 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "../containers/Home";
-import Profile from "../containers/Profile";
-import Reimburse from "../containers/Charge";
-import Bike from "../containers/Bike/Map";
-import Dashboard from "../containers/Society/Dashboard";
-import BikeRoute from "../containers/Bike/BikeRoute";
-import SocietyList from "../containers/Info/SocietyList";
-import ActivityInfo from "../containers/Info/ActivityInfo";
-import Member from "../containers/Society/Member";
-import Charge from "../containers/Society/Charge";
-import NotFound from "./NotFound";
+import Home from "../../containers/Home";
+import Profile from "../../containers/Profile";
+import Reimburse from "../../containers/Charge";
+import Bike from "../../containers/Bike/Map";
+import Dashboard from "../../containers/Society/Dashboard"
+import BikeRoute from "../../containers/Bike/BikeRoute";
+import SocietyList from "../../containers/Info/SocietyList";
+import ActivityInfo from "../../containers/Info/ActivityInfo";
+import Member from "../../containers/Society/Member";
+import Charge from "../../containers/Society/Charge";
+import NotFound from "../NotFound";
 
 function Content() {
   return (

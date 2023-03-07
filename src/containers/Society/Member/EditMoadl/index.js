@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Form, Radio, Input, Modal } from "antd";
-import { editAccount } from "../../../../api/apiUtil";
+import { successPOP, failPOP } from "../../../../utils/message";
+import useAxios from "../../../../hook/useAxios";
+import api from "../../../../api";
 
 function EditModal({ onOk, visible, closeModal, editInfo }) {
   // const [fileList, setFileList] = useState([]);
   // const handleChange = ({ fileList: newFileList }) => {
   //   setFileList(newFileList);
   // };
-
+  const { sendRequest: createData } = useAxios();
   const { id, gender, email, picture, name } = editInfo;
   const [userGender, setUserGender] = useState("");
   const [userName, setUserName] = useState("");
@@ -31,9 +33,31 @@ function EditModal({ onOk, visible, closeModal, editInfo }) {
     setUserEmail(e.target.value);
   };
 
+  const editAccount = () => {
+    createData(
+      {
+        url: `${api.Society.MemberList}/${id}`,
+        method: api.Method.Put,
+        data: {
+          id,
+          gender: userGender,
+          name: userName,
+          email: userEmail
+        },
+      },
+      (res) => {
+        successPOP("編輯會員");
+      },
+      (err) => {
+        failPOP("編輯會員");
+        console.log("editAccount error", err.toString());
+      }
+    );
+  };
+
   const confirmRequest = (e) => {
     e.preventDefault();
-    editAccount(id, userGender, userName, userEmail);
+    editAccount();
     onOk();
     closeModal();
   };
@@ -47,8 +71,7 @@ function EditModal({ onOk, visible, closeModal, editInfo }) {
       onOk={confirmRequest}
       onCancel={closeModal}
     >
-      <Form
-      >
+      <Form>
         {/* <Form.Item label="會員照片">
           <Upload
             action= {mockData.results}

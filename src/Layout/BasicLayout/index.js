@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import menusList from "../api/Menu/menusList";
-import HeaderElement from "./Header";
-import ContentList from "./Content";
+import menusList from "../../api/mock/menusList";
+import Header from "../Header";
+import ContentList from "../Content";
 
 const { Sider, Content } = Layout;
 
@@ -21,7 +21,7 @@ function BasicLayout() {
 
     return (
       <Layout style={{ minHeight: "100vh", minWidth: "100vw"}}>
-        <HeaderElement />
+        <Header />
         <Layout>
           <Sider
             style={{

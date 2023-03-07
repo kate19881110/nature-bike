@@ -1,8 +1,8 @@
 import React from "react";
 import { Layout, Row, Col, Dropdown, Avatar, Space } from "antd";
-import { BellOutlined, DownOutlined, UserOutlined } from "@ant-design/icons";
-import { deleteToken } from "../../api/axios/auth";
-import { successPOP } from "../../api/apiUtil";
+import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import { deleteToken } from "../../utils/auth";
+import { successPOP } from "../../utils/message";
 
 const { Header } = Layout;
 const onClick = ({ key }) => {

@@ -4,8 +4,8 @@ import * as Style from "./style";
 import BikeIcon from "../../../static/icons/bike.png";
 import ManIcon from "../../../static/icons/man.png";
 import WomanIcon from "../../../static/icons/woman.png";
-import BarLineMixTrend from "../../../components/BarLineMixTrend/index";
-import dashboardInfo from "../../../api/data/dashboardInfo";
+import BarLineMixTrend from "../../../components/BarLineMixTrend";
+import dashboardInfo from "../../../api/mock/dashboardInfo";
 
 function Dashboard() {
   return (

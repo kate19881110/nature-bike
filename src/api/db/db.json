@@ -60,9 +60,14 @@
       "userMail": "KateLiu@wistronits.com",
       "userPwd": "Kate951222",
       "id": 10
+    },
+    {
+      "userMail": "Admin",
+      "userPwd": "123456",
+      "id": 11
     }
   ],
-  "AccountList": [
+  "memberList": [
     {
       "id": 1,
       "gender": "female",
@@ -306,15 +311,13 @@
       "needDate": "2023/03/15",
       "sendAddress": 2,
       "askPaymentDate": "2023/03/07",
-      "chargeList": 
-        {
-          "projectNum": "",
-          "projectItem": "AAAA",
-          "untaxedMoney": 223333,
-          "businessTax": 5,
-          "remark": "33322"
-        }
-      ,
+      "chargeList": {
+        "projectNum": "",
+        "projectItem": "AAAA",
+        "untaxedMoney": 223333,
+        "businessTax": 5,
+        "remark": "33322"
+      },
       "subtotal": 333788,
       "sumtotal": 3444,
       "society": "羽球社",

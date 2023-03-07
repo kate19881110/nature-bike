@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "antd";
-import tableTitle from "../../../api/Society/tableTitle";
-import {userRequest} from "../../../api/apiUtil";
+import societyData from "../../../api/mock/societyData";
+import useAxios from "../../../hook/useAxios";
+import api from "../../../api";
 
 function SocietyList() {
+  const { sendRequest: createData } = useAxios();
   const [data, setData] = useState("");
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -18,20 +20,23 @@ function SocietyList() {
     }),
   };
 
-  const societyData = () => {
-    return userRequest
-      .get("/witsGroup")
-      .then((res) => {
-        setData(res.data);
-        return res.data
-      })
-      .catch((err) => {
+  const presidentData = () => {
+    createData(
+      {
+        url: api.Society.WotsGroup,
+        method: api.Method.Get,
+      },
+      (res) => {
+        setData(res);
+        return res
+      },
+      (err) => {
         console.log("societyData error", err.toString());
-      });
+      })
   };
 
   useEffect(() => {
-    societyData();
+    presidentData();
   }, []);
 
   return (
@@ -40,7 +45,7 @@ function SocietyList() {
         rowSelection={{
           ...rowSelection,
         }}
-        columns={tableTitle}
+        columns={societyData.tableTitle}
         dataSource={data}
         pagination={{
           total: 20,

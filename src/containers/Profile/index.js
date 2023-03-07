@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Descriptions } from "antd";
-import { userRequest } from "../../api/apiUtil";
+import useAxios from "../../hook/useAxios";
+import api from "../../api";
 
 function Profile() {
+  const { sendRequest: createData } = useAxios();
   const [data, setData] = useState("");
   const societyData = () => {
-    return userRequest
-      .get("/users")
-      .then((res) => {
-        console.log(" res.data", res.data);
-        setData(res.data);
-        return res.data;
-      })
-      .catch((err) => {
+    createData(
+      {
+        url: api.Login.User,
+        method: api.Method.Get,
+      },
+      (res) => {
+        setData(res);
+        return res;
+      },
+      (err) => {
         console.log("societyData error", err.toString());
-      });
+      }
+    );
   };
 
   useEffect(() => {

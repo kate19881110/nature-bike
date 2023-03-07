@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Form, Radio, Input, Modal } from "antd";
 import { v4 } from "uuid";
-import { addAccount } from "../../../../api/apiUtil";
+import { successPOP, failPOP } from "../../../../utils/message";
+import useAxios from "../../../../hook/useAxios";
+import api from "../../../../api";
 
 function AddModal({ onOk, visible, closeModal }) {
   // const [fileList, setFileList] = useState([]);
   // const handleChange = ({ fileList: newFileList }) => {
   //   setFileList(newFileList);
   // };
-
+  const { sendRequest: createData } = useAxios();
   const [gender, setGender] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,17 +27,36 @@ function AddModal({ onOk, visible, closeModal }) {
     setEmail(e.target.value);
   };
 
+  const addAccount = () => {
+    createData(
+      {
+        url: api.Society.MemberList,
+        method: api.Method.Post,
+        data: {
+          id: v4(),
+          gender,
+          name,
+          email,
+        },
+      },
+      (res) => {
+        successPOP("新增會員");
+        onOk();
+        closeModal();
+        window.location.reload();
+      },
+      (err) => {
+        failPOP("新增會員");
+        console.log("addAccount error", err.toString());
+      }
+    );
+  };
+
   const confirmRequest = (e) => {
     e.preventDefault();
-    addAccount(
-      v4(),
-      gender,
-      name,
-      email,
-    );
+    addAccount();
     onOk();
     closeModal();
-    window.location.reload();
   };
 
   return (

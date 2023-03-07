@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Modal, Form, Input, Select } from "antd";
-import societyName from "../../api/Society/societyName";
-import { registerAPI, successPOP, failPOP } from "../../api/apiUtil";
+import societyData from "../../api/mock/societyData";
+import { successPOP, failPOP } from "../../utils/message";
+import useAxios from "../../hook/useAxios";
+import api from "../../api";
 
-function Register({ onOk, visible, closeModal }) {
+function RegisterModal({ onOk, visible, closeModal }) {
+  const { sendRequest: createData } = useAxios();
   const [loading, setLoading] = useState(false);
   const [userName, setUserName] = useState("");
   const [userDepartment, setUserDepartment] = useState("");
@@ -12,11 +15,11 @@ function Register({ onOk, visible, closeModal }) {
   const [userSociety, setUserSociety] = useState("");
   const [form] = Form.useForm();
 
-  const onFinish = (values) => {
+  const onFinish = () => {
     successPOP("註冊");
   };
 
-  const onFinishFailed = (errorInfo) => {
+  const onFinishFailed = () => {
     failPOP("註冊");
   };
 
@@ -39,16 +42,41 @@ function Register({ onOk, visible, closeModal }) {
   const handleUserDepartment = (value) => {
     setUserDepartment(value);
   };
+
+  const registerAPI = () => {
+    createData(
+      {
+        url: api.Login.User,
+        method: api.Method.Post,
+        data: {
+          userName,
+          userDept: userDepartment,
+          userSociety,
+          userMail,
+          userPwd: userPassword,
+        },
+      },
+      (res) => {
+        successPOP("註冊");
+      },
+      (err) => {
+        failPOP("註冊");
+        console.log("register error", err.toString());
+      }
+    );
+  };
+
   const confirmRequest = (e) => {
     e.preventDefault();
     if (loading) {
       return;
     }
     setLoading(true);
-    registerAPI(userName, userDepartment, userSociety, userMail, userPassword);
+    registerAPI();
     onOk();
     closeModal();
   };
+
   return (
     <Modal
       title="新戶註冊"
@@ -84,7 +112,7 @@ function Register({ onOk, visible, closeModal }) {
           <Select
             value={userDepartment}
             onChange={handleUserDepartment}
-            options={societyName.deptOptions}
+            options={societyData.deptOptions}
             allowClear
           >
           </Select>
@@ -98,7 +126,7 @@ function Register({ onOk, visible, closeModal }) {
             <Select
               value={userSociety}
               onChange={handleUserSociety}
-              options={societyName.societyOptions}
+              options={societyData.societyOptions}
               allowClear
             >
             </Select>
@@ -125,4 +153,4 @@ function Register({ onOk, visible, closeModal }) {
   );
 }
 
-export default Register;
+export default RegisterModal;
