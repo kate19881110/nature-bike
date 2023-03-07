@@ -4,22 +4,22 @@ import { successPOP, failPOP } from "../../../../utils/message";
 import useAxios from "../../../../hook/useAxios";
 import api from "../../../../api";
 
-function EditModal({ onOk, visible, closeModal, editInfo }) {
-  // const [fileList, setFileList] = useState([]);
-  // const handleChange = ({ fileList: newFileList }) => {
-  //   setFileList(newFileList);
-  // };
+function EditModal({ onOk, visible, closeModal, editInfo, updateData }) {
   const { sendRequest: createData } = useAxios();
   const { id, gender, email, picture, name } = editInfo;
   const [userGender, setUserGender] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
-  const initData = () => {
-    setUserGender(gender);
-    setUserName(name);
-    setUserEmail(email);
-  };
+  useEffect(() => {
+    const initData = () => {
+      setUserGender(gender);
+      setUserName(name);
+      setUserEmail(email);
+    };
+    initData();
+  }, [gender, name, email]);
+  
 
   const handleGender = (e) => {
     setUserGender(e.target.value);
@@ -42,10 +42,12 @@ function EditModal({ onOk, visible, closeModal, editInfo }) {
           id,
           gender: userGender,
           name: userName,
-          email: userEmail
+          email: userEmail,
         },
       },
       (res) => {
+        // 更新父層的資料
+        updateData(userGender, userName, userEmail);
         successPOP("編輯會員");
       },
       (err) => {
@@ -61,9 +63,7 @@ function EditModal({ onOk, visible, closeModal, editInfo }) {
     onOk();
     closeModal();
   };
-  useEffect(() => {
-    return initData();
-  });
+
   return (
     <Modal
       title="編輯會員"

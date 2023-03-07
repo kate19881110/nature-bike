@@ -4,7 +4,10 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import ToolItem from "../ToolItem";
 
 function TodoList({ listDataInfo, dataFn }) {
-
+  const handleUpdate = (newData) => {
+    // 呼叫父層的函數，更新資料
+    dataFn(newData);
+  };
   useEffect(() => {
     dataFn();
   }, []);
@@ -36,7 +39,9 @@ function TodoList({ listDataInfo, dataFn }) {
       >
         <List
           dataSource={listDataInfo || []}
-          renderItem={(item) => <ToolItem listData={item} />}
+          renderItem={(item) => (
+            <ToolItem listData={item} onUpdate={handleUpdate} />
+          )}
         />
       </InfiniteScroll>
     </div>

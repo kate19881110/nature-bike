@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { List, Switch, Popconfirm, Avatar, Form } from "antd";
+import { List, Popconfirm, Avatar, Form, Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { successPOP, failPOP } from "../../../../utils/message";
 import useAxios from "../../../../hook/useAxios";
@@ -8,10 +8,9 @@ import useModal from "../../../../hook/useModal";
 import EditModal from "../EditMoadl";
 import * as Style from "./style";
 
-function ToolItem({ listData }) {
+function ToolItem({ listData, onUpdate }) {
   const { sendRequest: createData } = useAxios();
   const { id, email, picture, name } = listData;
-  const [disabled, setDisabled] = useState(false);
   const [editData, setEditData] = useState([]);
   const editDataModal = useModal({});
   const [form] = Form.useForm();
@@ -47,10 +46,9 @@ function ToolItem({ listData }) {
     );
   };
 
-  const toggle = () => {
-    setDisabled(!disabled);
-    editDataModal.openModal();
+  const handleUpdate = () => {
     getData();
+    editDataModal.openModal();
   };
 
   const confirm = () => {
@@ -65,7 +63,7 @@ function ToolItem({ listData }) {
 
   return (
     <>
-      <EditModal {...editDataModal} onOk={() => form.submit()} editInfo={editData} />
+      <EditModal {...editDataModal} onOk={() => form.submit()} editInfo={editData} updateData={onUpdate} />
       <List.Item key={email}>
         <List.Item.Meta
           avatar={<Avatar src={picture} />}
@@ -73,11 +71,7 @@ function ToolItem({ listData }) {
           description={email}
         />
         <Style.EditItem>
-          <Switch
-            checkedChildren="編輯中"
-            unCheckedChildren="關閉"
-            onChange={toggle}
-          />
+          <Button type="primary" onClick={handleUpdate}>編輯中</Button>
           {/* <Button type="primary" onClick={toggle}>
           Edit
         </Button> */}

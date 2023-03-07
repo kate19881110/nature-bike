@@ -23,14 +23,14 @@ function Customer() {
     setSearchData(e.target.value);
   };
 
-  const moreData = () => {
+  const updateListData = () => {
     createData(
       {
         url: api.Society.MemberList,
         method: api.Method.Get,
       },
       (res) => {
-        setData([...res]);
+        setData(res);
       },
       (err) => {
         failPOP("讀取會員資料");
@@ -47,7 +47,7 @@ function Customer() {
         dataList.push(item);
         return setData(dataList);
       } if (searchData === "") {
-        return moreData();
+        return updateListData();
       }
       return ""      
     });
@@ -116,7 +116,7 @@ function Customer() {
             }
             bordered={false}
           >
-            <TodoList listDataInfo={data} dataFn={moreData} />
+            <TodoList listDataInfo={data} dataFn={updateListData} />
           </Card>
         </Col>
       </Row>
