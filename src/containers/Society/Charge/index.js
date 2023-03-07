@@ -11,7 +11,7 @@ import {
 } from "antd";
 import dayjs from "dayjs";
 import * as Style from "./style";
-import UnitCharge from "../../../components/UnitCharge";
+import EnterCharge from "../../../components/EnterCharge";
 
 function Charge() {
   const [applyDate, setApplyDate] = useState("");
@@ -214,10 +214,11 @@ function Charge() {
             新增
           </Button>
         </Descriptions.Item> */}
-      <UnitCharge list={newChargeList} />
+      <EnterCharge />
 
       <Descriptions bordered column={3} labelStyle={{ textAlign: "right" }}>
         <Descriptions.Item
+          span={2}
           label={<div style={{ width: "760px" }}>小計金額(稅前)</div>}
           style={{ width: "250px" }}
         >

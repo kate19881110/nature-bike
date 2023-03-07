@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Modal,
   Radio,
   Input,
-  Select,
   Descriptions,
   DatePicker,
   Row,
@@ -14,11 +13,27 @@ import {
 import dayjs from "dayjs";
 import * as Style from "./style";
 import { getThousand, getPercent } from "../../utils/organizeNumbers";
+import UnitCharge from "../../components/UnitCharge";
 
 function ChargeModal({ onOk, visible, closeModal, resData }) {
-  const { RangePicker } = DatePicker;
   const dateFormat = "YYYY/MM/DD";
   const [voucherNum, setVoucherNum] = useState("");
+  const [newChargeList, setNewChargeList] = useState([
+    {
+      projectNum: 12333,
+      projectItem: "AAAA",
+      untaxedMoney: 222,
+      businessTax: 1,
+      remark: "",
+    },
+    {
+      projectNum: 22,
+      projectItem: "333",
+      untaxedMoney: 223333,
+      businessTax: 5,
+      remark: "",
+    },
+  ]);
 
   const handleVoucher = (e) => {
     setVoucherNum(e.target.value);
@@ -128,7 +143,8 @@ function ChargeModal({ onOk, visible, closeModal, resData }) {
                   />
                 </Descriptions.Item>
               </Descriptions>
-              <Descriptions
+              <UnitCharge list={newChargeList} />
+              {/* <Descriptions
                 layout="vertical"
                 bordered
                 column={{
@@ -153,7 +169,7 @@ function ChargeModal({ onOk, visible, closeModal, resData }) {
                 <Descriptions.Item label="備注">
                   <p>{item.chargeList.remark}</p>
                 </Descriptions.Item>
-              </Descriptions>
+              </Descriptions> */}
               <Descriptions
                 bordered
                 labelStyle={{ textAlign: "right" }}
