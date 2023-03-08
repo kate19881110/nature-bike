@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Form, Button } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import ChargeModal from "./ChargeModal";
 import useModal from "../../hook/useModal";
 import useAxios from "../../hook/useAxios";
@@ -10,8 +10,8 @@ function Reimburse() {
   const chargeDataModal = useModal({});
   const [resData, setResData] = useState([]);
   const { sendRequest: fetchData } = useAxios();
-
   const [form] = Form.useForm();
+  
   const handleCharge = () => {
     chargeDataModal.openModal();
   };

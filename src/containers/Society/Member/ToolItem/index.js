@@ -40,7 +40,7 @@ function ToolItem({ listData, onUpdate }) {
         successPOP("刪除會員");
       },
       (err) => {
-        failPOP("刪除會員");
+        failPOP("刪除會員失敗");
         console.log("deleteAccount error", err.toString());
       }
     );

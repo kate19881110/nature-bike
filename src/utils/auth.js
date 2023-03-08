@@ -21,11 +21,22 @@ export function isLogined() {
   return false;
 }
 
-export function setUserInfo() {
-  localStorage.setItem("userInfo", {
-    role: "", // 角色,
-    name: "",
-    chargeStatus: "", // 費用狀態
-    email: "", // 個人 mail
-  });
+export function setUserInfo(name, email, role, club, chargeStatus) {
+  const myObject = {
+    name,
+    email, // 個人 mail
+    role, // 角色,
+    club, // 社團
+    chargeStatus, // 費用狀態
+  };
+  const jsonString = JSON.stringify(myObject);// 轉換JSON字串
+  localStorage.setItem("userInfo", jsonString);
+}
+
+
+// 獲取 token
+export function getUserInfo() {
+  const jsonString = localStorage.getItem("userInfo");
+  const myObject = JSON.parse(jsonString);
+  return myObject
 }

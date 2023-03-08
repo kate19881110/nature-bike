@@ -1,4 +1,4 @@
-import React, { useState, } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Row, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 import * as Style from "./style";
@@ -6,50 +6,83 @@ import useModal from "../../hook/useModal";
 import RegisterModal from "./RegisterModal";
 import ForgetPwdModal from "./ForgetPwdModal";
 import useAxios from "../../hook/useAxios";
-import { setToken } from "../../utils/auth";
+import { setToken, setUserInfo } from "../../utils/auth";
 import { successPOP, failPOP } from "../../utils/message";
 import api from "../../api";
 
 function Login() {
-  const { sendRequest: createData } = useAxios();
+  const { sendRequest: fetchData } = useAxios();
   const [loading, setLoading] = useState(false);
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
+  const [resData, setResData] = useState([]);
   const navigate = useNavigate();
   const registerDataModal = useModal({});
   const forgetDataModal = useModal({});
   const [form] = Form.useForm();
 
   const handleUserAccount = (e) => {
-    setAccount(e.target.value);
+    const userAccount = e.target.value;
+    if (userAccount.includes("@")) {
+      setAccount(userAccount);
+    } else {
+      failPOP("請填信箱,輸入帳號");
+    }
   };
 
   const handleUserPwd = (e) => {
     setPassword(e.target.value);
   };
 
+  const checkIsMember = () => {
+    const isMember = resData.some((item) => {
+      return account === item.userMail;
+    });
+    if (!isMember) {
+      failPOP("此帳號不存在，請前往註冊帳號");
+      setLoading(false);
+    }
+    return isMember;
+  };
+
+  const checkUserPwd = () => {
+    const checkPwd = resData.some((item) => {
+      return password === item.userPwd;
+    });
+    if (!checkPwd) {
+      failPOP("你輸入密碼錯誤，請重新輸入密碼");
+      setLoading(false);
+    }
+    return checkPwd;
+  };
+
+  const memberData = () => {
+    const memberInfo = resData.filter((item) => {
+      return account === item.userMail;
+    });
+    console.log("memberInfo", memberInfo);
+    const name = memberInfo[0].userName;
+    const email = memberInfo[0].userMail;
+    const role = memberInfo[0].userDept;
+    let club;
+    if (role === "Host") {
+      club = memberInfo[0].userSociety;
+    }
+    setUserInfo(name, email, role, club, "未審核");
+  };
+
   const loginAPI = () => {
-    createData(
-      {
-        url: api.Login.User,
-        method: api.Method.Post,
-        data: {
-          userMail: account,
-          userPwd: password,
-        }
-      },
-      (res) => {
+    if (checkIsMember()) {
+      if (checkUserPwd()) {
+        memberData();
         const token = `${account}ABCD${password}`;
         setToken(token);
         successPOP("登入");
         setLoading(false);
         window.location.reload();
-      },
-      (err) => {
-        failPOP("登入");
-        console.log("loginAPI error", err.toString());
-      })
-  }
+      }
+    }
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -68,6 +101,12 @@ function Login() {
   const handleForgetPwd = () => {
     forgetDataModal.openModal();
   };
+
+  useEffect(() => {
+    fetchData({ url: api.Login.User, method: api.Method.Get }, (res) => {
+      setResData(res);
+    });
+  }, []);
 
   return (
     <Spin spinning={loading} tip="Loading">

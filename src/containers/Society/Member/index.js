@@ -33,7 +33,6 @@ function Customer() {
         setData(res);
       },
       (err) => {
-        failPOP("讀取會員資料");
         console.log("register error", err.toString());
       }
     );

@@ -46,7 +46,7 @@ function AddModal({ onOk, visible, closeModal }) {
         window.location.reload();
       },
       (err) => {
-        failPOP("新增會員");
+        failPOP("新增會員失敗");
         console.log("addAccount error", err.toString());
       }
     );

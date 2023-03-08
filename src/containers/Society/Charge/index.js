@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Descriptions,
   Divider,
@@ -9,13 +9,22 @@ import {
   DatePicker,
   Button,
 } from "antd";
+import { useNavigate } from "react-router-dom";
+import { v4 } from "uuid";
 import dayjs from "dayjs";
 import * as Style from "./style";
+import { successPOP, failPOP } from "../../../utils/message";
+import api from "../../../api";
+import useAxios from "../../../hook/useAxios";
 import EnterCharge from "../../../components/EnterCharge";
+import { getUserInfo } from "../../../utils/auth";
 
 function Charge() {
+  const navigate = useNavigate();
+  const { sendRequest: createData } = useAxios();
+  const [loading, setLoading] = useState(false);
   const [applyDate, setApplyDate] = useState("");
-  const [staffName, setStaffName] = useState("");
+  const [userData, setUserData] = useState({});
   const [staffEditor, setStaffEditor] = useState("");
   const [typeOptions, setTypeOptions] = useState(1);
   const [fundSource, setFundSource] = useState(1);
@@ -23,10 +32,18 @@ function Charge() {
   const [needDate, setNeedDate] = useState("");
   const [sendAddress, setSendAddress] = useState(1);
   const [askPaymentDate, setAskPaymentDate] = useState("");
+  const [chargeRowList, setChargeRowList] = useState([0]);
   const [subtotal, setSubtotal] = useState("");
   const [sumtotal, setSumtotal] = useState("");
   const dateFormat = "YYYY/MM/DD";
   const date = new Date();
+
+  useEffect(() => {
+    const myObject = getUserInfo();
+    setUserData(myObject);
+  }, []);
+
+  console.log("userData", userData);
 
   const makeZero = (number) => {
     if (number < 10) {
@@ -41,10 +58,6 @@ function Charge() {
 
   const handleDate = (e) => {
     setApplyDate(e.target.value);
-  };
-
-  const handleStaffName = (e) => {
-    setStaffName(e.target.value);
   };
 
   const handleStaffEditor = (e) => {
@@ -75,26 +88,15 @@ function Charge() {
     setAskPaymentDate(e.target.value);
   };
 
-  const [newChargeList, setNewChargeList] = useState([
-    {
-      projectNum: 12333,
-      projectItem: "AAAA",
-      untaxedMoney: 223333,
-      businessTax: 5,
-      remark: "33322",
-    },
-    {
-      projectNum: 22,
-      projectItem: "333",
-      untaxedMoney: 223333,
-      businessTax: 5,
-      remark: "33322",
-    },
-  ]);
-
   const handleAddCharge = (e) => {
-    console.log("11111");
-    setNewChargeList([...newChargeList, {}]);
+    const list = [];
+    setChargeRowList([...chargeRowList, list]);
+  };
+
+  const handleNewCharge = (charge) => {
+    console.log("chargeRowList", chargeRowList);
+    // 處理新增費用款項
+    console.log("charge", charge);
   };
 
   const handleSubtotal = (e) => {
@@ -105,7 +107,55 @@ function Charge() {
     setSumtotal(e.target.value);
   };
 
-  const handleSubmit = () => {};
+  const chargeItemListAPI = () => {
+    createData(
+      {
+        url: api.Cost.ChargeItemList,
+        method: api.Method.Post,
+        data: {
+          id: v4(),
+          applyDate,
+          // staffName,
+          staffEditor,
+          typeOptions,
+          fundSource,
+          paymentWay,
+          needDate,
+          sendAddress,
+          askPaymentDate,
+          chargeList: {
+            projectNum: "",
+            projectItem: "AAAA",
+            untaxedMoney: 223333,
+            businessTax: 5,
+            remark: "33322",
+          },
+          subtotal,
+          sumtotal,
+          society: "羽球社",
+          result: "未審核",
+        },
+      },
+      (res) => {
+        successPOP("費用送出");
+        setLoading(false);
+      },
+      (err) => {
+        failPOP("費用送出失敗");
+        console.log("chargeItemListAPI error", err.toString());
+      }
+    );
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if (loading) {
+      return;
+    }
+    chargeItemListAPI();
+    navigate("/society/progress");
+  };
 
   return (
     <>
@@ -139,7 +189,7 @@ function Charge() {
         size="default"
       >
         <Descriptions.Item label="員工姓名">
-          <Input value={staffName} onChange={handleStaffName} allowClear />
+          <Input value={userData.name} disabled />
         </Descriptions.Item>
         <Descriptions.Item label="員工編號">
           <Input value={staffEditor} onChange={handleStaffEditor} allowClear />
@@ -208,51 +258,52 @@ function Charge() {
           />
         </Descriptions.Item>
       </Descriptions>
-
-      {/* <Descriptions.Item label="新增">
-          <Button type="primary" onClick={handleAddCharge}>
+      <Descriptions bordered labelStyle={{ textAlign: "right" }}>
+        <Descriptions.Item label="費用款項" style={{ width: "120px" }}>
+          <Button type="primary" onClick={handleAddCharge} block>
             新增
           </Button>
-        </Descriptions.Item> */}
-      <EnterCharge />
-
+        </Descriptions.Item>
+      </Descriptions>
+      {chargeRowList.map((item) => (
+        <EnterCharge key={item.chargeId} onChange={handleNewCharge} />
+      ))}
       <Descriptions bordered column={3} labelStyle={{ textAlign: "right" }}>
         <Descriptions.Item
-          span={2}
-          label={<div style={{ width: "760px" }}>小計金額(稅前)</div>}
-          style={{ width: "250px" }}
+          label={<div style={{ width: "420px" }}>小計金額(稅前)</div>}
         >
           <Input
             prefix="NT$"
             value={subtotal}
             onChange={handleSubtotal}
             allowClear
-            style={{ width: "230px" }}
+            disabled
           />
         </Descriptions.Item>
         <Descriptions.Item>
-          <Input prefix="NT$" allowClear style={{ width: "230px" }} />
+          <Input prefix="NT$" allowClear />
         </Descriptions.Item>
         <Descriptions.Item>
-          <Input prefix="NT$" allowClear style={{ width: "230px" }} />
+          <Input prefix="NT$" allowClear />
         </Descriptions.Item>
+      </Descriptions>
+      <Descriptions bordered column={3} labelStyle={{ textAlign: "right" }}>
         <Descriptions.Item
-          label={<div style={{ width: "760px" }}>合計金額(稅後)</div>}
-          style={{ width: "250px" }}
+          label={<div style={{ width: "420px" }}>合計金額(稅後)</div>}
         >
           <Input
             prefix="NT$"
             value={sumtotal}
             onChange={handleSumtotal}
             allowClear
-            style={{ width: "230px" }}
+            disabled
           />
         </Descriptions.Item>
         <Descriptions.Item>
-          <Input prefix="NT$" allowClear style={{ width: "230px" }} />
+          <Input prefix="NT$" allowClear />
         </Descriptions.Item>
         <Descriptions.Item>
-          <Input prefix="NT$" allowClear style={{ width: "230px" }} />
+          <Input prefix="NT$" allowClear />
         </Descriptions.Item>
       </Descriptions>
       <Descriptions
@@ -264,20 +315,20 @@ function Charge() {
         labelStyle={{ display: "flex", justifyContent: "center" }}
       >
         <Descriptions.Item label="核准">
-          <Input placeholder="請勿填寫" />
+          <Input disabled />
         </Descriptions.Item>
         <Descriptions.Item label="審核">
           <p>未審核</p>
         </Descriptions.Item>
         <Descriptions.Item label="會辦單位">
-          <p>會計部</p>
+          <p>市場部</p>
         </Descriptions.Item>
         <Descriptions.Item label="申請人">
-          <p>{staffName}</p>
+        <Input value={userData.name} disabled />
         </Descriptions.Item>
       </Descriptions>
       <div style={{ marginTop: "30px" }}>
-        <Button type="primary" block>
+        <Button type="primary" block onCharge={handleSubmit}>
           送審
         </Button>
       </div>

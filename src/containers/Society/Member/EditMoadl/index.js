@@ -51,7 +51,7 @@ function EditModal({ onOk, visible, closeModal, editInfo, updateData }) {
         successPOP("編輯會員");
       },
       (err) => {
-        failPOP("編輯會員");
+        failPOP("編輯會員失敗");
         console.log("editAccount error", err.toString());
       }
     );

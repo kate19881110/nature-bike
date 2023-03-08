@@ -20,7 +20,7 @@ function RegisterModal({ onOk, visible, closeModal }) {
   };
 
   const onFinishFailed = () => {
-    failPOP("註冊");
+    failPOP("註冊失敗");
   };
 
   const handleUserName = (e) => {
@@ -60,7 +60,7 @@ function RegisterModal({ onOk, visible, closeModal }) {
         successPOP("註冊");
       },
       (err) => {
-        failPOP("註冊");
+        failPOP("註冊失敗");
         console.log("register error", err.toString());
       }
     );

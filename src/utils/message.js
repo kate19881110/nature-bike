@@ -10,6 +10,6 @@ export const successPOP = (content) => {
   export const failPOP = (content) => {
     message.open({
       type: "error",
-      content: `${content}失敗`,
+      content: `${content}`,
     });
   };

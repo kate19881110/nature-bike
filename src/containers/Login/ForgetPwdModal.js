@@ -18,7 +18,7 @@ function ForgetPwd({ onOk, visible, closeModal }) {
   };
 
   const onFinishFailed = () => {
-    failPOP("更改密碼");
+    failPOP("更改密碼失敗");
   };
 
   const handleUserName = (e) => {
@@ -56,7 +56,7 @@ function ForgetPwd({ onOk, visible, closeModal }) {
         closeModal();
       },
       (err) => {
-        failPOP("更改密碼");
+        failPOP("更改密碼失敗");
         console.log("forgetFwd error", err.toString());
       }
     );
