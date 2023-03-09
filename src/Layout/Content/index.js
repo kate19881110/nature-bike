@@ -3,9 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../../containers/Home";
 import Profile from "../../containers/Profile";
 import Reimburse from "../../containers/Charge";
-import Bike from "../../containers/Bike/Map";
+import Map from "../../containers/Bike/Map";
+import Activity from "../../containers/Bike/Activity";
 import Dashboard from "../../containers/Society/Dashboard"
-import BikeRoute from "../../containers/Bike/BikeRoute";
 import SocietyList from "../../containers/Info/SocietyList";
 import ActivityInfo from "../../containers/Info/ActivityInfo";
 import Member from "../../containers/Society/Member";
@@ -23,8 +23,8 @@ function Content() {
         <Route exact path="society/dashboard" element={<Dashboard />} />
         <Route exact path="society/charge" element={<Charge />} />
         <Route exact path="society/progress" element={<Progress />} />
-        <Route exact path="bike/map" element={<Bike />} />
-        <Route exact path="bike/activity" element={<BikeRoute />} />
+        <Route exact path="bike/map" element={<Map />} />
+        <Route exact path="bike/activity" element={<Activity />} />
         <Route exact path="info/news" element={<ActivityInfo />} />
         <Route exact path="info/list" element={<SocietyList />} />
         <Route exact path="charge/reimburse" element={<Reimburse />} />
