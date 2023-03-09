@@ -3,6 +3,7 @@
 本人在自家公司擔任腳踏車社社長，知道籌劃一場活動，所需要的流程、工作。
 理解舉辦方身兼多職，把繁雜的工作數位化，讓科技使人便利，紀錄大家歡聚每一刻
 
+
 # 專案架構
 1. 前端框架: React 16.0
 2. 設計套件: Ant Design
@@ -10,13 +11,6 @@
 4. json server
 5. 測試框架
 
-# 啟動專案
-npm start
-
-# 啟動 json server
-port 3000
-路徑: src\api\mock
-json-server --watch db.json
 
 # 目錄架構
 ```
@@ -49,15 +43,31 @@ json-server --watch db.json
 
 ```
 
+# 角色權限設定
 
-# 安裝套件
-1. jsSHA 
+# 登入流程
+
+# 社費費用審查流程
+
+
+# 安裝紀錄
+1. eslint
+2. webpack
+3. babel
+4. Ant Design UI
+5. jsSHA 
    JS + TS 完整SHA系列加密算法的加密庫
-2. 地圖套件 Leaflet MapBox
-3. Echarts
-4. react router
-5. react scroll
-6. Leaflet
-   mapbox
+7. 地圖套件 Leaflet MapBox
+8. Echarts
+9. react router
+10. react scroll
+11. reat dom
 
 
+# 啟動專案
+npm start
+
+# 啟動 json server
+port 3000
+路徑: src\api\db
+json-server --watch db.json

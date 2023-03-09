@@ -14,6 +14,7 @@ import dayjs from "dayjs";
 import * as Style from "./style";
 import { getThousand, getPercent } from "../../utils/organizeNumbers";
 import UnitCharge from "../../components/UnitCharge";
+import CheckCharge from "../../components/CheckCharge";
 
 function ChargeModal({ onOk, visible, closeModal, resData }) {
   const dateFormat = "YYYY/MM/DD";
@@ -143,33 +144,8 @@ function ChargeModal({ onOk, visible, closeModal, resData }) {
                   />
                 </Descriptions.Item>
               </Descriptions>
-              <UnitCharge list={newChargeList} />
-              {/* <Descriptions
-                layout="vertical"
-                bordered
-                column={{
-                  lg: 6,
-                }}
-              >
-                <Descriptions.Item label="歸屬部門">
-                  <p>福委會</p>
-                </Descriptions.Item>
-                <Descriptions.Item label="專案代號">
-                  <p>{item.chargeList.projectNum}</p>
-                </Descriptions.Item>
-                <Descriptions.Item label="項目">
-                  <p>{item.chargeList.projectItem}</p>
-                </Descriptions.Item>
-                <Descriptions.Item label="未稅金額">
-                  <p>{getThousand(item.chargeList.untaxedMoney)}</p>
-                </Descriptions.Item>
-                <Descriptions.Item label="營業稅/所得稅">
-                  <p>{getPercent(item.chargeList.businessTax)}</p>
-                </Descriptions.Item>
-                <Descriptions.Item label="備注">
-                  <p>{item.chargeList.remark}</p>
-                </Descriptions.Item>
-              </Descriptions> */}
+              {/* <UnitCharge list={newChargeList} /> */}
+              <CheckCharge list={newChargeList} />
               <Descriptions
                 bordered
                 labelStyle={{ textAlign: "right" }}
