@@ -44,11 +44,12 @@
 ```
 
 # 角色權限設定
-
+![image](https://github.com/kate19881110/nature-bike/blob/develop/%E6%AC%8A%E9%99%90%E8%A8%AD%E5%AE%9A.png)
 # 登入流程
+![image](https://github.com/kate19881110/nature-bike/blob/develop/%E7%99%BB%E5%85%A5%E6%B5%81%E7%A8%8B.png)
 
 # 社費費用審查流程
-
+![image](https://github.com/kate19881110/nature-bike/blob/develop/%E7%A4%BE%E8%B2%BB%E5%AF%A9%E6%9F%A5%E6%B5%81%E7%A8%8B.png)
 
 # 安裝紀錄
 1. eslint
