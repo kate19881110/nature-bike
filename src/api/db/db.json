@@ -46,13 +46,6 @@
       "picture": "https://randomuser.me/api/portraits/women/41.jpg"
     },
     {
-      "id": 2,
-      "gender": "female",
-      "name": "Lena",
-      "email": "lena.charles@example.com",
-      "picture": "https://randomuser.me/api/portraits/women/25.jpg"
-    },
-    {
       "id": 3,
       "gender": "male",
       "name": "Nolan",

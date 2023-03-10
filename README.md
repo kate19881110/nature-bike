@@ -9,8 +9,10 @@
 2. 設計套件: Ant Design
 3. Echart
 4. json server
-5. 測試框架
 
+# React 運用
+1. useState
+2. 
 
 # 目錄架構
 ```
@@ -54,16 +56,19 @@
 # 安裝紀錄
 1. eslint
 2. webpack
-3. babel
+3. json server
 4. Ant Design UI
-5. jsSHA 
-   JS + TS 完整SHA系列加密算法的加密庫
-7. 地圖套件 Leaflet MapBox
-8. Echarts
-9. react router
-10. react scroll
-11. reat dom
+5. react router
+6. react scroll
+7. reat dom
 
+# 套件運用
+1. jsSHA 
+   JS + TS 完整SHA系列加密算法的加密庫
+2. 地圖套件 Leaflet MapBox
+3. Echarts
+4. 存成圖片
+5. EmailJS
 
 # 啟動專案
 npm start

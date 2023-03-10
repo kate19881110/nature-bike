@@ -4,7 +4,7 @@ import Home from "../../containers/Home";
 import Profile from "../../containers/Profile";
 import Reimburse from "../../containers/Charge";
 import Map from "../../containers/Bike/Map";
-import Activity from "../../containers/Bike/Activity";
+import Poster from "../../containers/Bike/Poster";
 import Dashboard from "../../containers/Society/Dashboard"
 import SocietyList from "../../containers/Info/SocietyList";
 import ActivityInfo from "../../containers/Info/ActivityInfo";
@@ -24,7 +24,7 @@ function Content() {
         <Route exact path="society/charge" element={<Charge />} />
         <Route exact path="society/progress" element={<Progress />} />
         <Route exact path="bike/map" element={<Map />} />
-        <Route exact path="bike/activity" element={<Activity />} />
+        <Route exact path="bike/activity" element={<Poster />} />
         <Route exact path="info/news" element={<ActivityInfo />} />
         <Route exact path="info/list" element={<SocietyList />} />
         <Route exact path="charge/reimburse" element={<Reimburse />} />
