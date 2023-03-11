@@ -60,7 +60,6 @@ function Login() {
     const memberInfo = resData.filter((item) => {
       return account === item.userMail;
     });
-    console.log("memberInfo", memberInfo);
     const name = memberInfo[0].userName;
     const email = memberInfo[0].userMail;
     const role = memberInfo[0].userDept;

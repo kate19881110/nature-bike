@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Input, Upload, DatePicker, Button, QRCode, Row, Col } from "antd";
 import html2canvas from "html2canvas";
 import dayjs from "dayjs";
+import * as Style from "./style";
 
 function Poster() {
+  const ref = useRef(null);
   const [fileList, setFileList] = useState([]);
-  const dateFormat = "YYYY/MM/DD";
-  const date = new Date();
+  const [uploaded, setUploaded] = useState(false);
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -26,45 +27,57 @@ function Poster() {
     imgWindow.document.write(image.outerHTML);
   };
 
+  const beforeUpload = (file) => {
+    if (uploaded) {
+      return false;
+    }
+    setUploaded(true);
+    return true;
+  };
+
   const handleSavaImage = () => {
-    const element = document.getElementById("posterImg");
-    html2canvas(element).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const link = document.createElement("a");
-      link.download = "activity-image.png";
-      link.href = imgData;
-      link.click();
+    // ref.current 截圖的元素
+    html2canvas(ref.current).then((canvas) => {
+      const imgData = canvas.toDataURL(); // 將canvas轉換為圖片數據URL
+      const img = new Image();
+      img.src = imgData;
+      const location = document.getElementById("site");
+      location.appendChild(img); // 在頁面上顯示截圖結果
     });
   };
   return (
-    <div style={{ display: "flex", justifyContent: "flex-start" }}>
+    <Style.Wrapper>
       <div>
-        <div>
+        <Style.Title>
+          <h1>製作海報</h1>
+        </Style.Title>
+        <div ref={ref}>
           <Row>
-            <Upload
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              listType="picture-card"
-              fileList={fileList}
-              onChange={onChange}
-              onPreview={onPreview}
-            >
-              <p>請放入素材....</p>
-            </Upload>
+            <Style.UploadImg>
+              <Upload
+                action="http://localhost:3000/poster"
+                listType="picture-card"
+                fileList={fileList}
+                onChange={onChange}
+                onPreview={onPreview}
+                beforeUpload={beforeUpload}
+              >
+                {fileList.length >= 1 ? null : <p>素材1</p>}
+              </Upload>
+            </Style.UploadImg>
           </Row>
           <Row>
             <Input placeholder="請輸入標題....." />
-
+            <DatePicker renderExtraFooter={() => "extra footer"} showTime />
           </Row>
-          <Row>
-            
-          </Row>
+          <Row></Row>
         </div>
         <Button type="primary" onClick={handleSavaImage} block>
           製作完成
         </Button>
       </div>
-      <div id="posterImg"></div>
-    </div>
+      <div id="site" style={{ width: "50%", height: "50%" }}></div>
+    </Style.Wrapper>
   );
 }
 

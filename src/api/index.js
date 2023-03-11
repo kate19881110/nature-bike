@@ -3,6 +3,7 @@ export default {
         User: "/users",
     },
     Society: {
+        PosterPicture: "/poster",
         MemberList: "/memberList",
         WotsGroup: "/witsGroup"
     },
