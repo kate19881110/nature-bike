@@ -74,6 +74,7 @@ function EnterCharge({ onChange }) {
       </Descriptions.Item>
       <Descriptions.Item label="未稅金額">
         <Input
+          type="number"
           prefix="NT$"
           value={getThousand(untaxedMoney)}
           onChange={handleUntaxedMoney}
@@ -82,6 +83,7 @@ function EnterCharge({ onChange }) {
       </Descriptions.Item>
       <Descriptions.Item label="營業稅/所得稅">
         <Input
+          type="number"
           suffix="%"
           value={getPercent(businessTax)}
           onChange={handleBusinessTax}

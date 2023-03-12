@@ -12,6 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
 import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import * as Style from "./style";
 import { successPOP, failPOP } from "../../../utils/message";
 import api from "../../../api";
@@ -19,19 +20,18 @@ import useAxios from "../../../hook/useAxios";
 import EnterCharge from "../../../components/EnterCharge";
 import { getUserInfo } from "../../../utils/auth";
 
+dayjs.extend(customParseFormat);
+
 function Charge() {
   const navigate = useNavigate();
   const { sendRequest: createData } = useAxios();
   const [loading, setLoading] = useState(false);
-  const [applyDate, setApplyDate] = useState("");
   const [userData, setUserData] = useState({});
   const [staffEditor, setStaffEditor] = useState("");
   const [typeOptions, setTypeOptions] = useState(1);
   const [fundSource, setFundSource] = useState(1);
   const [paymentWay, setPaymentWay] = useState(1);
-  const [needDate, setNeedDate] = useState("");
   const [sendAddress, setSendAddress] = useState(1);
-  const [askPaymentDate, setAskPaymentDate] = useState("");
   const [chargeRowList, setChargeRowList] = useState([0]);
   const [subtotal, setSubtotal] = useState("");
   const [sumtotal, setSumtotal] = useState("");
@@ -43,8 +43,6 @@ function Charge() {
     setUserData(myObject);
   }, []);
 
-  console.log("userData", userData);
-
   const makeZero = (number) => {
     if (number < 10) {
       return `0${number.toString()}`;
@@ -55,9 +53,12 @@ function Charge() {
   const toDate = `${date.getFullYear()}/${makeZero(
     date.getMonth() + 1
   )}/${makeZero(date.getDate())}`;
+  const [applyDate, setApplyDate] = useState(toDate);
+  const [needDate, setNeedDate] = useState(toDate);
+  const [askPaymentDate, setAskPaymentDate] = useState(toDate);
 
-  const handleDate = (e) => {
-    setApplyDate(e.target.value);
+  const handleDate = (value) => {
+    setApplyDate(value);
   };
 
   const handleStaffEditor = (e) => {
@@ -76,36 +77,48 @@ function Charge() {
     setPaymentWay(e.target.value);
   };
 
-  const handleNeedDate = (e) => {
-    setNeedDate(e.target.value);
+  const handleNeedDate = (value) => {
+    setNeedDate(value);
   };
 
   const handleSendAddress = (e) => {
     setSendAddress(e.target.value);
   };
 
-  const handleAskPaymentDate = (e) => {
-    setAskPaymentDate(e.target.value);
+  const handleAskPaymentDate = (value) => {
+    setAskPaymentDate(value);
   };
 
   const handleAddCharge = (e) => {
     const list = [];
     setChargeRowList([...chargeRowList, list]);
   };
-
-  const handleNewCharge = (charge) => {
+  const feeList = [];
+  const handleNewCharge = (chargeObject) => {
     console.log("chargeRowList", chargeRowList);
     // 處理新增費用款項
-    console.log("charge", charge);
+    console.log("charge", chargeObject);
+    feeList.push(chargeObject);
+    console.log("feeList", feeList);
+    // handleSubtotal(feeList);
+   
   };
 
-  const handleSubtotal = (e) => {
-    setSubtotal(e.target.value);
-  };
+  // const handleSubtotal = (Object) => {
+  //   const subNum = Object.map((item) => parseInt(item.untaxedMoney));
+  //   console.log("subNum", subNum);
+  //   const initialValue = 0;
+  //   const sumWithInitial = subNum.reduce(
+  //     (accumulator, currentValue) => accumulator + currentValue,
+  //     initialValue
+  //   );
+  //   setSubtotal(sumWithInitial);
+  //   console.log("sumWithInitial", sumWithInitial);
+  // };
 
-  const handleSumtotal = (e) => {
-    setSumtotal(e.target.value);
-  };
+  // const handleSumtotal = (e) => {
+  //   setSumtotal(e.target.value);
+  // };
 
   const chargeItemListAPI = () => {
     createData(
@@ -167,7 +180,7 @@ function Charge() {
           </Style.VerticalCenter>
         </Col>
         <Col>
-          <Input placeholder="請勿填寫..." />
+          <Input disabled />
         </Col>
         <Col lg={{ span: 2, offset: 11 }}>
           <Style.VerticalCenter>
@@ -176,9 +189,8 @@ function Charge() {
         </Col>
         <Col>
           <DatePicker
-            defaultValue={dayjs(toDate, dateFormat)}
+            defaultValue={dayjs(applyDate, dateFormat)}
             format={dateFormat}
-            value={applyDate}
             onChange={handleDate}
           />
         </Col>
@@ -234,9 +246,8 @@ function Charge() {
         </Descriptions.Item>
         <Descriptions.Item label="需用日期" span={2}>
           <DatePicker
-            defaultValue={dayjs(toDate, dateFormat)}
+            defaultValue={dayjs(needDate, dateFormat)}
             format={dateFormat}
-            value={needDate}
             onChange={handleNeedDate}
           />
         </Descriptions.Item>
@@ -251,9 +262,8 @@ function Charge() {
         </Descriptions.Item>
         <Descriptions.Item label="要求付款日期" span={2}>
           <DatePicker
-            defaultValue={dayjs(toDate, dateFormat)}
+            defaultValue={dayjs(askPaymentDate, dateFormat)}
             format={dateFormat}
-            value={askPaymentDate}
             onChange={handleAskPaymentDate}
           />
         </Descriptions.Item>
@@ -272,13 +282,7 @@ function Charge() {
         <Descriptions.Item
           label={<div style={{ width: "420px" }}>小計金額(稅前)</div>}
         >
-          <Input
-            prefix="NT$"
-            value={subtotal}
-            onChange={handleSubtotal}
-            allowClear
-            disabled
-          />
+          <Input prefix="NT$" value={subtotal} disabled />
         </Descriptions.Item>
         <Descriptions.Item>
           <Input prefix="NT$" allowClear />
@@ -291,13 +295,7 @@ function Charge() {
         <Descriptions.Item
           label={<div style={{ width: "420px" }}>合計金額(稅後)</div>}
         >
-          <Input
-            prefix="NT$"
-            value={sumtotal}
-            onChange={handleSumtotal}
-            allowClear
-            disabled
-          />
+          <Input prefix="NT$" value={sumtotal} disabled />
         </Descriptions.Item>
         <Descriptions.Item>
           <Input prefix="NT$" allowClear />
@@ -324,7 +322,7 @@ function Charge() {
           <p>市場部</p>
         </Descriptions.Item>
         <Descriptions.Item label="申請人">
-        <Input value={userData.name} disabled />
+          <Input value={userData.name} disabled />
         </Descriptions.Item>
       </Descriptions>
       <div style={{ marginTop: "30px" }}>
