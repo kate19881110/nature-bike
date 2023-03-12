@@ -67,7 +67,7 @@
    JS + TS 完整SHA系列加密算法的加密庫
 2. 地圖套件 Leaflet MapBox
 3. Echarts
-4. 存成圖片
+4. html2canvas
 5. EmailJS
 
 # 啟動專案

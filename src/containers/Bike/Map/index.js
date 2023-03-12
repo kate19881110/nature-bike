@@ -6,7 +6,7 @@ import {
   Popup,
   Polyline,
 } from "react-leaflet";
-import { Select, Card, Button } from "antd";
+import { Select, Card, Button, Drawer, Row, Col } from "antd";
 import Wkt from "wicket";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -84,23 +84,24 @@ function Map() {
 
   const renderCard = (spots) => {
     return spots.map((item) => (
-      <Card
-        ref={cardRef}
-        key={item.uid}
-        id={item.uid}
-        hoverable
-        style={{ width: 240, zIndex: 1000 }}
-        onClick={(e) => {
-          onResultCardClick(uniqueId);
-        }}
-      >
-        <Meta title={item.name} description={item.city} />
-        <p>{calculateKm(item.cyclingLength)}</p>
-      </Card>
+      <Col span={12}>
+        <Card
+          ref={cardRef}
+          key={item.uid}
+          id={item.uid}
+          hoverable
+          onClick={(e) => {
+            onResultCardClick(uniqueId);
+          }}
+        >
+          <Meta title={item.name} description={item.city} />
+          <p>{calculateKm(item.cyclingLength)}</p>
+        </Card>
+      </Col>
     ));
   };
 
-  const handleRouteMenu = () => {
+  const showDrawer = () => {
     setIsToggled(!isToggled);
   };
 
@@ -141,62 +142,57 @@ function Map() {
 
   return (
     <>
-      <Button
-        style={{ position: "absolute", top: "0", right: "0", zIndex: 1200 }}
-        onClick={handleRouteMenu}
+      <Drawer
+        title="台灣自行車車道"
+        width={600}
+        placement="right"
+        open={isToggled}
+        onClose={showDrawer}
       >
-        選單
-      </Button>
-      {isToggled && (
         <div
           style={{
-            position: "absolute",
-            top: "0",
-            right: "0",
-            width: "600px",
-            height: "500px",
-            background: "grey",
-            zIndex: 1000,
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
           }}
         >
-          <div style={{ display: "flex", justifyContent: "flex-start" }}>
-            <p>請選擇縣市?</p>
-            <Select
-              style={{
-                width: 120,
-              }}
-              value={cityName}
-              onChange={handleCity}
-              options={cityList.siteOptions}
-              allowClear
-            />
-          </div>
-
-          <Card
+          <p>請選擇縣市...</p>
+          <Select
             style={{
-              display: openBoard,
-              overflow: "scroll",
-              height: "500px",
+              width: 120,
             }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                margin: "16px",
-              }}
-            >
-              {renderCard(currentRoutes)}
-            </div>
-          </Card>
+            value={cityName}
+            onChange={handleCity}
+            options={cityList.siteOptions}
+            allowClear
+          />
         </div>
-      )}
+
+        <div
+          style={{
+            display: openBoard,
+            overflow: "scroll",
+            height: "500px",
+          }}
+        >
+          <Row gutter={[16, 16]}>
+            {renderCard(currentRoutes)}
+          </Row>
+        </div>
+      </Drawer>
 
       <div
         style={{
           position: "relative",
         }}
       >
+        <Button
+          type="primary"
+          style={{ position: "absolute", top: "0", right: "0" }}
+          onClick={showDrawer}
+        >
+          選單
+        </Button>
         <MapContainer
           ref={mapRef}
           center={[25.03371, 121.564718]}
