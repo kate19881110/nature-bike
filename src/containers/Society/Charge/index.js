@@ -33,8 +33,9 @@ function Charge() {
   const [paymentWay, setPaymentWay] = useState(1);
   const [sendAddress, setSendAddress] = useState(1);
   const [chargeRowList, setChargeRowList] = useState([0]);
-  const [subtotal, setSubtotal] = useState("");
-  const [sumtotal, setSumtotal] = useState("");
+  const [subtotal, setSubtotal] = useState(0);
+  const [taxSubTotal, setTaxSubTotal] = useState(0);
+  const [allTotal, setAllTotal] = useState("");
   const dateFormat = "YYYY/MM/DD";
   const date = new Date();
 
@@ -93,32 +94,41 @@ function Charge() {
     const list = [];
     setChargeRowList([...chargeRowList, list]);
   };
-  const feeList = [];
-  const handleNewCharge = (chargeObject) => {
-    console.log("chargeRowList", chargeRowList);
-    // 處理新增費用款項
-    console.log("charge", chargeObject);
-    feeList.push(chargeObject);
-    console.log("feeList", feeList);
-    // handleSubtotal(feeList);
-   
+  
+  const handleSubtotal = (feeList) => {
+    const subNum = feeList.map((item) => Number(item.untaxedMoney));
+    console.log("subNum", subNum);
+    const initialValue = 0;
+    const sumWithInitial = subNum.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      initialValue
+    );
+    setSubtotal(sumWithInitial);
   };
 
-  // const handleSubtotal = (Object) => {
-  //   const subNum = Object.map((item) => parseInt(item.untaxedMoney));
-  //   console.log("subNum", subNum);
-  //   const initialValue = 0;
-  //   const sumWithInitial = subNum.reduce(
-  //     (accumulator, currentValue) => accumulator + currentValue,
-  //     initialValue
-  //   );
-  //   setSubtotal(sumWithInitial);
-  //   console.log("sumWithInitial", sumWithInitial);
-  // };
+  const handleTax = (feeList) => {
+    const subTaxNum = feeList.map(
+      (item) => Number(item.untaxedMoney) * (Number(item.businessTax) / 100)
+    );
+    console.log("subTaxNum", subTaxNum);
+    const initialValue = 0;
+    const sumWithInitial = subTaxNum.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      initialValue
+    );
+    setTaxSubTotal(sumWithInitial);
+  };
 
-  // const handleSumtotal = (e) => {
-  //   setSumtotal(e.target.value);
-  // };
+
+
+  const feeList = [];
+  const handleNewCharge = (chargeObject) => {
+    // 處理新增費用款項
+    feeList.push(chargeObject);
+    handleSubtotal(feeList);
+    handleTax(feeList);
+    setAllTotal(subtotal + taxSubTotal);
+  };
 
   const chargeItemListAPI = () => {
     createData(
@@ -144,7 +154,7 @@ function Charge() {
             remark: "33322",
           },
           subtotal,
-          sumtotal,
+          allTotal,
           society: "羽球社",
           result: "未審核",
         },
@@ -285,23 +295,22 @@ function Charge() {
           <Input prefix="NT$" value={subtotal} disabled />
         </Descriptions.Item>
         <Descriptions.Item>
-          <Input prefix="NT$" allowClear />
+          <Input prefix="NT$" value={taxSubTotal} disabled />
         </Descriptions.Item>
         <Descriptions.Item>
-          <Input prefix="NT$" allowClear />
+          <Input disabled />
         </Descriptions.Item>
       </Descriptions>
-      <Descriptions bordered column={3} labelStyle={{ textAlign: "right" }}>
+      <Descriptions bordered labelStyle={{ textAlign: "right" }}>
         <Descriptions.Item
           label={<div style={{ width: "420px" }}>合計金額(稅後)</div>}
         >
-          <Input prefix="NT$" value={sumtotal} disabled />
-        </Descriptions.Item>
-        <Descriptions.Item>
-          <Input prefix="NT$" allowClear />
-        </Descriptions.Item>
-        <Descriptions.Item>
-          <Input prefix="NT$" allowClear />
+          <Input
+            prefix="NT$"
+            value={allTotal}
+            disabled
+            style={{ width: "510px" }}
+          />
         </Descriptions.Item>
       </Descriptions>
       <Descriptions
