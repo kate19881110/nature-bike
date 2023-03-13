@@ -13,10 +13,10 @@ import "leaflet/dist/leaflet.css";
 import useShape from "../../../hook/useShape";
 import cityList from "../../../utils/transPortData";
 import "./index.css";
-import Context from "../../../store";
+import {BikeContext} from "../../../store";
 
 function Map() {
-  const ctx = useContext(Context);
+  const ctx = useContext(BikeContext);
   // console.log("共享數據", ctx);
   const [cityName, setSearchCityName] = useState("");
   const [routes, searchRoutes] = useShape();

@@ -286,20 +286,60 @@
       "society": "羽球社",
       "terms": "社團費用",
       "result": "未審核"
+    },
+    {
+      "id": "90b32479-7b79-4bcc-a899-fa65416431c4",
+      "applyDate": "2023/03/13",
+      "staffName": "KateLiu",
+      "staffEditor": "",
+      "typeOptions": 1,
+      "fundSource": 1,
+      "paymentWay": 1,
+      "needDate": "2023/03/13",
+      "sendAddress": 1,
+      "askPaymentDate": "2023/03/13",
+      "chargeList": [],
+      "subtotal": 0,
+      "allTotal": 0,
+      "society": "羽球社",
+      "result": "未審核"
+    },
+    {
+      "id": "f5415540-c7d9-4fca-9ced-2e6516cb838c",
+      "applyDate": "2023/03/13",
+      "staffName": "KateLiu",
+      "staffEditor": "",
+      "typeOptions": 1,
+      "fundSource": 1,
+      "paymentWay": 1,
+      "needDate": "2023/03/13",
+      "sendAddress": 1,
+      "askPaymentDate": "2023/03/13",
+      "chargeList": [
+        {
+          "chargeId": "福委會",
+          "projectNum": "",
+          "projectItem": "",
+          "untaxedMoney": "23",
+          "businessTax": "3",
+          "remark": "",
+          "isComplete": true
+        },
+        {
+          "chargeId": "福委會",
+          "projectNum": "",
+          "projectItem": "",
+          "untaxedMoney": "2",
+          "businessTax": "3",
+          "remark": "",
+          "isComplete": true
+        }
+      ],
+      "subtotal": 25,
+      "allTotal": 25.75,
+      "society": "羽球社",
+      "result": "未審核"
     }
   ],
-  "poster": [
-    {
-      "id": 1
-    },
-    {
-      "id": 2
-    },
-    {
-      "id": 3
-    },
-    {
-      "id": 4
-    }
-  ]
+  "poster": []
 }

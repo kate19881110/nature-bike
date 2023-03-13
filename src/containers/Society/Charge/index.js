@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Descriptions,
   Divider,
@@ -27,6 +27,8 @@ function Charge() {
   const { sendRequest: createData } = useAxios();
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({});
+  const [chargeList, setChargeList] = useState([]);
+  const [tempChargeList, setTempChargeList] = useState([]);
   const [staffEditor, setStaffEditor] = useState("");
   const [typeOptions, setTypeOptions] = useState(1);
   const [fundSource, setFundSource] = useState(1);
@@ -94,41 +96,53 @@ function Charge() {
     const list = [];
     setChargeRowList([...chargeRowList, list]);
   };
-  
-  const handleSubtotal = (feeList) => {
+
+  const handleNewCharge = useCallback((chargeObject) => {
+    if (chargeObject.isComplete) {
+      // 暫存新增的費用款項
+      setTempChargeList((prevTempChargeList) => [
+        ...prevTempChargeList,
+        chargeObject,
+      ]);
+    }
+  }, []);
+
+  useEffect(() => {
+    // 當 chargeList 有更新時，將 tempChargeList 加到 chargeList 中
+    if (tempChargeList.length > 0) {
+      setChargeList((prevChargeList) => [...prevChargeList, ...tempChargeList]);
+      setTempChargeList([]);
+    }
+  }, [tempChargeList]);
+
+  const handleSubtotal = useCallback((feeList) => {
     const subNum = feeList.map((item) => Number(item.untaxedMoney));
-    console.log("subNum", subNum);
     const initialValue = 0;
     const sumWithInitial = subNum.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       initialValue
     );
     setSubtotal(sumWithInitial);
-  };
+  }, []);
 
-  const handleTax = (feeList) => {
+  const handleTax = useCallback((feeList) => {
+    // 處理稅金
     const subTaxNum = feeList.map(
       (item) => Number(item.untaxedMoney) * (Number(item.businessTax) / 100)
     );
-    console.log("subTaxNum", subTaxNum);
     const initialValue = 0;
     const sumWithInitial = subTaxNum.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       initialValue
     );
     setTaxSubTotal(sumWithInitial);
-  };
+  }, []);
 
-
-
-  const feeList = [];
-  const handleNewCharge = (chargeObject) => {
-    // 處理新增費用款項
-    feeList.push(chargeObject);
-    handleSubtotal(feeList);
-    handleTax(feeList);
+  useEffect(() => {
+    handleSubtotal(chargeList);
+    handleTax(chargeList);
     setAllTotal(subtotal + taxSubTotal);
-  };
+  }, [chargeList, subtotal, taxSubTotal]);
 
   const chargeItemListAPI = () => {
     createData(
@@ -138,7 +152,7 @@ function Charge() {
         data: {
           id: v4(),
           applyDate,
-          // staffName,
+          staffName: userData.name,
           staffEditor,
           typeOptions,
           fundSource,
@@ -146,17 +160,11 @@ function Charge() {
           needDate,
           sendAddress,
           askPaymentDate,
-          chargeList: {
-            projectNum: "",
-            projectItem: "AAAA",
-            untaxedMoney: 223333,
-            businessTax: 5,
-            remark: "33322",
-          },
+          chargeList,
           subtotal,
           allTotal,
           society: "羽球社",
-          result: "未審核",
+          result: userData.chargeStatus,
         },
       },
       (res) => {
@@ -286,7 +294,7 @@ function Charge() {
         </Descriptions.Item>
       </Descriptions>
       {chargeRowList.map((item) => (
-        <EnterCharge key={item.chargeId} onChange={handleNewCharge} />
+        <EnterCharge key={item.id} onChange={handleNewCharge} />
       ))}
       <Descriptions bordered column={3} labelStyle={{ textAlign: "right" }}>
         <Descriptions.Item
@@ -335,7 +343,7 @@ function Charge() {
         </Descriptions.Item>
       </Descriptions>
       <div style={{ marginTop: "30px" }}>
-        <Button type="primary" block onCharge={handleSubmit}>
+        <Button type="primary" block onClick={handleSubmit}>
           送審
         </Button>
       </div>

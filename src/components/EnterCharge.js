@@ -10,6 +10,7 @@ function EnterCharge({ onChange }) {
   const [untaxedMoney, setUntaxedMoney] = useState("");
   const [businessTax, setBusinessTax] = useState("");
   const [remark, setRemark] = useState("");
+  const [isComplete, setIsComplete] = useState(false);
 
   const handleProjectNum = (e) => {
     setProjectNum(e.target.value);
@@ -32,8 +33,16 @@ function EnterCharge({ onChange }) {
   };
 
   const handleChargeId = () => {
-    setChargeId(v4);
+    setChargeId(v4());
   };
+
+  useEffect(() => {
+    if (untaxedMoney !== "" && businessTax !== "") {
+      setIsComplete(true);
+    } else {
+      setIsComplete(false);
+    }
+  }, [untaxedMoney, businessTax]);
 
   // 將表單值傳給父組件
   useEffect(() => {
@@ -44,6 +53,7 @@ function EnterCharge({ onChange }) {
       untaxedMoney,
       businessTax,
       remark,
+      isComplete
     });
   }, [
     chargeId,
@@ -53,6 +63,7 @@ function EnterCharge({ onChange }) {
     businessTax,
     remark,
     onChange,
+    isComplete
   ]);
   return (
     <Descriptions

@@ -1,7 +1,7 @@
 import React from "react";
 
- const Context = React.createContext({
-  name: "123",
+ export const BikeContext = React.createContext({
+  name: "",
   authorityName: "",
   city: "",
   cyclingLength: 0,
@@ -9,4 +9,10 @@ import React from "react";
   end: "",
 });
 
-export default Context;
+
+export const ChargeContext = React.createContext({
+  name: "",
+  society: "",
+  chargeStatus: "",
+  date: ""
+});

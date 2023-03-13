@@ -41,11 +41,6 @@ function Progress() {
       key: "date",
     },
     {
-      title: "明細",
-      dataIndex: "detail",
-      key: "detail",
-    },
-    {
       title: "退件原因",
       dataIndex: "reason",
       key: "reason",
@@ -61,7 +56,6 @@ function Progress() {
       terms: "社團費用",
       progress: "未審核",
       date: `${2023}/${3}/${2 + i}`,
-      detail: <EditOutlined onClick={handleCharge} />,
       reason: "", 
     });
   }
